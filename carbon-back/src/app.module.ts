@@ -2,7 +2,6 @@ import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { UsersModule } from './users/users.module';
 import { AuthenticationModule } from './authentication/authentication.module';
-import { SeedService } from "./seed/seed.service";
 
 @Module({
   imports: [
@@ -20,7 +19,7 @@ import { SeedService } from "./seed/seed.service";
     AuthenticationModule,
   ],
   controllers: [],
-  providers: [SeedService],
-  exports: [SeedService]
+  providers: [],
+  exports: []
 })
 export class AppModule { }
