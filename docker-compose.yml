@@ -33,16 +33,14 @@ services:
 
   postgresql:
     image: postgres:15.2-alpine3.17
-    build:
-      context: ./bdd
-      dockerfile: Dockerfile
     environment:
+      POSTGRES_DB: database
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
-    volumes:
-      - ./db:/var/lib/postgresql/data:rw
     networks:
       - back
+    volumes:
+      - ./db:/var/lib/postgresql/data:rw
 
 networks:
   front:
