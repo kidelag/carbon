@@ -31,6 +31,16 @@ services:
         - front
         - back
 
+  postgresql:
+    image: postgres:15.2-alpine3.17
+    environment:
+      POSTGRES_DB: database
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    networks:
+      - back
+    volumes:
+      - ./db:/var/lib/postgresql/data:rw
 
 networks:
   front:
