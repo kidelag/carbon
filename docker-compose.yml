@@ -30,17 +30,22 @@ services:
     networks:
         - front
         - back
+    ports:
+      - "3000:3000"
 
-  postgresql:
-    image: postgres:15.2-alpine3.17
+  carbon-db:
+    image: mysql:8.0.33
     environment:
-      POSTGRES_DB: database
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
+      MYSQL_DATABASE: carbon
+      MYSQL_USER: carbon
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: rootpassword
+    volumes:
+      - ./db/carbon:/var/lib/mysql
+    ports:
+      - "3306:3306"
     networks:
       - back
-    volumes:
-      - ./db:/var/lib/postgresql/data:rw
 
 networks:
   front:

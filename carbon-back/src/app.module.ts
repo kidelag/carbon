@@ -7,14 +7,14 @@ import { SeedService } from "./seed/seed.service";
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: "postgres",
-      host: "postgresql",
-      port: 5432,
-      username: "user",
+      type: "mysql",
+      host: "carbon-db",
+      port: 3306,
+      username: "carbon",
       password: "password",
-      database: "database",
+      database: "carbon",
       autoLoadEntities: true,
-      synchronize: false
+      synchronize: true
     }),
     UsersModule,
     AuthenticationModule,
