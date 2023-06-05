@@ -1,17 +1,24 @@
-import { Controller, Get, HttpCode } from "@nestjs/common";
+import {Body, Controller, Get, HttpCode, Post} from "@nestjs/common";
 import { Role } from "src/authentication/authentication.enum";
 import { AuthenticationRequired, HasRole } from "../authentication/authentication.decorator";
 import { UsersService } from "./users.service";
+import {CreateUsersDto} from "./dto/create-users.dto";
+import {hash} from "bcryptjs";
 
 @Controller("users")
 export class UsersController {
   public constructor(private readonly usersService: UsersService) { }
 
   @AuthenticationRequired()
-  @HasRole(Role.ADMINISTRATOR)
   @Get()
   @HttpCode(200)
   public getUsers() {
     return this.usersService.getUsers();
+  }
+
+  @Post()
+  public async createUser(@Body() createUsersDto: CreateUsersDto) {
+    createUsersDto.password = await hash(createUsersDto.password, 10)
+    return this.usersService.createUser(createUsersDto);
   }
 }

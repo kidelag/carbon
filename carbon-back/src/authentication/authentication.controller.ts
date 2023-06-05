@@ -2,7 +2,7 @@ import { Body, Controller, Post, ValidationPipe } from "@nestjs/common";
 import { LoginRequest } from "./authentication.request";
 import { AuthenticationService } from "./authentication.service";
 
-@Controller("authentication")
+@Controller("auth")
 export class AuthenticationController {
   public constructor(private readonly authenticationService: AuthenticationService) { }
 

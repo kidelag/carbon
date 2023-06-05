@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { User } from './users.entity';
 import { hash } from "bcryptjs";
 import { Role } from 'src/authentication/authentication.enum';
+import {CreateUsersDto} from "./dto/create-users.dto";
 
 @Injectable()
 export class UsersService {
@@ -16,13 +17,13 @@ export class UsersService {
     await this.userRepository.delete({});
 
     await this.userRepository.insert({
-      role: Role.ADMINISTRATOR,
+      role: Role.SUPPORT,
       email: "administrator@domain.com",
       password: administratorPassword
     })
 
     return this.userRepository.insert({
-      role: Role.USER,
+      role: Role.CONSULTANT,
       email: "user@domain.com",
       password: userPassword
     })
@@ -38,5 +39,9 @@ export class UsersService {
 
   public getUsers() {
     return this.userRepository.find();
+  }
+
+  public createUser(createUsersDto: CreateUsersDto) {
+    return this.userRepository.insert({...createUsersDto});
   }
 }
