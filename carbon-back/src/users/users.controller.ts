@@ -1,13 +1,14 @@
 import {BadRequestException, Body, Controller, Get, HttpCode, Post} from "@nestjs/common";
-import { Role } from "src/authentication/authentication.enum";
-import { AuthenticationRequired, HasRole } from "../authentication/authentication.decorator";
-import { UsersService } from "./users.service";
+import {AuthenticationRequired} from "../authentication/authentication.decorator";
+import {UsersService} from "./users.service";
 import {CreateUsersDto} from "./dto/create-users.dto";
 import {hash} from "bcryptjs";
+import {CreateConsultantDto} from "../consultant/dto/create-consultant.dto";
+import {ConsultantService} from "../consultant/consultant.service";
 
 @Controller("users")
 export class UsersController {
-  public constructor(private readonly usersService: UsersService) { }
+  public constructor(private readonly usersService: UsersService, private readonly consultantService: ConsultantService) { }
 
   @AuthenticationRequired()
   @Get()
@@ -16,12 +17,20 @@ export class UsersController {
     return this.usersService.getUsers();
   }
 
+  public getUser(id: string) {
+    return this.usersService.getUserById(id)
+  }
+
   @Post()
-  public async createUser(@Body() createUsersDto: CreateUsersDto) {
-    if (await this.usersService.getUserByEmail(createUsersDto.email)) {
+  public async createUser(@Body() body: {createUsersDto: CreateUsersDto, createConsultantDto: CreateConsultantDto}) {
+    console.log(body)
+    if (await this.usersService.getUserByEmail(body.createUsersDto.email)) {
       throw new BadRequestException('User already exists')
     }
-    createUsersDto.password = await hash(createUsersDto.password, 10)
-    return this.usersService.createUser(createUsersDto);
+    body.createUsersDto.password = await hash(body.createUsersDto.password, 10)
+    const user = await this.usersService.createUser(body.createUsersDto);
+    body.createConsultantDto.user = user.identifiers[0].id;
+    await this.consultantService.create(body.createConsultantDto)
+    return user;
   }
 }
