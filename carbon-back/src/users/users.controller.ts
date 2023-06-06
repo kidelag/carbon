@@ -1,10 +1,11 @@
-import {BadRequestException, Body, Controller, Get, HttpCode, Logger, Post} from "@nestjs/common";
+import {BadRequestException, Body, Controller, Get, HttpCode, Post, ValidationPipe} from "@nestjs/common";
 import {AuthenticationRequired} from "../authentication/authentication.decorator";
 import {UsersService} from "./users.service";
 import {CreateUsersDto} from "./dto/create-users.dto";
 import {hash} from "bcryptjs";
-import {CreateConsultantDto} from "../consultant/dto/create-consultant.dto";
+import {Role} from "../authentication/authentication.enum";
 import {ConsultantService} from "../consultant/consultant.service";
+import {CreateConsultantDto} from "../consultant/dto/create-consultant.dto";
 
 @Controller("users")
 export class UsersController {
@@ -22,15 +23,24 @@ export class UsersController {
   }
 
   @Post()
-  public async createUser(@Body() body: {createUsersDto: CreateUsersDto, createConsultantDto: CreateConsultantDto}) {
-    console.log(body)
+  public async createUser(@Body(ValidationPipe) body: {createUsersDto: CreateUsersDto, createConsultantDto: CreateConsultantDto}) {
     if (await this.usersService.getUserByEmail(body.createUsersDto.email)) {
-      throw new BadRequestException('User already exists')
+      return new BadRequestException('User already exists')
+    }
+    if(body.createUsersDto.role === Role.CONSULTANT && !body.createConsultantDto) {
+      return new BadRequestException('Missing datas for consultant')
     }
     body.createUsersDto.password = await hash(body.createUsersDto.password, 10)
     const user = await this.usersService.createUser(body.createUsersDto);
-    body.createConsultantDto.user = user.identifiers[0].id;
-    await this.consultantService.create(body.createConsultantDto)
+    if (body.createUsersDto.role === Role.CONSULTANT) {
+      body.createConsultantDto.user = user.identifiers[0].id;
+      try {
+        await this.consultantService.create(body.createConsultantDto)
+      } catch (e) {
+        await this.usersService.deleteUser(user.identifiers[0].id)
+        throw new BadRequestException(e.sqlMessage)
+      }
+    }
     return user;
   }
 }

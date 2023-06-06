@@ -24,6 +24,19 @@ export class Consultant {
 
     @Column({
         nullable: false,
+        type: "text"
+    })
+    public address: string;
+
+    @Column({
+        nullable: false,
+        type: "char",
+        length: 10
+    })
+    public tel: string;
+
+    @Column({
+        nullable: false,
         type: "datetime",
     })
     public startDate: Date;
