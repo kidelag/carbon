@@ -3,7 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-import { fetchUser, setState } from "../../Redux/States/users";
+import {
+  fetchUser,
+  initialState,
+  selectUserInfo,
+  setState,
+} from "../../Redux/States/users";
 
 import {
   AtlassianNavigation,
@@ -37,6 +42,7 @@ export const Base: React.FC<Props> = ({ checkingToken, children }) => {
   const [isPopupProfilOpen, setIsPopupSettingsOpen] = useState<boolean>(false);
 
   const user = useSelector(fetchUser);
+  const userInfo = useSelector(selectUserInfo);
   const dispatch = useDispatch();
   let navigate = useNavigate();
 
@@ -45,7 +51,7 @@ export const Base: React.FC<Props> = ({ checkingToken, children }) => {
 
   useEffect(() => {
     setIsModalConnectionShown(!user.isConnected);
-  }, [user.isConnected, mailParams, user.isValidated]);
+  }, [user.isConnected, mailParams]);
 
   const AtlassianProductHome = () => (
     <ProductHome
@@ -59,8 +65,8 @@ export const Base: React.FC<Props> = ({ checkingToken, children }) => {
   );
 
   const DefaultProfile = () => {
-    const flNom = user?.Nom && user?.Nom[0];
-    const flPrenom = user?.Prenom && user?.Prenom[0];
+    const flNom = userInfo?.nom && userInfo?.nom[0];
+    const flPrenom = userInfo?.prenom && userInfo?.prenom[0];
 
     return (
       <Popup
@@ -124,20 +130,7 @@ export const Base: React.FC<Props> = ({ checkingToken, children }) => {
     localStorage.removeItem("TOKEN");
     setIsPopupSettingsOpen(false);
 
-    dispatch(
-      setState({
-        isConnected: false,
-        id: 0,
-        username: "",
-        accessToken: "",
-        mail: "",
-        isAdmin: false,
-        isValidated: false,
-        isBannished: false,
-        Nom: "",
-        Prenom: "",
-      })
-    );
+    dispatch(setState(initialState));
   };
 
   return (

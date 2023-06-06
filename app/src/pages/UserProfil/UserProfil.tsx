@@ -2,6 +2,7 @@ import React, { Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchUser,
+  selectUserInfo,
   setMail,
   setNom,
   setPrenom,
@@ -33,11 +34,12 @@ const url =
 
 export const UserProfil: React.FC<Props> = () => {
   const user = useSelector(fetchUser);
+  const userInfo = useSelector(selectUserInfo);
   const dispatch = useDispatch();
 
-  const [newNom, setNewNom] = useState(user.Nom);
-  const [newPrenom, setNewPrenom] = useState(user.Prenom);
-  const [newMail, setNewMail] = useState(user.mail);
+  const [newNom, setNewNom] = useState(userInfo.nom);
+  const [newPrenom, setNewPrenom] = useState(userInfo.prenom);
+  const [newMail, setNewMail] = useState(userInfo.email);
 
   const [isModalPwdOpen, setIsModalPwdOpen] = useState<boolean>(false);
 
@@ -87,7 +89,7 @@ export const UserProfil: React.FC<Props> = () => {
           <InlineEdit
             hideActionButtons
             isRequired
-            defaultValue={user.Nom}
+            defaultValue={userInfo.nom}
             label="Nom :"
             editView={({ errorMessage, ...fieldProps }) => (
               <TextField {...fieldProps} autoFocus maxLength={20} />
@@ -109,7 +111,7 @@ export const UserProfil: React.FC<Props> = () => {
           <InlineEdit
             hideActionButtons
             isRequired
-            defaultValue={user.Prenom}
+            defaultValue={userInfo.prenom}
             label="Prenom :"
             editView={({ errorMessage, ...fieldProps }) => (
               <TextField {...fieldProps} autoFocus maxLength={20} />
@@ -131,7 +133,7 @@ export const UserProfil: React.FC<Props> = () => {
           <InlineEdit
             hideActionButtons
             isRequired
-            defaultValue={user.mail}
+            defaultValue={userInfo.email}
             label="Mail :"
             editView={({ errorMessage, ...fieldProps }) => (
               <TextField {...fieldProps} autoFocus maxLength={20} />

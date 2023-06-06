@@ -42,14 +42,9 @@ export const App = () => {
           setState({
             isConnected: data.isConnected,
             id: data.id,
-            username: data.username,
-            mail: data.mail,
             accessToken: localStorage.getItem("TOKEN") || "",
             isAdmin: data.isAdmin,
-            isValidated: data.isValidated,
-            isBannished: data.isBannished,
-            Nom: data.Nom,
-            Prenom: data.Prenom,
+            userInfo: data.userInfo,
           })
         );
 
@@ -60,14 +55,9 @@ export const App = () => {
           setState({
             isConnected: data.isConnected,
             id: data.id,
-            username: data.username,
-            mail: data.mail,
             accessToken: localStorage.getItem("TOKEN") || "",
             isAdmin: data.isAdmin,
-            isValidated: data.isValidated,
-            isBannished: data.isBannished,
-            Nom: data.Nom,
-            Prenom: data.Prenom,
+            userInfo: data.userInfo,
           })
         );
 

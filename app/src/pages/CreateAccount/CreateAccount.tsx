@@ -43,6 +43,8 @@ export const CreateAccount: React.FC<Props> = () => {
     passwordConfirm: string;
     password: string;
     email: string;
+    nom: string;
+    prenom: string;
   }) => {
     const error = {
       passwordConfirm:
@@ -54,10 +56,23 @@ export const CreateAccount: React.FC<Props> = () => {
     if (!error.passwordConfirm) {
       const { passwordConfirm, ...reqData } = data;
 
-      const { email, password } = data;
+      const { email, password, nom, prenom } = data;
 
       axios
-        .post(url + "/users", { email, password, role: "SUPPORT" })
+        .post(url + "/users", {
+          createUsersDto: {
+            email,
+            password,
+            role: "SUPPORT",
+            lastname: nom,
+            firstname: prenom,
+          },
+          createConsultantDto: {
+            tjm: 500,
+            salary: 2345,
+            startDate: "12/06/2023",
+          },
+        })
         .then(() => {
           navigate("/", { replace: true });
         })
