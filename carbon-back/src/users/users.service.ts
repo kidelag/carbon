@@ -23,4 +23,8 @@ export class UsersService {
   public createUser(createUsersDto: CreateUsersDto) {
     return this.userRepository.insert({...createUsersDto});
   }
+
+  public deleteUser(id: string) {
+    return this.userRepository.delete({ id });
+  }
 }
