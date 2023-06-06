@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe} from '@nestjs/common';
 import { ConsultantService } from './consultant.service';
 import { CreateConsultantDto } from './dto/create-consultant.dto';
 import { UpdateConsultantDto } from './dto/update-consultant.dto';
@@ -7,7 +7,7 @@ import { UpdateConsultantDto } from './dto/update-consultant.dto';
 export class ConsultantController {
   constructor(private readonly consultantService: ConsultantService) {}
 
-  create(@Body() createConsultantDto: CreateConsultantDto) {
+  create(@Body(ValidationPipe) createConsultantDto: CreateConsultantDto) {
     return this.consultantService.create(createConsultantDto);
   }
 
