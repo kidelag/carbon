@@ -28,15 +28,15 @@ export const App = () => {
   useEffect(() => {
     validate()
       .then((data) => {
-        axios.defaults.headers.post["Authorization"] = `Basic ${
+        axios.defaults.headers.post["Authorization"] = `Bearer ${
           localStorage.getItem("TOKEN") || ""
-        } ${data.id}`;
-        axios.defaults.headers.put["Authorization"] = `Basic ${
+        }`;
+        axios.defaults.headers.put["Authorization"] = `Bearer ${
           localStorage.getItem("TOKEN") || ""
-        } ${data.id}`;
-        axios.defaults.headers.delete["Authorization"] = `Basic ${
+        }`;
+        axios.defaults.headers.delete["Authorization"] = `Bearer ${
           localStorage.getItem("TOKEN") || ""
-        } ${data.id}`;
+        }`;
 
         dispatch(
           setState({

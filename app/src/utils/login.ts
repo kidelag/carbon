@@ -5,10 +5,10 @@ export const login = (res: any, dispatch: any) => {
   localStorage.setItem("TOKEN", res.data.accessToken);
   axios.defaults.headers.post[
     "Authorization"
-  ] = `Basic ${res.data.accessToken} ${res.data.id}`;
+  ] = `Bearer ${res.data.accessToken}`;
   axios.defaults.headers.delete[
     "Authorization"
-  ] = `Basic ${res.data.accessToken} ${res.data.id}`;
+  ] = `Bearer ${res.data.accessToken}`;
   dispatch(
     setState({
       isConnected: true,

@@ -4,7 +4,9 @@ import { AuthenticationService } from "./authentication.service";
 
 @Controller("auth")
 export class AuthenticationController {
-  public constructor(private readonly authenticationService: AuthenticationService) { }
+  public constructor(
+    private readonly authenticationService: AuthenticationService
+  ) {}
 
   @Post("login")
   public login(@Body(ValidationPipe) loginRequest: LoginRequest) {
