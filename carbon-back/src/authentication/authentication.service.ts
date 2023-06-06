@@ -39,8 +39,8 @@ export class AuthenticationService {
       ? {
           salary: detail.salary,
           tjm: detail.tjm,
-          // tel: detail.tel,
-          // address: detail.address,
+          tel: detail.tel,
+          address: detail.address,
         }
       : {};
 
@@ -78,8 +78,8 @@ export class AuthenticationService {
         ? {
             salary: detail.salary,
             tjm: detail.tjm,
-            // tel: detail.tel,
-            // address: detail.address,
+            tel: detail.tel,
+            address: detail.address,
           }
         : {};
 
