@@ -42,6 +42,7 @@ export const CreateAccount: React.FC<Props> = () => {
   const handleSubmit = (data: {
     passwordConfirm: string;
     password: string;
+    email: string;
   }) => {
     const error = {
       passwordConfirm:
@@ -53,10 +54,12 @@ export const CreateAccount: React.FC<Props> = () => {
     if (!error.passwordConfirm) {
       const { passwordConfirm, ...reqData } = data;
 
+      const { email, password } = data;
+
       axios
-        .post(url + "/users/create", reqData)
-        .then((res) => {
-          login(res, dispatch);
+        .post(url + "/users", { email, password, role: "SUPPORT" })
+        .then(() => {
+          navigate("/", { replace: true });
         })
         .catch((err) => {
           console.log(err);
@@ -114,7 +117,7 @@ export const CreateAccount: React.FC<Props> = () => {
               </Field>
               <Field
                 aria-required={true}
-                name="mail"
+                name="email"
                 label="Mail"
                 isRequired
                 defaultValue="e.eniona2@gmail.com"
@@ -207,10 +210,10 @@ export const CreateAccount: React.FC<Props> = () => {
                 aria-required={true}
                 name="password"
                 label="Password"
-                defaultValue="khunou1520"
+                defaultValue="test"
                 isRequired
                 validate={(value) =>
-                  value && value.length < 8 ? "TOO_SHORT" : undefined
+                  value && value.length < 2 ? "TOO_SHORT" : undefined
                 }
               >
                 {({ fieldProps, error, valid, meta }) => {
@@ -230,7 +233,7 @@ export const CreateAccount: React.FC<Props> = () => {
                 aria-required={true}
                 name="passwordConfirm"
                 label="Confirmer le mot de passe"
-                defaultValue="khunou1520"
+                defaultValue="test"
                 isRequired
               >
                 {({ fieldProps, error, valid, meta }) => {
