@@ -4,27 +4,33 @@ import type { RootState } from "../store";
 interface userState {
   isConnected: boolean;
   id: number;
-  username: string;
-  mail: string;
   accessToken: string;
   isAdmin: boolean;
-  isValidated: boolean;
-  isBannished: boolean;
-  Nom: string;
-  Prenom: string;
+  userInfo: {
+    nom: string;
+    prenom: string;
+    email: string;
+    salary: number;
+    tjm: number;
+    tel: number;
+    address: string;
+  };
 }
 
-const initialState: userState = {
+export const initialState: userState = {
   isConnected: false,
   id: 0,
-  username: "",
   accessToken: "",
-  mail: "",
   isAdmin: false,
-  isValidated: false,
-  isBannished: false,
-  Nom: "",
-  Prenom: "",
+  userInfo: {
+    email: "",
+    nom: "",
+    prenom: "",
+    salary: 0,
+    tjm: 0,
+    tel: 0,
+    address: "",
+  },
 };
 
 export const user = createSlice({
@@ -34,26 +40,21 @@ export const user = createSlice({
     setState: (state, action: PayloadAction<userState>) => {
       state.isConnected = action.payload.isConnected;
       state.id = action.payload.id;
-      state.username = action.payload.username;
-      state.mail = action.payload.mail;
       state.accessToken = action.payload.accessToken;
       state.isAdmin = action.payload.isAdmin;
-      state.isValidated = action.payload.isValidated;
-      state.isBannished = action.payload.isBannished;
-      state.Nom = action.payload.Nom;
-      state.Prenom = action.payload.Prenom;
+      state.userInfo = action.payload.userInfo;
     },
     setAdmin: (state, action: PayloadAction<boolean>) => {
       state.isAdmin = action.payload;
     },
     setNom: (state, action: PayloadAction<string>) => {
-      state.Nom = action.payload;
+      state.userInfo.nom = action.payload;
     },
     setPrenom: (state, action: PayloadAction<string>) => {
-      state.Prenom = action.payload;
+      state.userInfo.prenom = action.payload;
     },
     setMail: (state, action: PayloadAction<string>) => {
-      state.mail = action.payload;
+      state.userInfo.email = action.payload;
     },
   },
 });
@@ -62,8 +63,8 @@ export const { setState, setAdmin, setNom, setPrenom, setMail } = user.actions;
 
 export const fetchUser = (state: RootState) => state.user;
 export const selectIsAdmin = (state: RootState) => state.user.isAdmin;
+export const selectUserInfo = (state: RootState) => state.user.userInfo;
 export const isConnected = (state: RootState) => state.user.isConnected;
-export const selectUsername = (state: RootState) => state.user.username;
 export const selectUserId = (state: RootState) => state.user.id;
 
 export default user.reducer;

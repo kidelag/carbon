@@ -10,7 +10,7 @@ import {
 import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { fetchUser } from "../../Redux/States/users";
+import { fetchUser, selectUserInfo } from "../../Redux/States/users";
 
 import styles from "./SideBarProfil.module.scss";
 
@@ -19,7 +19,7 @@ interface Props {
 }
 
 export const SideBarProfil: React.FC<Props> = ({ page }) => {
-  const user = useSelector(fetchUser);
+  const user = useSelector(selectUserInfo);
   const navigate = useNavigate();
 
   return (
@@ -30,7 +30,7 @@ export const SideBarProfil: React.FC<Props> = ({ page }) => {
       <div>
         <SideNavigation label="project">
           <NavigationHeader>
-            <Header>{`${user.Prenom} ${user.Nom}`}</Header>
+            <Header>{`${user.prenom} ${user.nom}`}</Header>
           </NavigationHeader>
           <NavigationContent showTopScrollIndicator>
             <Section>

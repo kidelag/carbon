@@ -1,16 +1,19 @@
 import axios from "axios";
 
 interface res {
-  id: number;
-  username: string;
-  mail: string;
-  Nom: string;
-  Prenom: string;
-  isAdmin: boolean;
-  isValidated: boolean;
-  isBannished: boolean;
-  exp: number;
   isConnected: boolean;
+  id: number;
+  isAdmin: boolean;
+  exp: number;
+  userInfo: {
+    nom: string;
+    prenom: string;
+    email: string;
+    salary: number;
+    tjm: number;
+    tel: number;
+    address: string;
+  };
 }
 
 export const validate: () => Promise<res> = () => {
@@ -34,22 +37,34 @@ export const validate: () => Promise<res> = () => {
           fail({
             isConnected: false,
             id: 0,
-            username: "",
-            Nom: "",
-            Prenom: "",
             isAdmin: false,
             exp: 0,
+            userInfo: {
+              email: "",
+              nom: "",
+              prenom: "",
+              salary: 0,
+              tjm: 0,
+              tel: 0,
+              address: "",
+            },
           });
         });
     } else {
       fail({
         isConnected: false,
         id: 0,
-        username: "",
-        Nom: "",
-        Prenom: "",
         isAdmin: false,
         exp: 0,
+        userInfo: {
+          email: "",
+          nom: "",
+          prenom: "",
+          salary: 0,
+          tjm: 0,
+          tel: 0,
+          address: "",
+        },
       });
     }
   });
