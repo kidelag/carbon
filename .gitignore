@@ -1,3 +1,4 @@
 .idea
 db
 /carbon-back/dist/
+*/node_modules/
