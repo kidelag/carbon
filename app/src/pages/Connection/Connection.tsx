@@ -12,7 +12,7 @@ interface Props {}
 
 const Connection: React.FC<Props> = () => {
   const [mail, setMail] = useState("e.eniona2@gmail.com");
-  const [pwd, setPwd] = useState("khunou1520");
+  const [pwd, setPwd] = useState("test");
   const [warning, setWarning] = useState("");
 
   const dispatch = useDispatch();
@@ -27,8 +27,8 @@ const Connection: React.FC<Props> = () => {
     event.preventDefault();
 
     axios
-      .post(url + "/users/login", {
-        mail: mail,
+      .post(url + "/auth/login", {
+        email: mail,
         password: pwd,
       })
       .then((res) => {

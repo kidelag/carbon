@@ -9,3 +9,9 @@ export class LoginRequest {
   @IsString()
   public password: string;
 }
+
+export class TokenValidateRequest {
+  @IsDefined()
+  @IsString()
+  public token: string;
+}

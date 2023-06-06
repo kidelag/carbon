@@ -1,5 +1,5 @@
 import { Body, Controller, Post, ValidationPipe } from "@nestjs/common";
-import { LoginRequest } from "./authentication.request";
+import { LoginRequest, TokenValidateRequest } from "./authentication.request";
 import { AuthenticationService } from "./authentication.service";
 
 @Controller("auth")
@@ -11,5 +11,12 @@ export class AuthenticationController {
   @Post("login")
   public login(@Body(ValidationPipe) loginRequest: LoginRequest) {
     return this.authenticationService.login(loginRequest);
+  }
+
+  @Post("validateToken")
+  public validateToken(
+    @Body(ValidationPipe) tokenValidateRequest: TokenValidateRequest
+  ) {
+    return this.authenticationService.validateToken(tokenValidateRequest);
   }
 }

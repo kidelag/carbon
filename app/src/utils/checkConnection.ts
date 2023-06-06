@@ -24,7 +24,7 @@ export const validate: () => Promise<res> = () => {
   return new Promise((succes, fail) => {
     if (token) {
       axios
-        .post(url + "/users/validateToken", {
+        .post(url + "/auth/validateToken", {
           token: token,
         })
         .then((res) => {
