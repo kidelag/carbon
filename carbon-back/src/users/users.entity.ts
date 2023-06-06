@@ -23,6 +23,20 @@ export class User {
 
   @Column({
     nullable: false,
+    type: "char",
+    length: 255
+  })
+  public firstname: string;
+
+  @Column({
+    nullable: false,
+    type: "char",
+    length: 255
+  })
+  public lastname: string;
+
+  @Column({
+    nullable: false,
     type: "enum",
     enum: Role,
   })
