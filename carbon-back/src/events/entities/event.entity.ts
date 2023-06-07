@@ -41,7 +41,9 @@ export class Event {
     })
     public open: boolean;
 
-    @ManyToMany(() => Competence)
+    @ManyToMany(() => Competence, {
+        eager: true
+    })
     @JoinTable()
     public competences: Competence[]
 }
