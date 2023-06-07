@@ -7,7 +7,7 @@ const connectDB = new DataSource({
   username: "carbon",
   password: "password",
   database: "carbon",
-  entities: ["./**/entities/*.ts"],
+  entities: ["./**/entities/*.js"],
   migrations: ["./**/migrations/**.js"],
   synchronize: true,
   logging: false,
