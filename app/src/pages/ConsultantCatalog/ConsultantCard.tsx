@@ -56,6 +56,8 @@ export const ConsultantCard: React.FC<Props> = (consultant) => {
         position: "relative",
         paddingTop: "15px",
         paddingBottom: "15px",
+        boxShadow:
+          "rgba(50, 50, 93, 0.02) 0 2px 5px -1px, rgba(0, 0, 0, 0.05) 0 1px 3px -1px",
       }}
     >
       <Avatar

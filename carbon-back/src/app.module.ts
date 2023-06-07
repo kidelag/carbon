@@ -4,6 +4,8 @@ import { UsersModule } from './users/users.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import {ConsultantModule} from "./consultant/consultant.module";
 import { MissionsModule } from './missions/missions.module';
+import { EventsModule } from './events/events.module';
+import { CompetencesModule } from './competences/competences.module';
 
 @Module({
   imports: [
@@ -21,6 +23,8 @@ import { MissionsModule } from './missions/missions.module';
     AuthenticationModule,
     ConsultantModule,
     MissionsModule,
+    EventsModule,
+    CompetencesModule,
   ],
   controllers: [],
   providers: [],

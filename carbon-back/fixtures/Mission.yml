@@ -1,0 +1,10 @@
+entity: Mission
+items:
+  mission{1..11}:
+    consultant: "@consultant($current)"
+    title: "{{lorem.words(4)}}"
+    description: "{{lorem.words(20)}}"
+    company: "{{lorem.words(3)}}"
+    clientReview: "{{lorem.words(20)}}"
+    startDate: "{{date.past(10, '2020-01-01T00:00:00.000Z')}}"
+    endDate: null

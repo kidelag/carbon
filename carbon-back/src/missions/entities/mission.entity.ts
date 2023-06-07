@@ -1,14 +1,14 @@
-import {Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn} from "typeorm";
-import {User} from "../../users/users.entity";
+import {Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import {Consultant} from "../../consultant/entities/consultant.entity";
 
 @Entity()
 export class Mission {
     @PrimaryGeneratedColumn("uuid")
     public id: string;
 
-    @OneToOne(() => User)
+    @ManyToOne(() => Consultant)
     @JoinColumn()
-    public user: User
+    public consultant: Consultant
 
     @Column({
         nullable: false,
