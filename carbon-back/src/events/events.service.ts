@@ -4,6 +4,7 @@ import { UpdateEventDto } from './dto/update-event.dto';
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Event} from "./entities/event.entity";
+import {Competence} from "../competences/entities/competence.entity";
 
 @Injectable()
 export class EventsService {
@@ -11,7 +12,9 @@ export class EventsService {
   }
 
   create(createEventDto: CreateEventDto) {
-    return this.eventsRepository.insert({...createEventDto});
+    const event = this.eventsRepository.create(createEventDto);
+    event.competences = createEventDto.competences.map(id => ({id} as unknown as Competence));
+    return this.eventsRepository.save(event);
   }
 
   findAll() {

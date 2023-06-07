@@ -1,6 +1,7 @@
-import { User } from "../../users/entities/users.entity";
-import { IsDefined } from "class-validator";
-import { Type } from "class-transformer";
+import {User} from "../../users/entities/users.entity";
+import {IsDefined} from "class-validator";
+import {Type} from "class-transformer";
+import {Competence} from "../../competences/entities/competence.entity";
 
 export class CreateEventDto {
   @IsDefined()
@@ -20,6 +21,9 @@ export class CreateEventDto {
   @Type(() => Date)
   public endDate: Date;
 
-  @IsDefined()
-  public open: boolean;
+    @IsDefined()
+    public open: boolean;
+
+    @IsDefined()
+    public competences: Competence[];
 }
