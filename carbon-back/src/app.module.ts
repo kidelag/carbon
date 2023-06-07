@@ -5,6 +5,7 @@ import { AuthenticationModule } from './authentication/authentication.module';
 import {ConsultantModule} from "./consultant/consultant.module";
 import { MissionsModule } from './missions/missions.module';
 import { EventsModule } from './events/events.module';
+import { CompetencesModule } from './competences/competences.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { EventsModule } from './events/events.module';
     ConsultantModule,
     MissionsModule,
     EventsModule,
+    CompetencesModule,
   ],
   controllers: [],
   providers: [],
