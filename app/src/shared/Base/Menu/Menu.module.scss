@@ -1,0 +1,55 @@
+div.title {
+    img {
+        width: 80%;
+        object-fit: cover;
+        margin: 1vh 10%;
+    }
+    
+}
+
+div.itemOnSelected {
+    > div {
+        background-color: white;
+        color: red;
+        padding-top: 2vh;
+        padding-bottom: 2vh;
+    }
+    > div:first-child {
+        height: 100%;
+        padding-left: 2vh;
+        border-radius: 50px 0 0 50px ;
+    }
+    > div:last-child {
+        padding-right: 0;
+    }
+
+}
+
+div.itemOnSelected::before {
+    content: '';
+    position: absolute;
+
+    background-color: transparent;
+    height: 37px;
+    width: 20px;
+    right: 0;
+    top: -25px;
+    border-radius: 0 0 50px 0;
+    box-shadow: 0px 17px 0 0 #fff;
+
+}
+
+div.itemOnSelected::after {
+    content: '';
+    position: absolute;
+
+    background-color: transparent;
+    
+    height: 37px;
+    width: 20px;
+    right: 0;
+    bottom: -25px;
+    border-radius: 0 50px 0 0;
+    box-shadow: 0px -17px 0 0 #fff;
+
+}
