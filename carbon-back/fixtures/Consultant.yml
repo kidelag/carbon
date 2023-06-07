@@ -1,0 +1,9 @@
+entity: Consultant
+items:
+  consultant{1..11}:
+    user: "@user($current)"
+    tjm: "{{random.numeric(3)}}"
+    salary: "{{random.numeric(4)}}"
+    address: "{{location.streetAddress({ useFullAddress: true })}}"
+    tel: "{{phone.number('06########')}}"
+    startDate: "{{date.past(10)}}"
