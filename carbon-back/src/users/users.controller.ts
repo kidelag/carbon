@@ -31,16 +31,6 @@ export class UsersController {
       return new BadRequestException('Missing datas for consultant')
     }
     body.createUsersDto.password = await hash(body.createUsersDto.password, 10)
-    const user = await this.usersService.createUser(body.createUsersDto);
-    if (body.createUsersDto.role === Role.CONSULTANT) {
-      body.createConsultantDto.user = user.identifiers[0].id;
-      try {
-        await this.consultantService.create(body.createConsultantDto)
-      } catch (e) {
-        await this.usersService.deleteUser(user.identifiers[0].id)
-        throw new BadRequestException(e.sqlMessage)
-      }
-    }
-    return user;
+    return this.usersService.createUser(body.createUsersDto);
   }
 }

@@ -1,27 +1,22 @@
-import {User} from "../../users/users.entity";
 import {IsDefined, IsString, MaxLength} from "class-validator";
 import {Type} from "class-transformer";
+import {Consultant} from "../../consultant/entities/consultant.entity";
 
 export class CreateMissionDto {
     @IsDefined()
-    public user: User;
+    public consultant: Consultant;
 
     @IsDefined()
-    @IsString()
     @MaxLength(255)
     public title: string;
 
     @IsDefined()
-    @IsString()
     public description: string;
 
     @IsDefined()
-    @IsString()
     @MaxLength(255)
     public company: string;
 
-    @IsDefined()
-    @IsString()
     public clientReview: string;
 
     @IsDefined()
