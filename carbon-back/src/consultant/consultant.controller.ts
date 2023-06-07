@@ -1,9 +1,18 @@
-import {Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe} from '@nestjs/common';
-import { ConsultantService } from './consultant.service';
-import { CreateConsultantDto } from './dto/create-consultant.dto';
-import { UpdateConsultantDto } from './dto/update-consultant.dto';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  ValidationPipe,
+} from "@nestjs/common";
+import { ConsultantService } from "./consultant.service";
+import { CreateConsultantDto } from "./dto/create-consultant.dto";
+import { UpdateConsultantDto } from "./dto/update-consultant.dto";
 
-@Controller('consultant')
+@Controller("consultant")
 export class ConsultantController {
   constructor(private readonly consultantService: ConsultantService) {}
 
@@ -17,18 +26,26 @@ export class ConsultantController {
     return this.consultantService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
+  @Get(":id")
+  findOne(@Param("id") id: string) {
     return this.consultantService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateConsultantDto: UpdateConsultantDto) {
+  @Patch(":id")
+  update(
+    @Param("id") id: string,
+    @Body() updateConsultantDto: UpdateConsultantDto
+  ) {
     return this.consultantService.update(id, updateConsultantDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
+  @Delete(":id")
+  remove(@Param("id") id: string) {
     return this.consultantService.remove(id);
+  }
+
+  @Post("fetchAllConsultant")
+  fetchAllConsultant() {
+    return this.consultantService.findAllWithUser();
   }
 }

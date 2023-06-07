@@ -8,15 +8,15 @@ export class Event {
   public id: string;
 
   @Column({
-    nullable: false,
-    type: "char",
-    length: 255,
+      nullable: false,
+      type: "char",
+      length: 255,
   })
   public title: string;
 
   @Column({
-    nullable: false,
-    type: "text",
+      nullable: false,
+      type: "text",
   })
   public description: string;
 
@@ -24,26 +24,27 @@ export class Event {
   public user: User;
 
   @Column({
-    nullable: false,
-    type: "datetime",
+      nullable: false,
+      type: "datetime",
   })
   public startDate: Date;
 
   @Column({
-    nullable: false,
-    type: "datetime",
+      nullable: true,
+      type: "datetime"
   })
   public endDate: Date;
 
   @Column({
-    nullable: false,
-    type: "boolean",
+      nullable: false,
+      type: "boolean"
   })
   public open: boolean;
 
   @ManyToMany(() => Competence, {
-      eager: true,
+      eager: true
   })
   @JoinTable()
   public competences: Competence[]
+
 }
