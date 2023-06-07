@@ -20,6 +20,16 @@ export class ConsultantService {
     return this.consultantRepository.find();
   }
 
+  async findAllWithUser() {
+    const consultants = await this.consultantRepository
+      .createQueryBuilder("consultant")
+      .leftJoinAndSelect("consultant.user", "user")
+      .select(["consultant", "user.firstname", "user.lastname", "user.role"])
+      .getMany();
+
+    return consultants;
+  }
+
   findOne(id: string) {
     return this.consultantRepository.findOneBy({ id });
   }
