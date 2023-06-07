@@ -34,9 +34,23 @@ export class Event {
   })
   public endDate: Date;
 
+<<<<<<< Updated upstream
   @Column({
     nullable: false,
     type: "boolean",
   })
   public open: boolean;
+=======
+    @Column({
+        nullable: false,
+        type: "boolean"
+    })
+    public open: boolean;
+
+    @ManyToMany(() => Competence, {
+        eager: true,
+    })
+    @JoinTable()
+    public competences: Competence[]
+>>>>>>> Stashed changes
 }
