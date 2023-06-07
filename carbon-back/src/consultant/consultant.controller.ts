@@ -7,6 +7,7 @@ import { UpdateConsultantDto } from './dto/update-consultant.dto';
 export class ConsultantController {
   constructor(private readonly consultantService: ConsultantService) {}
 
+  @Post()
   create(@Body(ValidationPipe) createConsultantDto: CreateConsultantDto) {
     return this.consultantService.create(createConsultantDto);
   }
