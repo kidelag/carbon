@@ -2,6 +2,7 @@ import {
   Grid,
   IconButton,
   InputAdornment,
+  Pagination,
   Stack,
   TextField,
   Typography,
@@ -61,15 +62,39 @@ const consultants = [
     skills: ["NodeJS", "Express", "MongoDB", "MySQL", "PHP"],
     position: "senior",
   },
+
+  //Generate 20 consultants with random name, job, tjm, skills and position (junior, confirme, senior, expert)
+  ...Array.from({ length: 20 }, (_, i) => ({
+    id: i + 7,
+    name: `Consultant ${i + 1}`,
+    job: "Développeur Fullstack",
+    tjm: Math.floor(Math.random() * 500),
+    skills: ["React", "NodeJS", "MongoDB", "Express", "Angular"],
+    position: ["junior", "confirme", "senior", "expert"][
+      Math.floor(Math.random() * 4)
+    ],
+  })),
 ];
 
 export const ConsultantCatalog: React.FC<Props> = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredConsultants, setFilteredConsultants] = useState(consultants);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [consultantsPerPage] = useState(8);
 
-  const handleSearchChange = (event: any) => {
+  const totalPages = Math.ceil(filteredConsultants.length / consultantsPerPage);
+
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    page: number
+  ) => {
+    setCurrentPage(page);
+  };
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const searchTerm = event.target.value;
     setSearchTerm(searchTerm);
+    setCurrentPage(1);
 
     const filteredConsultants = consultants.filter((consultant) =>
       // consultant.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -80,6 +105,14 @@ export const ConsultantCatalog: React.FC<Props> = () => {
     );
     setFilteredConsultants(filteredConsultants);
   };
+
+  //pagination
+  const indexOfLastConsultant = currentPage * consultantsPerPage;
+  const indexOfFirstConsultant = indexOfLastConsultant - consultantsPerPage;
+  const currentConsultants = filteredConsultants.slice(
+    indexOfFirstConsultant,
+    indexOfLastConsultant
+  );
 
   return (
     <>
@@ -117,12 +150,21 @@ export const ConsultantCatalog: React.FC<Props> = () => {
       </Stack>
 
       <Grid container spacing={3} marginTop="30px" padding={1}>
-        {filteredConsultants.map((consultant) => (
+        {currentConsultants.map((consultant) => (
           <Grid item xs={6} sm={4} md={3} key={consultant.id}>
             <ConsultantCard consultant={consultant} />
           </Grid>
         ))}
       </Grid>
+
+      <Pagination
+        color="primary"
+        count={totalPages}
+        page={currentPage}
+        onChange={handlePageChange}
+        sx={{ margin: "50px auto", justifyContent: "center", display: "flex" }}
+        size="large"
+      />
     </>
   );
 };
