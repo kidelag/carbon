@@ -2,8 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { CreateConsultantDto } from "./dto/create-consultant.dto";
 import { UpdateConsultantDto } from "./dto/update-consultant.dto";
 import { InjectRepository } from "@nestjs/typeorm";
-import { User } from "../users/users.entity";
-import { InsertResult, Repository } from "typeorm";
+import { Repository } from "typeorm";
 import { Consultant } from "./entities/consultant.entity";
 
 @Injectable()
