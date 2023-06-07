@@ -1,5 +1,6 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import {Column, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn} from "typeorm";
 import { User } from "../../users/entities/users.entity";
+import {Competence} from "../../../dist/competences/entities/competence.entity";
 
 @Entity()
 export class Event {
@@ -34,23 +35,15 @@ export class Event {
   })
   public endDate: Date;
 
-<<<<<<< Updated upstream
   @Column({
     nullable: false,
     type: "boolean",
   })
   public open: boolean;
-=======
-    @Column({
-        nullable: false,
-        type: "boolean"
-    })
-    public open: boolean;
 
-    @ManyToMany(() => Competence, {
-        eager: true,
-    })
-    @JoinTable()
-    public competences: Competence[]
->>>>>>> Stashed changes
+  @ManyToMany(() => Competence, {
+      eager: true,
+  })
+  @JoinTable()
+  public competences: Competence[]
 }
