@@ -1,4 +1,4 @@
-import { User } from "../../users/users.entity";
+import { User } from "../../users/entities/users.entity";
 import { IsDefined, IsNumber, MaxLength } from "class-validator";
 import { Type } from "class-transformer";
 

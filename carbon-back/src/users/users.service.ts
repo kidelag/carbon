@@ -1,12 +1,14 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import {createQueryBuilder, Repository} from 'typeorm';
-import { User } from './users.entity';
-import {CreateUsersDto} from "./dto/create-users.dto";
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { createQueryBuilder, Repository } from "typeorm";
+import { User } from "./entities/users.entity";
+import { CreateUsersDto } from "./dto/create-users.dto";
 
 @Injectable()
 export class UsersService {
-  public constructor(@InjectRepository(User) private readonly userRepository: Repository<User>) { }
+  public constructor(
+    @InjectRepository(User) private readonly userRepository: Repository<User>
+  ) {}
 
   public getUserByEmail(email: string) {
     return this.userRepository.findOneBy({ email });
@@ -21,7 +23,7 @@ export class UsersService {
   }
 
   public createUser(createUsersDto: CreateUsersDto) {
-    return this.userRepository.insert({...createUsersDto});
+    return this.userRepository.insert({ ...createUsersDto });
   }
 
   public deleteUser(id: string) {
