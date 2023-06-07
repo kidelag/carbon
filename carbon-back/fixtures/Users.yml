@@ -1,0 +1,15 @@
+entity: User
+items:
+  user{1..10}:
+    firstname: "{{person.firstName}}"
+    lastname: "{{person.lastName}}"
+    email: "{{internet.email}}"
+    password: "test"
+    role: '{{helpers.arrayElement(["SUPPORT","CLIENT","CONSULTANT"])}}'
+
+  user11:
+    firstname: "test"
+    lastname: "test"
+    email: "e.eniona2@gmail.com"
+    password: "$2a$10$4LgROJDPo/xnZ2AcHfEffuA4UAGgbC78XGcxRUuFOFa73GSRoQV/W"
+    role: "SUPPORT"
