@@ -27,8 +27,10 @@ import Toolbar from "@mui/material/Toolbar";
 
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectRole } from "../../../Redux/States/users";
+import { useDispatch, useSelector } from "react-redux";
+import { selectRole, setState, initialState } from "../../../Redux/States/users";
+import { Button, Stack } from "@mui/material";
+
 
 interface Props {
   page?: string;
@@ -79,10 +81,17 @@ export const Menu: React.FC<Props> = ({ page }) => {
   const [mobileViewOpen, setMobileViewOpen] = React.useState(false);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const role = useSelector(selectRole);
 
   const handleToggle = () => {
     setMobileViewOpen(!mobileViewOpen);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("TOKEN");
+
+    dispatch(setState(initialState));
   };
 
   const bgColor: any = {
@@ -98,7 +107,7 @@ export const Menu: React.FC<Props> = ({ page }) => {
   const responsiveDrawer = (
     <div style={{ backgroundColor: bgColor[role], height: "100%" }}>
       <div className={styles.title}>
-        <img src={logoTitle} alt="Logo Carbon" />
+        <img src={logoTitle} alt="Logo Carbon" onClick={() => {changePage('/')}}/>
       </div>
       <List sx={{ backgroundColor: bgColor[role] }}>
         {listItemMenu.map((item, index) => (
@@ -128,18 +137,10 @@ export const Menu: React.FC<Props> = ({ page }) => {
           </ListItemButton>
         ))}
       </List>
-      <Typography
-        sx={{
-          backgroundColor: "red",
-          color: colorText,
-          borderRadius: 10,
-          textAlign: "center",
-          padding: 1,
-          margin: 2,
-        }}
-      >
-        Déconnexion
-      </Typography>
+
+      <Stack direction="row" sx={{margin: '2vh auto 0 auto', alignItems: 'center'}}>
+          <Button variant="contained" color='error' sx={{margin: '0 auto'}} onClick={handleLogout}>Déconnexion</Button>
+      </Stack>
     </div>
   );
 
