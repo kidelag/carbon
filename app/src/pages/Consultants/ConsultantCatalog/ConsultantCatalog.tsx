@@ -7,80 +7,42 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import ConsultantCard from "./ConsultantCard";
+import axios from "axios";
+import { log } from "console";
 
 interface Props {}
 
-const consultants = [
-  {
-    id: 1,
-    name: "Jean",
-    job: "Développeur Fullstack",
-    tjm: 300,
-    skills: ["React", "NodeJS", "MongoDB", "Express", "Angular"],
-    position: "junior",
-  },
-  {
-    id: 2,
-    name: "Sylvain",
-    job: "Développeur Frontend",
-    tjm: 250,
-    skills: ["React", "Angular", "VueJS", "TypeScript", "JavaScript"],
-    position: "senior",
-  },
-  {
-    id: 3,
-    name: "Marie",
-    job: "Développeuse Backend",
-    tjm: 250,
-    skills: ["NodeJS", "Express", "MongoDB", "MySQL", "PHP"],
-    position: "confirme",
-  },
-  {
-    id: 4,
-    name: "Paul",
-    job: "Développeur Fullstack",
-    tjm: 300,
-    skills: ["React", "NodeJS", "MongoDB", "Express", "Angular"],
-    position: "expert",
-  },
-  {
-    id: 5,
-    name: "Sylvie",
-    job: "Développeuse Frontend",
-    tjm: 250,
-    skills: ["React", "Angular", "VueJS", "TypeScript", "JavaScript"],
-    position: "junior",
-  },
-  {
-    id: 6,
-    name: "Marc",
-    job: "Développeur Backend",
-    tjm: 250,
-    skills: ["NodeJS", "Express", "MongoDB", "MySQL", "PHP"],
-    position: "senior",
-  },
-
-  //Generate 20 consultants with random name, job, tjm, skills and position (junior, confirme, senior, expert)
-  ...Array.from({ length: 20 }, (_, i) => ({
-    id: i + 7,
-    name: `Consultant ${i + 1}`,
-    job: "Développeur Fullstack",
-    tjm: Math.floor(Math.random() * 500),
-    skills: ["React", "NodeJS", "MongoDB", "Express", "Angular"],
-    position: ["junior", "confirme", "senior", "expert"][
-      Math.floor(Math.random() * 4)
-    ],
-  })),
-];
+const url =
+  process.env.NODE_ENV === "production"
+    ? process.env.REACT_APP_URL_PROD
+    : process.env.REACT_APP_URL_DEV;
 
 export const ConsultantCatalog: React.FC<Props> = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredConsultants, setFilteredConsultants] = useState(consultants);
+  const [filteredConsultants, setFilteredConsultants] = useState<any>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [consultantsPerPage] = useState(8);
+
+  useEffect(() => {
+    axios.post(url + "/consultant/fetchAllConsultant").then(({ data }) => {
+      const consultantsRaw = data.map((item: any) => ({
+        id: item.id,
+        firstname: item.user.firstname,
+        job: item.job,
+        tjm: item.tjm,
+        skills: item.skills,
+        position: item.position,
+        role: item.user.role,
+      }));
+
+      setFilteredConsultants(
+        consultantsRaw.filter((item: any) => item.role === "CONSULTANT")
+      );
+    });
+  }, []);
 
   const totalPages = Math.ceil(filteredConsultants.length / consultantsPerPage);
 
@@ -96,14 +58,14 @@ export const ConsultantCatalog: React.FC<Props> = () => {
     setSearchTerm(searchTerm);
     setCurrentPage(1);
 
-    const filteredConsultants = consultants.filter((consultant) =>
-      // consultant.name.toLowerCase().includes(searchTerm.toLowerCase())
-      Object.values(consultant)
-        .join(" ")
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase())
-    );
-    setFilteredConsultants(filteredConsultants);
+    // const filteredConsultants = consultants.filter((consultant) =>
+    //   // consultant.firstname.toLowerCase().includes(searchTerm.toLowerCase())
+    //   Object.values(consultant)
+    //     .join(" ")
+    //     .toLowerCase()
+    //     .includes(searchTerm.toLowerCase())
+    // );
+    // setFilteredConsultants(filteredConsultants);
   };
 
   //pagination
@@ -150,7 +112,7 @@ export const ConsultantCatalog: React.FC<Props> = () => {
       </Stack>
 
       <Grid container spacing={3} marginTop="30px" padding={1}>
-        {currentConsultants.map((consultant) => (
+        {currentConsultants.map((consultant: any) => (
           <Grid item xs={6} sm={4} md={3} key={consultant.id}>
             <ConsultantCard consultant={consultant} />
           </Grid>

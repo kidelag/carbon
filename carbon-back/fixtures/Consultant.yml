@@ -7,3 +7,6 @@ items:
     address: "{{location.streetAddress({ useFullAddress: true })}}"
     tel: "{{phone.number('06########')}}"
     startDate: "{{date.past(10)}}"
+    skills: '["NodeJS","Express","MongoDB","MySQL","PHP"]'
+    job: "{{lorem.words(3)}}"
+    position: '{{helpers.arrayElement(["junior","expert","senior"])}}'
