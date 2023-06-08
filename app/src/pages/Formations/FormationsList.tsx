@@ -1,5 +1,5 @@
-import { Grid, Typography } from "@mui/material";
-import React from "react";
+import { Grid, Pagination, Typography } from "@mui/material";
+import React, { useState } from "react";
 import CardFormation from "./CardFormation";
 
 const formations = Array(10)
@@ -26,16 +26,48 @@ const formations = Array(10)
   }));
 
 const FormationsList: React.FC = () => {
+  const [filteredFormations, setFilteredFormations] = useState<any>(formations);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [formationsPerPage] = useState(3);
+
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    page: number
+  ) => {
+    setCurrentPage(page);
+  };
+
+  const totalPages = Math.ceil(filteredFormations.length / formationsPerPage);
+
+  const indexOfLastFormation = currentPage * formationsPerPage;
+  const indexOfFirstFormation = indexOfLastFormation - formationsPerPage;
+  const currentFormations = filteredFormations.slice(
+    indexOfFirstFormation,
+    indexOfLastFormation
+  );
+
   return (
     <>
-      <Typography variant="h5">Formations en cours</Typography>
       <Grid container spacing={3} marginTop="30px" padding={1}>
-        {formations.map((formation: any, index) => (
+        {currentFormations.map((formation: any, index: any) => (
           <Grid item xs={6} sm={4} md={4} key={index}>
             <CardFormation {...formation} />
           </Grid>
         ))}
       </Grid>
+      <Pagination
+        color="primary"
+        count={totalPages}
+        page={currentPage}
+        onChange={handlePageChange}
+        sx={{
+          margin: "50px auto 5vh auto",
+          justifyContent: "center",
+          display: "flex",
+        }}
+        size="large"
+      />
     </>
   );
 };

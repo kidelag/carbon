@@ -59,6 +59,11 @@ const Formations: React.FC = () => {
         />
       </Stack>
 
+      <Typography variant="h5">Formations en cours</Typography>
+      <FormationsList />
+      <Typography variant="h5" marginTop={3}>
+        Challenge en cours
+      </Typography>
       <FormationsList />
     </>
   );
