@@ -1,6 +1,6 @@
 import {Column, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn} from "typeorm";
 import { User } from "../../users/entities/users.entity";
-import {Competence} from "../../../dist/competences/entities/competence.entity";
+import {Competence} from "../../competences/entities/competence.entity";
 
 @Entity()
 export class Event {
