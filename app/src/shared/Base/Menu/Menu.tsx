@@ -23,7 +23,21 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
+import NightlightIcon from '@mui/icons-material/Nightlight';
+import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import Toolbar from "@mui/material/Toolbar";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
+import { styled } from '@mui/material/styles';
+import Rating, { IconContainerProps } from '@mui/material/Rating';
+import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
+import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
+import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
+import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
 
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
@@ -65,7 +79,7 @@ const listItemMenu = [
   },
   {
     title: "Formation",
-    link: "/profile",
+    link: "/formations",
     icon: <SchoolIcon />,
   },
   {
@@ -80,8 +94,48 @@ const listItemMenu = [
   },
 ];
 
+const StyledRating = styled(Rating)(({ theme }) => ({
+  '& .MuiRating-iconEmpty .MuiSvgIcon-root': {
+    color: theme.palette.action.disabled,
+  },
+}));
+
+const customIcons: {
+  [index: string]: {
+    icon: React.ReactElement;
+    label: string;
+  };
+} = {
+  1: {
+    icon: <SentimentVeryDissatisfiedIcon color="error" />,
+    label: 'Very Dissatisfied',
+  },
+  2: {
+    icon: <SentimentDissatisfiedIcon color="error" />,
+    label: 'Dissatisfied',
+  },
+  3: {
+    icon: <SentimentSatisfiedIcon color="warning" />,
+    label: 'Neutral',
+  },
+  4: {
+    icon: <SentimentSatisfiedAltIcon color="success" />,
+    label: 'Satisfied',
+  },
+  5: {
+    icon: <SentimentVerySatisfiedIcon color="success" />,
+    label: 'Very Satisfied',
+  },
+};
+
+function IconContainer(props: IconContainerProps) {
+  const { value, ...other } = props;
+  return <span {...other}>{customIcons[value].icon}</span>;
+}
+
 export const Menu: React.FC<Props> = ({ page }) => {
   const [mobileViewOpen, setMobileViewOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -192,12 +246,46 @@ export const Menu: React.FC<Props> = ({ page }) => {
                   justifyContent: "flex-end",
                 }}
               >
-                <IconButton edge="start" sx={{ ml: 2 }}>
+                <Button 
+                  variant="contained"
+                  onClick={() => setOpen(true)}
+                
+                ><SentimentSatisfiedAltIcon/></Button>
+                <IconButton edge="start" sx={{ ml: 2, mr: 2 }}>
                   <Badge badgeContent={4} color="error">
                     <NotificationsIcon color="action" />
                   </Badge>
                 </IconButton>
+                <Button variant="outlined"><NightlightIcon/></Button>
               </Box>
+              <div>
+                <Dialog
+                  open={open}
+                  onClose={() => setOpen(false)}
+                  aria-labelledby="alert-dialog-title"
+                  aria-describedby="alert-dialog-description"
+                >
+                  <DialogTitle id="alert-dialog-title">
+                    {"Donnez nous votre humeur du moment"}
+                  </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText id="alert-dialog-description" sx={{m: '1vh auto', textAlign: 'center'}}>
+                      <StyledRating
+                        name="highlight-selected-only"
+                        defaultValue={3}
+                        IconContainerComponent={IconContainer}
+                        getLabelText={(value: number) => customIcons[value].label}
+                        highlightSelectedOnly
+                      />
+                    </DialogContentText>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={() => setOpen(false)} autoFocus>
+                      Envoyer
+                    </Button>
+                  </DialogActions>
+                </Dialog>
+              </div>
             </Toolbar>
           </AppBar>
           <Box
