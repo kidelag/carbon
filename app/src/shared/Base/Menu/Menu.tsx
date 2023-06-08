@@ -27,6 +27,8 @@ import Toolbar from "@mui/material/Toolbar";
 
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectRole } from "../../../Redux/States/users";
 
 interface Props {
   page?: string;
@@ -74,14 +76,19 @@ const listItemMenu = [
 ];
 
 export const Menu: React.FC<Props> = ({ page }) => {
-  const [backgroundColorMenu, setBackgoundColorMenu] =
-    React.useState("#bd1f1f");
   const [mobileViewOpen, setMobileViewOpen] = React.useState(false);
 
   const navigate = useNavigate();
+  const role = useSelector(selectRole);
 
   const handleToggle = () => {
     setMobileViewOpen(!mobileViewOpen);
+  };
+
+  const bgColor: any = {
+    SUPPORT: "#bd1f1f",
+    CONSULTANT: "#00BB7E",
+    CLIENT: "#5B98D2",
   };
 
   const changePage = (newPage: string) => {
@@ -89,11 +96,11 @@ export const Menu: React.FC<Props> = ({ page }) => {
   };
 
   const responsiveDrawer = (
-    <div style={{ backgroundColor: backgroundColorMenu, height: "100%" }}>
+    <div style={{ backgroundColor: bgColor[role], height: "100%" }}>
       <div className={styles.title}>
         <img src={logoTitle} alt="Logo Carbon" />
       </div>
-      <List sx={{ backgroundColor: backgroundColorMenu }}>
+      <List sx={{ backgroundColor: bgColor[role] }}>
         {listItemMenu.map((item, index) => (
           <ListItemButton
             key={index}

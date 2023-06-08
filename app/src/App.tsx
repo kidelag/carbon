@@ -43,6 +43,7 @@ export const App = () => {
             isConnected: data.isConnected,
             id: data.id,
             accessToken: localStorage.getItem("TOKEN") || "",
+            role: data.role,
             isAdmin: data.isAdmin,
             userInfo: data.userInfo,
           })
@@ -56,6 +57,7 @@ export const App = () => {
             isConnected: data.isConnected,
             id: data.id,
             accessToken: localStorage.getItem("TOKEN") || "",
+            role: data.role,
             isAdmin: data.isAdmin,
             userInfo: data.userInfo,
           })

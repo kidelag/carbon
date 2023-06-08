@@ -5,6 +5,7 @@ interface userState {
   isConnected: boolean;
   id: number;
   accessToken: string;
+  role: string;
   isAdmin: boolean;
   userInfo: {
     nom: string;
@@ -22,6 +23,7 @@ export const initialState: userState = {
   id: 0,
   accessToken: "",
   isAdmin: false,
+  role: "",
   userInfo: {
     email: "",
     nom: "",
@@ -41,6 +43,7 @@ export const user = createSlice({
       state.isConnected = action.payload.isConnected;
       state.id = action.payload.id;
       state.accessToken = action.payload.accessToken;
+      state.role = action.payload.role;
       state.isAdmin = action.payload.isAdmin;
       state.userInfo = action.payload.userInfo;
     },
@@ -63,6 +66,7 @@ export const { setState, setAdmin, setNom, setPrenom, setMail } = user.actions;
 
 export const fetchUser = (state: RootState) => state.user;
 export const selectIsAdmin = (state: RootState) => state.user.isAdmin;
+export const selectRole = (state: RootState) => state.user.role;
 export const selectUserInfo = (state: RootState) => state.user.userInfo;
 export const isConnected = (state: RootState) => state.user.isConnected;
 export const selectUserId = (state: RootState) => state.user.id;
