@@ -24,4 +24,13 @@ export class CreateConsultantDto {
   @IsDefined()
   @Type(() => Date)
   public startDate: Date;
+
+  @IsDefined()
+  @MaxLength(255)
+  public job: string;
+
+  @MaxLength(30)
+  public position: string = "junior";
+
+  public skills: string = "[]";
 }
