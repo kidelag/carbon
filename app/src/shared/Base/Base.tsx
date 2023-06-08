@@ -30,6 +30,7 @@ import Menu from "./Menu/Menu";
 interface Props {
   checkingToken: boolean;
   children: React.ReactNode;
+  page?: string;
 }
 
 const url =
@@ -37,7 +38,7 @@ const url =
     ? process.env.REACT_APP_URL_PROD
     : process.env.REACT_APP_URL_DEV;
 
-export const Base: React.FC<Props> = ({ checkingToken, children }) => {
+export const Base: React.FC<Props> = ({ checkingToken, page, children }) => {
   const [isModalConnectionShown, setIsModalConnectionShown] =
     useState<boolean>(true);
   const [isPopupProfilOpen, setIsPopupSettingsOpen] = useState<boolean>(false);
@@ -65,69 +66,6 @@ export const Base: React.FC<Props> = ({ checkingToken, children }) => {
     />
   );
 
-  const DefaultProfile = () => {
-    const flNom = userInfo?.nom && userInfo?.nom[0];
-    const flPrenom = userInfo?.prenom && userInfo?.prenom[0];
-
-    return (
-      <>
-        <div className={styles.container}>
-          test
-        </div>
-      </>
-
-      /*<Popup
-        isOpen={isPopupProfilOpen}
-        onClose={() => setIsPopupSettingsOpen(false)}
-        placement="bottom-end"
-        content={() => (
-          <MenuGroup
-            maxWidth={800}
-            minWidth={150}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <Section>
-              <ButtonItem
-                onClick={() => {
-                  navigate("/profile", { replace: true });
-                  setIsPopupSettingsOpen(false);
-                }}
-              >
-                Profile
-              </ButtonItem>
-            </Section>
-            <Section>
-              <ButtonItem
-                onClick={() => {
-                  handleLogout();
-                }}
-              >
-                Logout
-              </ButtonItem>
-            </Section>
-          </MenuGroup>
-        )}
-        trigger={(triggerProps) => (
-          <Profile
-            {...triggerProps}
-            icon={
-              flNom && flPrenom ? (
-                <div className={styles.badge}>
-                  <Badge>{`${flNom}${flPrenom}`.toUpperCase()}</Badge>
-                </div>
-              ) : (
-                <Avatar size="small" />
-              )
-            }
-            onClick={() => {
-              setIsPopupSettingsOpen(!isPopupProfilOpen);
-            }}
-            tooltip=""
-          />
-        )}
-      />*/
-    );
-  };
 
   const navButtons: JSX.Element[] = [];
 
@@ -155,18 +93,10 @@ export const Base: React.FC<Props> = ({ checkingToken, children }) => {
         ) : (
           <>
             <div className={styles.navBar}>
-              <Menu />
-              {/* <AtlassianNavigation
-                label="site"
-                primaryItems={[...navButtons, ...navButtonsAdmins]}
-                renderProfile={DefaultProfile}
-                renderProductHome={AtlassianProductHome}
-              /> */}
+              <Menu page={page}/>
             </div>
             <div className={styles.rightContainer}>
-              <div className={styles.main}>
-                {children}
-              </div>
+              <div className={styles.main}>{children}</div>
             </div>
           </>
         )}
