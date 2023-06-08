@@ -69,6 +69,7 @@ const Connection: React.FC<Props> = () => {
           <TextField
             id="standard-password"
             value={pwd}
+            type="password"
             onChange={(event) => setPwd(event.target.value)}
             sx={{ width: "100%" }}
             label="Mot de passe"

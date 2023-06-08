@@ -1,4 +1,4 @@
-.checkingToken {
+/*.checkingToken {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -34,4 +34,36 @@
 .navBar {
   z-index: 10;
   position: relative;
+}*/
+
+div.container {
+  display: flex;
+  height: 100vh;
+
+  div.navBar {
+    //width: 220px;
+    width: 220px;
+    margin-right: 20px;
+    background-color: #bd1f1f;
+  }
+
+  div.rightContainer {
+    //width: calc(100vw - 220px);
+    width: calc(100vw - 240px);
+    background-color: rgb(80, 172, 37);
+    margin-top  : 64px;
+    div.main {
+
+    }
+  }
+
+  @media (max-width: 600px){
+    div.navBar {
+      width: 0;
+    }
+
+    div.rightContainer {
+      width: 100vw;
+    }
+  }
 }

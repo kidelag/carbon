@@ -25,6 +25,7 @@ import { ButtonItem, MenuGroup, Section } from "@atlaskit/menu";
 
 import styles from "./Base.module.scss";
 import Connection from "../../pages/Connection/Connection";
+import Menu from "./Menu/Menu";
 
 interface Props {
   checkingToken: boolean;
@@ -69,7 +70,13 @@ export const Base: React.FC<Props> = ({ checkingToken, children }) => {
     const flPrenom = userInfo?.prenom && userInfo?.prenom[0];
 
     return (
-      <Popup
+      <>
+        <div className={styles.container}>
+          test
+        </div>
+      </>
+
+      /*<Popup
         isOpen={isPopupProfilOpen}
         onClose={() => setIsPopupSettingsOpen(false)}
         placement="bottom-end"
@@ -118,7 +125,7 @@ export const Base: React.FC<Props> = ({ checkingToken, children }) => {
             tooltip=""
           />
         )}
-      />
+      />*/
     );
   };
 
@@ -135,29 +142,35 @@ export const Base: React.FC<Props> = ({ checkingToken, children }) => {
 
   return (
     <>
-      {checkingToken ? (
-        <div className={styles.checkingToken}>
-          <div>
-            Nous sommes entrains de vérifier l&#39;état de votre connexion
+      <div className={styles.container}>
+        {checkingToken ? (
+          <div className={styles.checkingToken}>
+            <div>
+              Nous sommes entrains de vérifier l&#39;état de votre connexion
+            </div>
+            <div>Cela peut prendre quelques secondes</div>
           </div>
-          <div>Cela peut prendre quelques secondes</div>
-        </div>
-      ) : isModalConnectionShown ? (
-        <Connection />
-      ) : (
-        <>
-          <div className={styles.navBar}>
-            <AtlassianNavigation
-              label="site"
-              primaryItems={[...navButtons, ...navButtonsAdmins]}
-              renderProfile={DefaultProfile}
-              renderProductHome={AtlassianProductHome}
-            />
-          </div>
-
-          {children}
-        </>
-      )}
+        ) : isModalConnectionShown ? (
+          <Connection />
+        ) : (
+          <>
+            <div className={styles.navBar}>
+              <Menu />
+              {/* <AtlassianNavigation
+                label="site"
+                primaryItems={[...navButtons, ...navButtonsAdmins]}
+                renderProfile={DefaultProfile}
+                renderProductHome={AtlassianProductHome}
+              /> */}
+            </div>
+            <div className={styles.rightContainer}>
+              <div className={styles.main}>
+                {children}
+              </div>
+            </div>
+          </>
+        )}
+      </div>
     </>
   );
 };
