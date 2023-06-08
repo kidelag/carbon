@@ -2,21 +2,21 @@ import React, { useState } from "react";
 import axios from "axios";
 
 import styles from "./Connection.module.scss";
-import LogoCarbon from "../../assets/logo-carbon.png"
+import LogoCarbon from "../../assets/logo-carbon.png";
 
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { login } from "../../utils/login";
 
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 
 interface Props {}
 
 const Connection: React.FC<Props> = () => {
-  const [mail, setMail] = useState("");
-  const [pwd, setPwd] = useState("");
+  const [mail, setMail] = useState("e.eniona2@gmail.com");
+  const [pwd, setPwd] = useState("test");
   const [warning, setWarning] = useState("");
 
   const dispatch = useDispatch();
@@ -49,50 +49,50 @@ const Connection: React.FC<Props> = () => {
 
   return (
     <div className={styles.container}>
-
       <div className={styles.logo_title}>
         <img src={LogoCarbon} alt="Logo of Carbon" />
         <div className={styles.title}>Heureux de vous revoir sur ATOM !</div>
       </div>
       <div className={styles.form_inputs}>
         <div className={styles.mail}>
-          <TextField 
-            id="standard-mail" 
+          <TextField
+            id="standard-mail"
             value={mail}
             onChange={(event) => setMail(event.target.value)}
-            sx={{width: '100%'}} 
-            label="Email" 
-            variant="standard" 
+            sx={{ width: "100%" }}
+            label="Email"
+            variant="standard"
           />
         </div>
 
         <div className={styles.password}>
-          <TextField 
-            id="standard-password" 
+          <TextField
+            id="standard-password"
             value={pwd}
             type="password"
             onChange={(event) => setPwd(event.target.value)}
-            sx={{width: '100%'}} 
-            label="Mot de passe" 
-            variant="standard" 
+            sx={{ width: "100%" }}
+            label="Mot de passe"
+            variant="standard"
           />
           {/* <Link to='/'> */}
-            <div className={styles.password_forgotten}>Mot de passe oublié ?</div>
+          <div className={styles.password_forgotten}>Mot de passe oublié ?</div>
           {/* </Link> */}
         </div>
-
       </div>
       <Stack direction="row">
-        <Button 
-          variant="contained" 
+        <Button
+          variant="contained"
           size="large"
           color="success"
-          sx={{margin: '4vh auto 0 auto', alignItems: 'center'}}
+          sx={{ margin: "4vh auto 0 auto", alignItems: "center" }}
           onClick={(e) => handleSubmit(e)}
-        >Connexion</Button>
+        >
+          Connexion
+        </Button>
       </Stack>
     </div>
-/*
+    /*
     <div className={styles.view}>
       <div className={styles.Background}></div>
       <div className={styles.modal}>

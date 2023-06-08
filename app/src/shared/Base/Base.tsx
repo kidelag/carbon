@@ -30,6 +30,7 @@ import Menu from "./Menu/Menu";
 interface Props {
   checkingToken: boolean;
   children: React.ReactNode;
+  page?: string;
 }
 
 const url =
@@ -37,7 +38,7 @@ const url =
     ? process.env.REACT_APP_URL_PROD
     : process.env.REACT_APP_URL_DEV;
 
-export const Base: React.FC<Props> = ({ checkingToken, children }) => {
+export const Base: React.FC<Props> = ({ checkingToken, page, children }) => {
   const [isModalConnectionShown, setIsModalConnectionShown] =
     useState<boolean>(true);
   const [isPopupProfilOpen, setIsPopupSettingsOpen] = useState<boolean>(false);
@@ -71,9 +72,7 @@ export const Base: React.FC<Props> = ({ checkingToken, children }) => {
 
     return (
       <>
-        <div className={styles.container}>
-          test
-        </div>
+        <div className={styles.container}>test</div>
       </>
 
       /*<Popup
@@ -155,7 +154,7 @@ export const Base: React.FC<Props> = ({ checkingToken, children }) => {
         ) : (
           <>
             <div className={styles.navBar}>
-              <Menu />
+              <Menu page={page} />
               {/* <AtlassianNavigation
                 label="site"
                 primaryItems={[...navButtons, ...navButtonsAdmins]}
@@ -164,9 +163,7 @@ export const Base: React.FC<Props> = ({ checkingToken, children }) => {
               /> */}
             </div>
             <div className={styles.rightContainer}>
-              <div className={styles.main}>
-                {children}
-              </div>
+              <div className={styles.main}>{children}</div>
             </div>
           </>
         )}

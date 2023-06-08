@@ -90,7 +90,7 @@ export const App = () => {
           path="/profile"
           element={
             <>
-              <Base checkingToken={checkingToken}>
+              <Base checkingToken={checkingToken} page="Profil">
                 <div style={{ display: "flex" }}>
                   <SideBarProfil page="info perso" />
                   <UserProfil />
