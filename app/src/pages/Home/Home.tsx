@@ -4,6 +4,9 @@ import { HORIZONTAL_GLOBAL_NAV_HEIGHT } from "@atlaskit/atlassian-navigation";
 import EmptyState from "@atlaskit/empty-state";
 
 import styles from "./Home.module.scss";
+import {Stats} from "./Stats/Stats";
+import Events from "./Events/Events";
+import News from "./News/News";
 
 interface Props {
 }
@@ -12,14 +15,16 @@ interface Props {
 export const Home: React.FC<Props> = () => {
 
   return (
-    <div
-      className={styles.view}
-      style={{ minHeight: `calc(100vh - ${HORIZONTAL_GLOBAL_NAV_HEIGHT}px)` }}
-    >
-    <EmptyState
-      header="Ceci est le Home.tsx"
-      description="Viens modif ici pour créer des dingueries"
-    />
+    <div className={styles.view}>
+      <Stats/>
+      <div className={styles.bottom}>
+        <div className={styles.left}>
+          <News/>
+        </div>
+        <div className={styles.right}>
+          <Events/>
+        </div>
+      </div>
     </div>
   );
 };
