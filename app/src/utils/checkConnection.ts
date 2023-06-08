@@ -1,9 +1,11 @@
 import axios from "axios";
+import { initialState } from "../Redux/States/users";
 
 interface res {
   isConnected: boolean;
   id: number;
   isAdmin: boolean;
+  role: string;
   exp: number;
   userInfo: {
     nom: string;
@@ -34,38 +36,10 @@ export const validate: () => Promise<res> = () => {
           succes(res.data);
         })
         .catch(() => {
-          fail({
-            isConnected: false,
-            id: 0,
-            isAdmin: false,
-            exp: 0,
-            userInfo: {
-              email: "",
-              nom: "",
-              prenom: "",
-              salary: 0,
-              tjm: 0,
-              tel: 0,
-              address: "",
-            },
-          });
+          fail(initialState);
         });
     } else {
-      fail({
-        isConnected: false,
-        id: 0,
-        isAdmin: false,
-        exp: 0,
-        userInfo: {
-          email: "",
-          nom: "",
-          prenom: "",
-          salary: 0,
-          tjm: 0,
-          tel: 0,
-          address: "",
-        },
-      });
+      fail(initialState);
     }
   });
 };

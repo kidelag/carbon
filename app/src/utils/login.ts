@@ -12,6 +12,7 @@ export const login = (res: any, dispatch: any) => {
       isConnected: true,
       id: res.data.id,
       accessToken: res.data.token,
+      role: res.data.role,
       isAdmin: res.data.role === "SUPPORT",
       userInfo: res.data.userInfo,
     })
