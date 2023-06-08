@@ -51,8 +51,8 @@ const listItemMenu = [
     icon: <ChecklistRtlIcon />,
   },
   {
-    title: "Catalogue",
-    link: "/profile",
+    title: "Consultants",
+    link: "/consultants",
     icon: <PeopleIcon />,
   },
   {

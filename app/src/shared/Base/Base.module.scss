@@ -1,44 +1,6 @@
-/*.checkingToken {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  height: 100vh;
-
-  & div {
-    margin: 2vh 0;
-
-    font-size: 2rem;
-
-    color: #567af0;
-  }
-}
-
-.badge {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  letter-spacing: 0.5px;
-  font-weight: bold;
-  background: rgb(189, 189, 189);
-  > span {
-    background-color: transparent !important;
-    color: white !important;
-  }
-}
-
-.navBar {
-  z-index: 10;
-  position: relative;
-}*/
-
 div.container {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
 
   div.navBar {
     //width: 220px;
@@ -52,7 +14,7 @@ div.container {
     width: calc(100vw - 240px);
     margin-top  : 64px;
     div.main {
-
+      margin: 5vh 0;
     }
   }
 

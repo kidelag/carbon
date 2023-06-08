@@ -12,9 +12,10 @@ import CreateAccount from "./pages/CreateAccount/CreateAccount";
 import Home from "./pages/Home/Home";
 import SideBarProfil from "./pages/SideBarProfil/SideBarProfil";
 import UserProfil from "./pages/UserProfil/UserProfil";
-import ConsultantCatalog from "./pages/ConsultantCatalog/ConsultantCatalog";
+import ConsultantCatalog from "./pages/Consultants/ConsultantCatalog/ConsultantCatalog";
 import { ThemeProvider, createTheme } from "@mui/material";
 import CreateConsultant from "./pages/CreateConsultant/CreateConsultant";
+import ConsultantsProfil from "./pages/Consultants/ConsultantsProfil/ConsultantsProfil";
 
 const theme = createTheme({
   palette: {
@@ -98,8 +99,18 @@ export const App = () => {
             path="/consultants"
             element={
               <>
-                <Base checkingToken={checkingToken}>
+                <Base checkingToken={checkingToken} page='Consultants'>
                   <ConsultantCatalog />
+                </Base>
+              </>
+            }
+          />
+          <Route
+            path="/consultants/profil/:id"
+            element={
+              <>
+                <Base checkingToken={checkingToken} page='Consultants'>
+                  <ConsultantsProfil />
                 </Base>
               </>
             }
