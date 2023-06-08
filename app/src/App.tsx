@@ -98,7 +98,7 @@ export const App = () => {
             path="/consultants"
             element={
               <>
-                <Base checkingToken={checkingToken}>
+                <Base checkingToken={checkingToken} page="Catalogue">
                   <ConsultantCatalog />
                 </Base>
               </>
@@ -108,7 +108,7 @@ export const App = () => {
             path="/consultants/create"
             element={
               <>
-                <Base checkingToken={checkingToken}>
+                <Base checkingToken={checkingToken} page="Catalogue">
                   <CreateConsultant />
                 </Base>
               </>

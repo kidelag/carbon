@@ -27,7 +27,10 @@ export class ConsultantService {
       .select(["consultant", "user.firstname", "user.lastname", "user.role"])
       .getMany();
 
-    return consultants;
+    return consultants.map((item) => ({
+      ...item,
+      skills: JSON.parse(item.skills),
+    }));
   }
 
   findOne(id: string) {
