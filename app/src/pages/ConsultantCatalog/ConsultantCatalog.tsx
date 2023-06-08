@@ -16,63 +16,91 @@ interface Props {}
 const consultants = [
   {
     id: 1,
-    name: "Jean",
     job: "Développeur Fullstack",
     tjm: 300,
     skills: ["React", "NodeJS", "MongoDB", "Express", "Angular"],
     position: "junior",
+    user: {
+      firstname: "Murray",
+      lastname: "Romaguera",
+      role: "CONSULTANT",
+    },
   },
   {
     id: 2,
-    name: "Sylvain",
     job: "Développeur Frontend",
     tjm: 250,
     skills: ["React", "Angular", "VueJS", "TypeScript", "JavaScript"],
     position: "senior",
+    user: {
+      firstname: "Sylvain",
+      lastname: "Romaguera",
+      role: "CONSULTANT",
+    },
   },
   {
     id: 3,
-    name: "Marie",
     job: "Développeuse Backend",
     tjm: 250,
     skills: ["NodeJS", "Express", "MongoDB", "MySQL", "PHP"],
     position: "confirme",
+    user: {
+      firstname: "Marie",
+      lastname: "Eichmann",
+      role: "CONSULTANT",
+    },
   },
   {
     id: 4,
-    name: "Paul",
     job: "Développeur Fullstack",
     tjm: 300,
     skills: ["React", "NodeJS", "MongoDB", "Express", "Angular"],
     position: "expert",
+    user: {
+      firstname: "Paul",
+      lastname: "Mayer",
+      role: "CONSULTANT",
+    },
   },
   {
     id: 5,
-    name: "Sylvie",
     job: "Développeuse Frontend",
     tjm: 250,
     skills: ["React", "Angular", "VueJS", "TypeScript", "JavaScript"],
     position: "junior",
+    user: {
+      firstname: "Sylvie",
+      lastname: "Romaguera",
+      role: "CONSULTANT",
+    },
   },
   {
     id: 6,
-    name: "Marc",
     job: "Développeur Backend",
     tjm: 250,
     skills: ["NodeJS", "Express", "MongoDB", "MySQL", "PHP"],
     position: "senior",
+    user: {
+      firstname: "Marc",
+      lastname: "Eichmann",
+      role: "SUPPORT",
+    },
   },
 
   //Generate 20 consultants with random name, job, tjm, skills and position (junior, confirme, senior, expert)
   ...Array.from({ length: 20 }, (_, i) => ({
     id: i + 7,
-    name: `Consultant ${i + 1}`,
     job: "Développeur Fullstack",
     tjm: Math.floor(Math.random() * 500),
     skills: ["React", "NodeJS", "MongoDB", "Express", "Angular"],
     position: ["junior", "confirme", "senior", "expert"][
       Math.floor(Math.random() * 4)
     ],
+    user: {
+      firstname: `Prénom ${i + 1}`,
+      lastname: `Consultant ${i + 1}`,
+      role: ["CONSULTANT", "SUPPORT", "CLIENT"][Math.floor(Math.random() * 3)],
+    },
   })),
 ];
 

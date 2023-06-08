@@ -12,19 +12,26 @@ import badgeJunior from "../../assets/badges/badge junior.png";
 import badgeConfirme from "../../assets/badges/badge confirmé.png";
 import badgeSenior from "../../assets/badges/badge senior.png";
 import badgeExpert from "../../assets/badges/badge expert.png";
+import { useSelector } from "react-redux";
+import { fetchUser } from "../../Redux/States/users";
 
 interface Props {
   consultant: {
     id: Number;
-    name: string;
     job: string;
     tjm: Number;
     skills: string[];
     position: string;
+    user: {
+      firstname: string;
+      lastname: string;
+      role: string;
+    };
   };
 }
 
 export const ConsultantCard: React.FC<Props> = (consultant) => {
+  const selectIsAdmin = useSelector(fetchUser).isAdmin;
   const [badgeImage, setBadgeImage] = useState<string>("");
 
   useEffect(() => {
@@ -84,7 +91,9 @@ export const ConsultantCard: React.FC<Props> = (consultant) => {
         >
           <Stack direction="column">
             <Typography fontSize={20} variant="h5" component="div">
-              {consultant.consultant.name}
+              {selectIsAdmin
+                ? `${consultant.consultant.user.lastname} ${consultant.consultant.user.firstname}`
+                : consultant.consultant.user.firstname}
             </Typography>
             <Typography sx={{ mb: 1.5 }} variant="body2" color="text.secondary">
               {consultant.consultant.job}
