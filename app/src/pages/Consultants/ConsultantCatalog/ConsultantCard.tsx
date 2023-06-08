@@ -125,7 +125,7 @@ export const ConsultantCard: React.FC<Props> = (consultant) => {
           marginBottom={1}
           // sx={{ backgroundColor: "#d9d9d9", padding: "10px" }}
         >
-          {consultant.consultant.skills.map((skill) => (
+          {consultant.consultant.skills?.map((skill) => (
             <Button
               key={skill}
               variant="contained"
