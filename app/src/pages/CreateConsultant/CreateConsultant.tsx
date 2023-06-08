@@ -10,7 +10,7 @@ import {
   StepLabel,
 } from "@mui/material";
 
-const steps = ["Step 1", "Step 2", "Step 3"];
+const steps = ["Step 1", "Step 2", "Step 3", "Step 4"];
 const skills = [
   "HTML",
   "CSS",
@@ -59,7 +59,7 @@ const CreateConsultant: React.FC = () => {
     const updatedFormData = {
       ...formData,
       fullAddress: fullAddress,
-      selectedSkills: skills,
+      selectedSkills: selectedSkills,
     };
 
     console.log("Form Data:", updatedFormData);
@@ -78,59 +78,36 @@ const CreateConsultant: React.FC = () => {
         <Grid item xs={12}>
           {activeStep === 0 && (
             <>
-              {/* <Typography variant="h6">Step 1</Typography> */}
+              <Typography variant="body1" marginBottom={2}>
+                Comment pouvons-nous vous contacter
+              </Typography>
               <TextField
                 size="small"
-                label="Intitulé du poste"
-                name="jobTitle"
+                label="Nom"
+                name="lastName"
                 onChange={handleChange}
                 fullWidth
                 margin="normal"
               />
               <TextField
                 size="small"
-                label="Votre salaire"
-                name="salary"
+                label="Prénom"
+                name="firstName"
                 onChange={handleChange}
                 fullWidth
                 margin="normal"
-                helperText="Indiquez votre salaire brut annuel"
               />
-
               <TextField
                 size="small"
-                label="Votre taux journalier moyen"
-                name="tjm"
+                label="Date de naissance"
+                name="birthDate"
                 onChange={handleChange}
                 fullWidth
                 margin="normal"
-                helperText="Indiquez votre taux journalier moyen,sachant qu'une journée représente environ 8h de travail"
               />
             </>
           )}
           {activeStep === 1 && (
-            <>
-              <Grid container spacing={2}>
-                {skills.map((skill) => (
-                  <Grid item key={skill} xs={3}>
-                    <Button
-                      variant={
-                        selectedSkills.includes(skill)
-                          ? "contained"
-                          : "outlined"
-                      }
-                      color="primary"
-                      onClick={() => handleSkillSelection(skill)}
-                      fullWidth
-                    >
-                      {skill}
-                    </Button>
-                  </Grid>
-                ))}
-              </Grid>
-            </>
-          )}
-          {activeStep === 2 && (
             <>
               <Typography variant="body1" marginBottom={2}>
                 Comment pouvons-nous vous contacter
@@ -202,7 +179,63 @@ const CreateConsultant: React.FC = () => {
               </Grid>
             </>
           )}
+          {activeStep === 2 && (
+            <>
+              <Grid container spacing={2}>
+                {skills.map((skill) => (
+                  <Grid item key={skill} xs={3}>
+                    <Button
+                      variant={
+                        selectedSkills.includes(skill)
+                          ? "contained"
+                          : "outlined"
+                      }
+                      color="primary"
+                      onClick={() => handleSkillSelection(skill)}
+                      fullWidth
+                    >
+                      {skill}
+                    </Button>
+                  </Grid>
+                ))}
+              </Grid>
+            </>
+          )}
+
+          {activeStep === 3 && (
+            <>
+              {/* <Typography variant="h6">Step 1</Typography> */}
+              <TextField
+                size="small"
+                label="Intitulé du poste"
+                name="jobTitle"
+                onChange={handleChange}
+                fullWidth
+                margin="normal"
+              />
+              <TextField
+                size="small"
+                label="Votre salaire"
+                name="salary"
+                onChange={handleChange}
+                fullWidth
+                margin="normal"
+                helperText="Indiquez votre salaire brut annuel"
+              />
+
+              <TextField
+                size="small"
+                label="Votre taux journalier moyen"
+                name="tjm"
+                onChange={handleChange}
+                fullWidth
+                margin="normal"
+                helperText="Indiquez votre taux journalier moyen,sachant qu'une journée représente environ 8h de travail"
+              />
+            </>
+          )}
         </Grid>
+
         <Grid
           item
           container
@@ -234,7 +267,7 @@ const CreateConsultant: React.FC = () => {
               onClick={
                 activeStep === steps.length - 1 ? handleSubmit : handleNext
               }
-              disabled={activeStep === steps.length - 1}
+              disabled={activeStep === steps.length}
             >
               {activeStep === steps.length - 1 ? "Valider" : "Suivant"}
             </Button>
