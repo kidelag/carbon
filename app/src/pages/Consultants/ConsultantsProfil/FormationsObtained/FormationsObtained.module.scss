@@ -1,0 +1,28 @@
+.middle {
+    flex: 1;
+    //padding: 0 1vh;
+    .title {
+        font-size: xx-large;
+        text-align: left;
+        height: auto;
+    }
+    .content {
+        height: 95%;
+        background-color: rgb(235, 235, 235);
+        border-radius: 10px;
+        padding: 3vh;
+        overflow-y: auto;
+        margin-right: 5vh;
+
+
+        .item {
+            padding: 1vh;
+
+        }
+        .item:nth-child(2n-1){
+            background-color: rgb(170, 170, 170);
+            border-radius: 5px;
+            padding: 1vh;
+        }
+    }
+}

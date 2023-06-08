@@ -1,0 +1,26 @@
+.missions {
+    flex: 1;
+
+    .title {
+        font-size: xx-large;
+        text-align: left;  
+        height: auto;
+    }
+    .wrapper {
+        height: 95%;
+        background-color: rgb(235, 235, 235);
+        border-radius: 10px;
+        padding: 3vh;
+        margin-right: 5vh;
+
+        .item {
+
+            padding: 1vh;
+        }
+        .item:nth-child(2n-1){
+            background-color: rgb(170, 170, 170);
+            border-radius: 5px;
+            padding: 1vh;
+        }
+    }
+}
