@@ -14,82 +14,6 @@ import axios from "axios";
 
 interface Props {}
 
-const consultantsData = [
-  {
-    id: 1,
-    job: "Développeur Fullstack",
-    tjm: 300,
-    skills: ["React", "NodeJS", "MongoDB", "Express", "Angular"],
-    position: "junior",
-    firstname: "Murray",
-    lastname: "Romaguera",
-    role: "CONSULTANT",
-  },
-  {
-    id: 2,
-    job: "Développeur Frontend",
-    tjm: 250,
-    skills: ["React", "Angular", "VueJS", "TypeScript", "JavaScript"],
-    position: "senior",
-    firstname: "Sylvain",
-    lastname: "Romaguera",
-    role: "CONSULTANT",
-  },
-  {
-    id: 3,
-    job: "Développeuse Backend",
-    tjm: 250,
-    skills: ["NodeJS", "Express", "MongoDB", "MySQL", "PHP"],
-    position: "confirme",
-    firstname: "Marie",
-    lastname: "Eichmann",
-    role: "CONSULTANT",
-  },
-  {
-    id: 4,
-    job: "Développeur Fullstack",
-    tjm: 300,
-    skills: ["React", "NodeJS", "MongoDB", "Express", "Angular"],
-    position: "expert",
-    firstname: "Paul",
-    lastname: "Mayer",
-    role: "CONSULTANT",
-  },
-  {
-    id: 5,
-    job: "Développeuse Frontend",
-    tjm: 250,
-    skills: ["React", "Angular", "VueJS", "TypeScript", "JavaScript"],
-    position: "junior",
-    firstname: "Sylvie",
-    lastname: "Romaguera",
-    role: "CONSULTANT",
-  },
-  {
-    id: 6,
-    job: "Développeur Backend",
-    tjm: 250,
-    skills: ["NodeJS", "Express", "MongoDB", "MySQL", "PHP"],
-    position: "senior",
-    firstname: "Marc",
-    lastname: "Eichmann",
-    role: "SUPPORT",
-  },
-
-  //Generate 20 consultants with random name, job, tjm, skills and position (junior, confirme, senior, expert)
-  ...Array.from({ length: 20 }, (_, i) => ({
-    id: i + 7,
-    job: "Développeur Fullstack",
-    tjm: Math.floor(Math.random() * 500),
-    skills: ["React", "NodeJS", "MongoDB", "Express", "Angular"],
-    position: ["junior", "confirme", "senior", "expert"][
-      Math.floor(Math.random() * 4)
-    ],
-    firstname: `Prénom ${i + 1}`,
-    lastname: `Consultant ${i + 1}`,
-    role: ["CONSULTANT", "SUPPORT", "CLIENT"][Math.floor(Math.random() * 3)],
-  })),
-];
 const url =
   process.env.NODE_ENV === "production"
     ? process.env.REACT_APP_URL_PROD
@@ -98,7 +22,7 @@ const url =
 export const ConsultantCatalog: React.FC<Props> = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredConsultants, setFilteredConsultants] = useState<any>([]);
-  const [consultants, setConsultants] = useState<any>([]);
+  const [consultants, setConsultants] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [consultantsPerPage] = useState(8);
 
@@ -115,17 +39,17 @@ export const ConsultantCatalog: React.FC<Props> = () => {
         role: item.user.role,
       }));
 
-      // console.log(consultantsRaw);
-
-      // setConsultants(
-      //   consultantsRaw.filter((item: any) => item.role === "CONSULTANT")
-      // );
-      // setFilteredConsultants(consultantsData);
-      // consultantsRaw.filter((item: any) => item.role === "CONSULTANT")
-      setFilteredConsultants(
-        // consultantsRaw.filter((item: any) => item.role === "CONSULTANT")
-        consultantsData
+      console.log(consultantsRaw);
+      const consultantList = consultantsRaw.filter(
+        (item: any) => item.role === "CONSULTANT"
       );
+      setConsultants(consultantList);
+      setFilteredConsultants(consultantList);
+      // consultantsRaw.filter((item: any) => item.role === "CONSULTANT")
+      // setFilteredConsultants(
+      //   consultantsRaw.filter((item: any) => item.role === "CONSULTANT")
+      //   // consultantsData
+      // );
     });
   }, []);
 
@@ -138,12 +62,12 @@ export const ConsultantCatalog: React.FC<Props> = () => {
     setCurrentPage(page);
   };
 
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const searchTerm = event.target.value;
     setSearchTerm(searchTerm);
     setCurrentPage(1);
 
-    const filteredConsultants = consultantsData.filter((consultant: any) =>
+    const filteredConsultants = consultants.filter((consultant: any) =>
       // consultant.firstname.toLowerCase().includes(searchTerm.toLowerCase())
       Object.values(consultant)
         .join(" ")

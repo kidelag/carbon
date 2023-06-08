@@ -9,6 +9,7 @@ import {
   Step,
   StepLabel,
 } from "@mui/material";
+import axios from "axios";
 
 const steps = ["Step 1", "Step 2", "Step 3", "Step 4"];
 const skills = [
@@ -25,6 +26,11 @@ const skills = [
 ];
 
 const CreateConsultant: React.FC = () => {
+  const url =
+    process.env.NODE_ENV === "production"
+      ? process.env.REACT_APP_URL_PROD
+      : process.env.REACT_APP_URL_DEV;
+
   const [activeStep, setActiveStep] = useState(0);
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
@@ -54,15 +60,34 @@ const CreateConsultant: React.FC = () => {
     }
   };
 
-  const handleSubmit = () => {
-    const fullAddress = `${formData.numero} ${formData.rue}, ${formData.codePostal} ${formData.ville}`;
+  const handleSubmit = async () => {
+    const fullAddress = `${formData.roadNumber} ${formData.roadName}, ${formData.postalCode} ${formData.city}`;
     const updatedFormData = {
-      ...formData,
-      fullAddress: fullAddress,
-      selectedSkills: selectedSkills,
+      createUsersDto: {
+        email: formData.email,
+        //password with firstname and lastname(3 first letters majuscule)
+        password:
+          formData.firstname + formData.lastname.substring(0, 3).toUpperCase(),
+        role: "CONSULTANT",
+        firstname: formData.firstname,
+        lastname: formData.lastname,
+      },
+      createConsultantDto: {
+        tjm: formData.tjm,
+        salary: formData.salary,
+        address: fullAddress,
+        tel: formData.phoneNumber,
+        startDate: "",
+        job: formData.jobTitle,
+        position: "",
+        skills: selectedSkills,
+      },
     };
 
     console.log("Form Data:", updatedFormData);
+    await axios.post(url + "/users", updatedFormData).then((res) => {
+      console.log("res", res);
+    });
   };
 
   return (
@@ -84,7 +109,7 @@ const CreateConsultant: React.FC = () => {
               <TextField
                 size="small"
                 label="Nom"
-                name="lastName"
+                name="lastname"
                 onChange={handleChange}
                 fullWidth
                 margin="normal"
@@ -92,7 +117,7 @@ const CreateConsultant: React.FC = () => {
               <TextField
                 size="small"
                 label="Prénom"
-                name="firstName"
+                name="firstname"
                 onChange={handleChange}
                 fullWidth
                 margin="normal"
@@ -123,6 +148,7 @@ const CreateConsultant: React.FC = () => {
                     onChange={handleChange}
                     fullWidth
                     margin="normal"
+                    
                   />
                 </Grid>
                 <Grid item xs={12} sm={9}>
