@@ -16,6 +16,7 @@ import ConsultantCatalog from "./pages/Consultants/ConsultantCatalog/ConsultantC
 import { ThemeProvider, createTheme } from "@mui/material";
 import CreateConsultant from "./pages/CreateConsultant/CreateConsultant";
 import ConsultantsProfil from "./pages/Consultants/ConsultantsProfil/ConsultantsProfil";
+import Formations from "./pages/Formations/Formations";
 
 const theme = createTheme({
   palette: {
@@ -99,8 +100,18 @@ export const App = () => {
             path="/consultants"
             element={
               <>
-                <Base checkingToken={checkingToken} page='Consultants'>
+                <Base checkingToken={checkingToken} page="Consultants">
                   <ConsultantCatalog />
+                </Base>
+              </>
+            }
+          />
+          <Route
+            path="/formations"
+            element={
+              <>
+                <Base checkingToken={checkingToken} page="Formations">
+                  <Formations />
                 </Base>
               </>
             }
@@ -109,7 +120,7 @@ export const App = () => {
             path="/consultants/profil/:id"
             element={
               <>
-                <Base checkingToken={checkingToken} page='Consultants'>
+                <Base checkingToken={checkingToken} page="Consultants">
                   <ConsultantsProfil />
                 </Base>
               </>

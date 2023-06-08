@@ -19,15 +19,13 @@ import { fetchUser } from "../../../Redux/States/users";
 interface Props {
   consultant: {
     id: Number;
+    firstname: string;
+    lastname: string;
+    role: string;
     job: string;
     tjm: Number;
     skills: string[];
     position: string;
-    user: {
-      firstname: string;
-      lastname: string;
-      role: string;
-    };
   };
 }
 
@@ -98,8 +96,8 @@ export const ConsultantCard: React.FC<Props> = (consultant) => {
           <Stack direction="column">
             <Typography fontSize={20} variant="h5" component="div">
               {selectIsAdmin
-                ? `${consultant.consultant.user.lastname} ${consultant.consultant.user.firstname}`
-                : consultant.consultant.user.firstname}
+                ? `${consultant.consultant.lastname} ${consultant.consultant.firstname}`
+                : consultant.consultant.firstname}
             </Typography>
             <Typography sx={{ mb: 1.5 }} variant="body2" color="text.secondary">
               {consultant.consultant.job}

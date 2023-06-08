@@ -11,22 +11,19 @@ import React, { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import ConsultantCard from "./ConsultantCard";
 import axios from "axios";
-import { log } from "console";
 
 interface Props {}
 
-const consultants = [
+const consultantsData = [
   {
     id: 1,
     job: "Développeur Fullstack",
     tjm: 300,
     skills: ["React", "NodeJS", "MongoDB", "Express", "Angular"],
     position: "junior",
-    user: {
-      firstname: "Murray",
-      lastname: "Romaguera",
-      role: "CONSULTANT",
-    },
+    firstname: "Murray",
+    lastname: "Romaguera",
+    role: "CONSULTANT",
   },
   {
     id: 2,
@@ -34,11 +31,9 @@ const consultants = [
     tjm: 250,
     skills: ["React", "Angular", "VueJS", "TypeScript", "JavaScript"],
     position: "senior",
-    user: {
-      firstname: "Sylvain",
-      lastname: "Romaguera",
-      role: "CONSULTANT",
-    },
+    firstname: "Sylvain",
+    lastname: "Romaguera",
+    role: "CONSULTANT",
   },
   {
     id: 3,
@@ -46,11 +41,9 @@ const consultants = [
     tjm: 250,
     skills: ["NodeJS", "Express", "MongoDB", "MySQL", "PHP"],
     position: "confirme",
-    user: {
-      firstname: "Marie",
-      lastname: "Eichmann",
-      role: "CONSULTANT",
-    },
+    firstname: "Marie",
+    lastname: "Eichmann",
+    role: "CONSULTANT",
   },
   {
     id: 4,
@@ -58,11 +51,9 @@ const consultants = [
     tjm: 300,
     skills: ["React", "NodeJS", "MongoDB", "Express", "Angular"],
     position: "expert",
-    user: {
-      firstname: "Paul",
-      lastname: "Mayer",
-      role: "CONSULTANT",
-    },
+    firstname: "Paul",
+    lastname: "Mayer",
+    role: "CONSULTANT",
   },
   {
     id: 5,
@@ -70,11 +61,9 @@ const consultants = [
     tjm: 250,
     skills: ["React", "Angular", "VueJS", "TypeScript", "JavaScript"],
     position: "junior",
-    user: {
-      firstname: "Sylvie",
-      lastname: "Romaguera",
-      role: "CONSULTANT",
-    },
+    firstname: "Sylvie",
+    lastname: "Romaguera",
+    role: "CONSULTANT",
   },
   {
     id: 6,
@@ -82,11 +71,9 @@ const consultants = [
     tjm: 250,
     skills: ["NodeJS", "Express", "MongoDB", "MySQL", "PHP"],
     position: "senior",
-    user: {
-      firstname: "Marc",
-      lastname: "Eichmann",
-      role: "SUPPORT",
-    },
+    firstname: "Marc",
+    lastname: "Eichmann",
+    role: "SUPPORT",
   },
 
   //Generate 20 consultants with random name, job, tjm, skills and position (junior, confirme, senior, expert)
@@ -98,11 +85,9 @@ const consultants = [
     position: ["junior", "confirme", "senior", "expert"][
       Math.floor(Math.random() * 4)
     ],
-    user: {
-      firstname: `Prénom ${i + 1}`,
-      lastname: `Consultant ${i + 1}`,
-      role: ["CONSULTANT", "SUPPORT", "CLIENT"][Math.floor(Math.random() * 3)],
-    },
+    firstname: `Prénom ${i + 1}`,
+    lastname: `Consultant ${i + 1}`,
+    role: ["CONSULTANT", "SUPPORT", "CLIENT"][Math.floor(Math.random() * 3)],
   })),
 ];
 const url =
@@ -113,6 +98,7 @@ const url =
 export const ConsultantCatalog: React.FC<Props> = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredConsultants, setFilteredConsultants] = useState<any>([]);
+  const [consultants, setConsultants] = useState<any>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [consultantsPerPage] = useState(8);
 
@@ -121,6 +107,7 @@ export const ConsultantCatalog: React.FC<Props> = () => {
       const consultantsRaw = data.map((item: any) => ({
         id: item.id,
         firstname: item.user.firstname,
+        lastname: item.user.lastname,
         job: item.job,
         tjm: item.tjm,
         skills: item.skills,
@@ -128,8 +115,16 @@ export const ConsultantCatalog: React.FC<Props> = () => {
         role: item.user.role,
       }));
 
+      // console.log(consultantsRaw);
+
+      // setConsultants(
+      //   consultantsRaw.filter((item: any) => item.role === "CONSULTANT")
+      // );
+      // setFilteredConsultants(consultantsData);
+      // consultantsRaw.filter((item: any) => item.role === "CONSULTANT")
       setFilteredConsultants(
-        consultantsRaw.filter((item: any) => item.role === "CONSULTANT")
+        // consultantsRaw.filter((item: any) => item.role === "CONSULTANT")
+        consultantsData
       );
     });
   }, []);
@@ -148,14 +143,14 @@ export const ConsultantCatalog: React.FC<Props> = () => {
     setSearchTerm(searchTerm);
     setCurrentPage(1);
 
-    // const filteredConsultants = consultants.filter((consultant) =>
-    //   // consultant.firstname.toLowerCase().includes(searchTerm.toLowerCase())
-    //   Object.values(consultant)
-    //     .join(" ")
-    //     .toLowerCase()
-    //     .includes(searchTerm.toLowerCase())
-    // );
-    // setFilteredConsultants(filteredConsultants);
+    const filteredConsultants = consultantsData.filter((consultant: any) =>
+      // consultant.firstname.toLowerCase().includes(searchTerm.toLowerCase())
+      Object.values(consultant)
+        .join(" ")
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase())
+    );
+    setFilteredConsultants(filteredConsultants);
   };
 
   //pagination
