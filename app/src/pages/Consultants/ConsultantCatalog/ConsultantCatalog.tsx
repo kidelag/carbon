@@ -124,7 +124,7 @@ export const ConsultantCatalog: React.FC<Props> = () => {
         count={totalPages}
         page={currentPage}
         onChange={handlePageChange}
-        sx={{ margin: "50px auto", justifyContent: "center", display: "flex" }}
+        sx={{ margin: "50px auto 5vh auto", justifyContent: "center", display: "flex" }}
         size="large"
       />
     </>
