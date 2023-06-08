@@ -21,9 +21,9 @@ export class CreateEventDto {
   @Type(() => Date)
   public endDate: Date;
 
-    @IsDefined()
-    public open: boolean;
+  @IsDefined()
+  public open: boolean;
 
-    @IsDefined()
-    public competences: Competence[];
+  @IsDefined()
+  public competences: Competence[];
 }

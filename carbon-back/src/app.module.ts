@@ -6,6 +6,8 @@ import {ConsultantModule} from "./consultant/consultant.module";
 import { MissionsModule } from './missions/missions.module';
 import { EventsModule } from './events/events.module';
 import { CompetencesModule } from './competences/competences.module';
+import { EntrepriseModule } from './entreprise/entreprise.module';
+import { NewsModule } from './news/news.module';
 
 @Module({
   imports: [
@@ -25,6 +27,8 @@ import { CompetencesModule } from './competences/competences.module';
     MissionsModule,
     EventsModule,
     CompetencesModule,
+    EntrepriseModule,
+    NewsModule,
   ],
   controllers: [],
   providers: [],
