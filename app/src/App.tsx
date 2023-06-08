@@ -12,7 +12,20 @@ import CreateAccount from "./pages/CreateAccount/CreateAccount";
 import Home from "./pages/Home/Home";
 import SideBarProfil from "./pages/SideBarProfil/SideBarProfil";
 import UserProfil from "./pages/UserProfil/UserProfil";
+import ConsultantCatalog from "./pages/ConsultantCatalog/ConsultantCatalog";
+import { ThemeProvider, createTheme } from "@mui/material";
+import CreateConsultant from "./pages/CreateConsultant/CreateConsultant";
 
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#E53F49",
+    },
+    secondary: {
+      main: "#00BB7E",
+    },
+  },
+});
 const url =
   process.env.NODE_ENV === "production"
     ? process.env.REACT_APP_URL_PROD
@@ -69,39 +82,61 @@ export const App = () => {
 
   return (
     <>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <Base checkingToken={checkingToken}>
-                <Home />
-              </Base>
-            </>
-          }
-        />
-        <Route
-          path="/create/account"
-          element={
-            <>
-              <CreateAccount />
-            </>
-          }
-        />
-        <Route
-          path="/profile"
-          element={
-            <>
-              <Base checkingToken={checkingToken} page="Profil">
-                <div style={{ display: "flex" }}>
-                  <SideBarProfil page="info perso" />
-                  <UserProfil />
-                </div>
-              </Base>
-            </>
-          }
-        />
-      </Routes>
+      <ThemeProvider theme={theme}>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Base checkingToken={checkingToken}>
+                  <Home />
+                </Base>
+              </>
+            }
+          />
+          <Route
+            path="/consultants"
+            element={
+              <>
+                <Base checkingToken={checkingToken}>
+                  <ConsultantCatalog />
+                </Base>
+              </>
+            }
+          />
+          <Route
+            path="/consultants/create"
+            element={
+              <>
+                <Base checkingToken={checkingToken}>
+                  <CreateConsultant />
+                </Base>
+              </>
+            }
+          />
+          <Route
+            path="/create/account"
+            element={
+              <>
+                <CreateAccount />
+              </>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <>
+                <Base checkingToken={checkingToken} page="Profil">
+                  <div style={{ display: "flex" }}>
+                    <SideBarProfil page="info perso" />
+                    <UserProfil />
+                  </div>
+                </Base>
+              </>
+            }
+          />
+        </Routes>
+      </ThemeProvider>
     </>
   );
 };
