@@ -10,16 +10,18 @@ import {
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 
-
 import badgeJunior from "../../../assets/badges/badge junior.png";
 import badgeConfirme from "../../../assets/badges/badge confirmé.png";
 import badgeSenior from "../../../assets/badges/badge senior.png";
 import badgeExpert from "../../../assets/badges/badge expert.png";
-
+import { useSelector } from "react-redux";
+import { fetchUser } from "../../../Redux/States/users";
 interface Props {
   consultant: {
     id: Number;
     firstname: string;
+    lastname: string;
+    role: string;
     job: string;
     tjm: Number;
     skills: string[];
@@ -28,6 +30,7 @@ interface Props {
 }
 
 export const ConsultantCard: React.FC<Props> = (consultant) => {
+  const selectIsAdmin = useSelector(fetchUser).isAdmin;
   const [badgeImage, setBadgeImage] = useState<string>("");
   const navigate = useNavigate();
 
@@ -52,9 +55,8 @@ export const ConsultantCard: React.FC<Props> = (consultant) => {
   }, [consultant.consultant.position]);
 
   const handleGoToConsultantProfil = (id: Number) => {
-    navigate(`/consultants/profil/${id}`)
-  }
-
+    navigate(`/consultants/profil/${id}`);
+  };
 
   return (
     <Card
@@ -93,7 +95,9 @@ export const ConsultantCard: React.FC<Props> = (consultant) => {
         >
           <Stack direction="column">
             <Typography fontSize={20} variant="h5" component="div">
-              {consultant.consultant.firstname}
+              {selectIsAdmin
+                ? `${consultant.consultant.lastname} ${consultant.consultant.firstname}`
+                : consultant.consultant.firstname}
             </Typography>
             <Typography sx={{ mb: 1.5 }} variant="body2" color="text.secondary">
               {consultant.consultant.job}
