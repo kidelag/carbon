@@ -1,0 +1,30 @@
+.right {
+    flex: 1;
+
+    .title {
+        font-size: xx-large;
+        text-align: left;
+        height: auto;
+    }
+    .wrapper {
+        height: 95%;
+        padding: 3vh;
+
+        background-color: rgb(235, 235, 235);
+        border-radius: 10px;
+        
+        
+        .item {
+            padding: 1vh;
+            display: flex;
+            justify-content: space-between;
+
+        }
+        .item:nth-child(2n-1) {
+            background-color: rgb(170, 170, 170);
+            border-radius: 5px;
+            padding: 1vh;
+
+        }
+    }
+}
