@@ -28,9 +28,12 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { selectRole, setState, initialState } from "../../../Redux/States/users";
+import {
+  selectRole,
+  setState,
+  initialState,
+} from "../../../Redux/States/users";
 import { Button, Stack } from "@mui/material";
-
 
 interface Props {
   page?: string;
@@ -51,8 +54,8 @@ const listItemMenu = [
     icon: <ChecklistRtlIcon />,
   },
   {
-    title: "Catalogue",
-    link: "/profile",
+    title: "Consultants",
+    link: "/consultants",
     icon: <PeopleIcon />,
   },
   {
@@ -107,7 +110,13 @@ export const Menu: React.FC<Props> = ({ page }) => {
   const responsiveDrawer = (
     <div style={{ backgroundColor: bgColor[role], height: "100%" }}>
       <div className={styles.title}>
-        <img src={logoTitle} alt="Logo Carbon" onClick={() => {changePage('/')}}/>
+        <img
+          src={logoTitle}
+          alt="Logo Carbon"
+          onClick={() => {
+            changePage("/");
+          }}
+        />
       </div>
       <List sx={{ backgroundColor: bgColor[role] }}>
         {listItemMenu.map((item, index) => (
@@ -138,8 +147,18 @@ export const Menu: React.FC<Props> = ({ page }) => {
         ))}
       </List>
 
-      <Stack direction="row" sx={{margin: '2vh auto 0 auto', alignItems: 'center'}}>
-          <Button variant="contained" color='error' sx={{margin: '0 auto'}} onClick={handleLogout}>Déconnexion</Button>
+      <Stack
+        direction="row"
+        sx={{ margin: "2vh auto 0 auto", alignItems: "center" }}
+      >
+        <Button
+          variant="contained"
+          color="error"
+          sx={{ margin: "0 auto" }}
+          onClick={handleLogout}
+        >
+          Déconnexion
+        </Button>
       </Stack>
     </div>
   );

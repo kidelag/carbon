@@ -46,4 +46,24 @@ export class Consultant {
     type: "datetime",
   })
   public startDate: Date;
+
+  @Column({
+    nullable: false,
+    type: "char",
+    length: 255,
+  })
+  public position: string;
+
+  @Column({
+    nullable: true,
+    type: "text",
+  })
+  public skills: string;
+
+  @Column({
+    nullable: false,
+    type: "char",
+    length: 255,
+  })
+  public job: string;
 }

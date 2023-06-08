@@ -7,9 +7,11 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import ConsultantCard from "./ConsultantCard";
+import axios from "axios";
+import { log } from "console";
 
 interface Props {}
 
@@ -103,12 +105,34 @@ const consultants = [
     },
   })),
 ];
+const url =
+  process.env.NODE_ENV === "production"
+    ? process.env.REACT_APP_URL_PROD
+    : process.env.REACT_APP_URL_DEV;
 
 export const ConsultantCatalog: React.FC<Props> = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredConsultants, setFilteredConsultants] = useState(consultants);
+  const [filteredConsultants, setFilteredConsultants] = useState<any>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [consultantsPerPage] = useState(8);
+
+  useEffect(() => {
+    axios.post(url + "/consultant/fetchAllConsultant").then(({ data }) => {
+      const consultantsRaw = data.map((item: any) => ({
+        id: item.id,
+        firstname: item.user.firstname,
+        job: item.job,
+        tjm: item.tjm,
+        skills: item.skills,
+        position: item.position,
+        role: item.user.role,
+      }));
+
+      setFilteredConsultants(
+        consultantsRaw.filter((item: any) => item.role === "CONSULTANT")
+      );
+    });
+  }, []);
 
   const totalPages = Math.ceil(filteredConsultants.length / consultantsPerPage);
 
@@ -124,14 +148,14 @@ export const ConsultantCatalog: React.FC<Props> = () => {
     setSearchTerm(searchTerm);
     setCurrentPage(1);
 
-    const filteredConsultants = consultants.filter((consultant) =>
-      // consultant.name.toLowerCase().includes(searchTerm.toLowerCase())
-      Object.values(consultant)
-        .join(" ")
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase())
-    );
-    setFilteredConsultants(filteredConsultants);
+    // const filteredConsultants = consultants.filter((consultant) =>
+    //   // consultant.firstname.toLowerCase().includes(searchTerm.toLowerCase())
+    //   Object.values(consultant)
+    //     .join(" ")
+    //     .toLowerCase()
+    //     .includes(searchTerm.toLowerCase())
+    // );
+    // setFilteredConsultants(filteredConsultants);
   };
 
   //pagination
@@ -178,7 +202,7 @@ export const ConsultantCatalog: React.FC<Props> = () => {
       </Stack>
 
       <Grid container spacing={3} marginTop="30px" padding={1}>
-        {currentConsultants.map((consultant) => (
+        {currentConsultants.map((consultant: any) => (
           <Grid item xs={6} sm={4} md={3} key={consultant.id}>
             <ConsultantCard consultant={consultant} />
           </Grid>
@@ -190,7 +214,11 @@ export const ConsultantCatalog: React.FC<Props> = () => {
         count={totalPages}
         page={currentPage}
         onChange={handlePageChange}
-        sx={{ margin: "50px auto", justifyContent: "center", display: "flex" }}
+        sx={{
+          margin: "50px auto 5vh auto",
+          justifyContent: "center",
+          display: "flex",
+        }}
         size="large"
       />
     </>

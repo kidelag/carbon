@@ -8,13 +8,14 @@ import {
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import badgeJunior from "../../assets/badges/badge junior.png";
-import badgeConfirme from "../../assets/badges/badge confirmé.png";
-import badgeSenior from "../../assets/badges/badge senior.png";
-import badgeExpert from "../../assets/badges/badge expert.png";
-import { useSelector } from "react-redux";
-import { fetchUser } from "../../Redux/States/users";
+import { Navigate, useNavigate } from "react-router-dom";
 
+import badgeJunior from "../../../assets/badges/badge junior.png";
+import badgeConfirme from "../../../assets/badges/badge confirmé.png";
+import badgeSenior from "../../../assets/badges/badge senior.png";
+import badgeExpert from "../../../assets/badges/badge expert.png";
+import { useSelector } from "react-redux";
+import { fetchUser } from "../../../Redux/States/users";
 interface Props {
   consultant: {
     id: Number;
@@ -33,6 +34,7 @@ interface Props {
 export const ConsultantCard: React.FC<Props> = (consultant) => {
   const selectIsAdmin = useSelector(fetchUser).isAdmin;
   const [badgeImage, setBadgeImage] = useState<string>("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     switch (consultant.consultant.position) {
@@ -53,6 +55,10 @@ export const ConsultantCard: React.FC<Props> = (consultant) => {
         break;
     }
   }, [consultant.consultant.position]);
+
+  const handleGoToConsultantProfil = (id: Number) => {
+    navigate(`/consultants/profil/${id}`);
+  };
 
   return (
     <Card
@@ -125,7 +131,7 @@ export const ConsultantCard: React.FC<Props> = (consultant) => {
           marginBottom={1}
           // sx={{ backgroundColor: "#d9d9d9", padding: "10px" }}
         >
-          {consultant.consultant.skills.map((skill) => (
+          {consultant.consultant.skills?.map((skill) => (
             <Button
               key={skill}
               variant="contained"
@@ -147,6 +153,7 @@ export const ConsultantCard: React.FC<Props> = (consultant) => {
             borderRadius: "30px",
             textTransform: "none",
           }}
+          onClick={() => handleGoToConsultantProfil(consultant.consultant.id)}
         >
           Voir plus
         </Button>

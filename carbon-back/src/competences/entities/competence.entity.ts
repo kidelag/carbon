@@ -1,5 +1,6 @@
 import {Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn} from "typeorm";
 import {Event} from "../../events/entities/event.entity";
+import {Entreprise} from "../../entreprise/entities/entreprise.entity";
 
 @Entity()
 export class Competence {
@@ -15,4 +16,7 @@ export class Competence {
 
     @ManyToMany(() => Event, event => event.competences)
     public events: Event[];
+
+    @ManyToMany(() => Entreprise, entreprise => entreprise.wantedCompetences)
+    public entreprises: Entreprise[];
 }
