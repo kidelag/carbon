@@ -11,6 +11,7 @@ import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import SchoolIcon from "@mui/icons-material/School";
 import ChecklistRtlIcon from "@mui/icons-material/ChecklistRtl";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import DashboardIcon from "@mui/icons-material/Dashboard";
 
 import Badge from "@mui/material/Badge";
 import AppBar from "@mui/material/AppBar";
@@ -57,6 +58,11 @@ const drawWidth = 220;
 const colorText = "white";
 
 const listItemMenu = [
+  {
+    title: "Dashboard",
+    link: "/",
+    icon: <DashboardIcon />,
+  },
   {
     title: "Profil",
     link: "/profile",

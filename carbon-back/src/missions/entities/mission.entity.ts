@@ -37,6 +37,12 @@ export class Mission {
     public clientReview: string;
 
     @Column({
+        nullable: true,
+        type: "int"
+    })
+    public clientRating: number;
+
+    @Column({
         nullable: false,
         type: "datetime"
     })

@@ -1,4 +1,6 @@
 import {
+  Box,
+  Button,
   Grid,
   IconButton,
   InputAdornment,
@@ -11,6 +13,7 @@ import React, { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import ConsultantCard from "./ConsultantCard";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 interface Props {}
 
@@ -119,6 +122,12 @@ export const ConsultantCatalog: React.FC<Props> = () => {
           value={searchTerm}
         />
       </Stack>
+
+      <Box textAlign="center" marginTop={2}>
+        <Button href="/consultants/create" variant="contained">
+          Ajouter un consultant
+        </Button>
+      </Box>
 
       <Grid container spacing={3} marginTop="30px" padding={1}>
         {currentConsultants.map((consultant: any) => (
