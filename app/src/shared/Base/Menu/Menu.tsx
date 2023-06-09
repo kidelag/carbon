@@ -64,6 +64,11 @@ const listItemMenu = [
     icon: <DashboardIcon />,
   },*/
   {
+    title: "Dashboard",
+    link: "/",
+    icon: <DashboardIcon />,
+  },
+  {
     title: "Profil",
     link: "/profil",
     icon: <PersonIcon />,
