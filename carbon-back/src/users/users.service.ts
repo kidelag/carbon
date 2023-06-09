@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository} from 'typeorm';
 import { User } from './entities/users.entity';
 import {CreateUsersDto} from "./dto/create-users.dto";
+import { Role } from 'src/authentication/authentication.enum';
 
 @Injectable()
 export class UsersService {
@@ -28,5 +29,11 @@ export class UsersService {
 
   public deleteUser(id: string) {
     return this.userRepository.delete({ id });
+  }
+
+  public async getConsultantsTotals() {
+    const consultants = await this.userRepository.findBy({role:Role.CLIENT});
+  const total = consultants.length;
+  return total;
   }
 }
