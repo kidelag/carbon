@@ -33,4 +33,10 @@ export class UsersController {
     body.createUsersDto.password = await hash(body.createUsersDto.password, 10)
     return this.usersService.createUser(body.createUsersDto);
   }
+
+  @AuthenticationRequired()
+  @Get("consultants/totals")
+  public async getConsultantsTotals() {
+    return this.usersService.getConsultantsTotals()
+  }
 }

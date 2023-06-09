@@ -10,15 +10,29 @@ import {
 import React from "react";
 
 interface Props {
-  name: string;
+  title: string;
   description: string;
   difficulty: string;
   nbParticipant: string;
   nbBonusPoint: string;
+  startDate: Date;
+  endDate: Date;
 }
 
 const CardFormation: React.FC<Props> = (formation) => {
   console.log(formation);
+  const currentDate = new Date();
+  const hasStarted = formation.startDate <= currentDate;
+  const hasEnded = formation.endDate < currentDate;
+  const getStatusColor = () => {
+    if (hasEnded) {
+      return "red"; // Color for finished event
+    } else if (hasStarted) {
+      return "green"; // Color for ongoing event
+    } else {
+      return "orange"; // Color for upcoming event
+    }
+  };
   return (
     <Card
       sx={{
@@ -32,7 +46,7 @@ const CardFormation: React.FC<Props> = (formation) => {
       }}
     >
       <Typography variant="h5" component="div" marginBottom={2} align="center">
-        {formation.name}
+        {formation.title}
       </Typography>
       <Typography variant="body2">{formation.description}</Typography>
       <Typography variant="body2" marginTop={2}>
@@ -58,9 +72,31 @@ const CardFormation: React.FC<Props> = (formation) => {
             <Typography variant="h5" fontSize="2em">
               +{formation.nbBonusPoint}
             </Typography>
-            <Typography variant="body2">Bonus Points</Typography>
+            <Typography variant="body2">Points bonus</Typography>
           </Stack>
         </Grid>
+        <Stack
+          direction="row"
+          alignItems="center"
+          marginTop={2}
+          justifyItems="center"
+          justifyContent="center"
+          padding={1}
+        >
+          <div
+            style={{
+              backgroundColor: getStatusColor(),
+              width: "15px",
+              height: "15px",
+              borderRadius: "50%",
+            }}
+          />
+          <Typography variant="body2" marginLeft={1}>
+            {hasEnded && "Terminé"}
+            {hasStarted && !hasEnded && "Disponible"}
+            {!hasStarted && "A venir"}
+          </Typography>
+        </Stack>
       </Grid>
 
       <CardActions>
