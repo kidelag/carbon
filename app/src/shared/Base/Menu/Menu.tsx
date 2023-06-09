@@ -11,6 +11,7 @@ import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import SchoolIcon from "@mui/icons-material/School";
 import ChecklistRtlIcon from "@mui/icons-material/ChecklistRtl";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import DashboardIcon from "@mui/icons-material/Dashboard";
 
 import Badge from "@mui/material/Badge";
 import AppBar from "@mui/material/AppBar";
@@ -23,21 +24,21 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
-import NightlightIcon from '@mui/icons-material/Nightlight';
-import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
+import NightlightIcon from "@mui/icons-material/Nightlight";
+import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
 import Toolbar from "@mui/material/Toolbar";
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
-import { styled } from '@mui/material/styles';
-import Rating, { IconContainerProps } from '@mui/material/Rating';
-import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
-import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
-import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
-import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
+import { styled } from "@mui/material/styles";
+import Rating, { IconContainerProps } from "@mui/material/Rating";
+import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
+import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
+import SentimentSatisfiedIcon from "@mui/icons-material/SentimentSatisfied";
+import SentimentVerySatisfiedIcon from "@mui/icons-material/SentimentVerySatisfied";
 
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
@@ -58,30 +59,35 @@ const colorText = "white";
 
 const listItemMenu = [
   {
+    title: "Dashboard",
+    link: "/",
+    icon: <DashboardIcon />,
+  },
+  {
     title: "Profil",
     link: "/profile",
     icon: <PersonIcon />,
   },
-  {
-    title: "Progression",
-    link: "/profile",
-    icon: <ChecklistRtlIcon />,
-  },
+  // {
+  //   title: "Progression",
+  //   link: "/profile",
+  //   icon: <ChecklistRtlIcon />,
+  // },
   {
     title: "Consultants",
     link: "/consultants",
     icon: <PeopleIcon />,
   },
   {
-    title: "Challenge",
-    link: "/profile",
+    title: "Evénements",
+    link: "/evenements",
     icon: <EmojiEventsIcon />,
   },
-  {
-    title: "Formation",
-    link: "/formations",
-    icon: <SchoolIcon />,
-  },
+  // {
+  //   title: "Formation",
+  //   link: "/formations",
+  //   icon: <SchoolIcon />,
+  // },
   {
     title: "Documents",
     link: "/profile",
@@ -95,7 +101,7 @@ const listItemMenu = [
 ];
 
 const StyledRating = styled(Rating)(({ theme }) => ({
-  '& .MuiRating-iconEmpty .MuiSvgIcon-root': {
+  "& .MuiRating-iconEmpty .MuiSvgIcon-root": {
     color: theme.palette.action.disabled,
   },
 }));
@@ -108,23 +114,23 @@ const customIcons: {
 } = {
   1: {
     icon: <SentimentVeryDissatisfiedIcon color="error" />,
-    label: 'Very Dissatisfied',
+    label: "Very Dissatisfied",
   },
   2: {
     icon: <SentimentDissatisfiedIcon color="error" />,
-    label: 'Dissatisfied',
+    label: "Dissatisfied",
   },
   3: {
     icon: <SentimentSatisfiedIcon color="warning" />,
-    label: 'Neutral',
+    label: "Neutral",
   },
   4: {
     icon: <SentimentSatisfiedAltIcon color="success" />,
-    label: 'Satisfied',
+    label: "Satisfied",
   },
   5: {
     icon: <SentimentVerySatisfiedIcon color="success" />,
-    label: 'Very Satisfied',
+    label: "Very Satisfied",
   },
 };
 
@@ -246,17 +252,17 @@ export const Menu: React.FC<Props> = ({ page }) => {
                   justifyContent: "flex-end",
                 }}
               >
-                <Button 
-                  variant="contained"
-                  onClick={() => setOpen(true)}
-                
-                ><SentimentSatisfiedAltIcon/></Button>
+                <Button variant="contained" onClick={() => setOpen(true)}>
+                  <SentimentSatisfiedAltIcon />
+                </Button>
                 <IconButton edge="start" sx={{ ml: 2, mr: 2 }}>
                   <Badge badgeContent={4} color="error">
                     <NotificationsIcon color="action" />
                   </Badge>
                 </IconButton>
-                <Button variant="outlined"><NightlightIcon/></Button>
+                <Button variant="outlined">
+                  <NightlightIcon />
+                </Button>
               </Box>
               <div>
                 <Dialog
@@ -269,12 +275,17 @@ export const Menu: React.FC<Props> = ({ page }) => {
                     {"Donnez nous votre humeur du moment"}
                   </DialogTitle>
                   <DialogContent>
-                    <DialogContentText id="alert-dialog-description" sx={{m: '1vh auto', textAlign: 'center'}}>
+                    <DialogContentText
+                      id="alert-dialog-description"
+                      sx={{ m: "1vh auto", textAlign: "center" }}
+                    >
                       <StyledRating
                         name="highlight-selected-only"
                         defaultValue={3}
                         IconContainerComponent={IconContainer}
-                        getLabelText={(value: number) => customIcons[value].label}
+                        getLabelText={(value: number) =>
+                          customIcons[value].label
+                        }
                         highlightSelectedOnly
                       />
                     </DialogContentText>
