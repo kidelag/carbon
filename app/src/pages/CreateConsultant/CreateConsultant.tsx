@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, useEffect } from "react";
 import {
   Container,
   Grid,
@@ -22,18 +22,6 @@ const steps: any = {
   support: ["Step 1"],
 }
 
-const skills = [ //connect API
-  "HTML",
-  "CSS",
-  "JavaScript",
-  "React",
-  "Node.js",
-  "Python",
-  "Java",
-  "Ruby",
-  "C++",
-  "SQL",
-];
 
 const CreateConsultant: React.FC = () => {
   const url =
@@ -45,6 +33,8 @@ const CreateConsultant: React.FC = () => {
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
   const [userType, setUserType] = useState('consultant');
+  const [competences, setCompetences] = useState<any>([]);
+
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -71,35 +61,77 @@ const CreateConsultant: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    axios.get(url + "/competences").then(({ data }) => {
+      const competencessRaw = data.map((item: any) => ({
+        id: item.id,
+        title: item.title,
+      }));
+
+      setCompetences(competencessRaw);
+      console.log(competences)
+    });
+  }, []);
+
   const handleSubmit = async () => {
-    /* TODO Connect API */
-    /*const fullAddress = `${formData.roadNumber} ${formData.roadName}, ${formData.postalCode} ${formData.city}`;
-    const updatedFormData = {
-      createUsersDto: {
+    try {
+
+      const fullAddress = `${formData.roadNumber} ${formData.roadName}, ${formData.postalCode} ${formData.city}`;
+      const updatedFormData = {
         email: formData.email,
-        password with firstname and lastname(3 first letters majuscule)
-        password:
-          formData.firstname + formData.lastname.substring(0, 3).toUpperCase(),
-        role: "CONSULTANT",
+        //password with firstname and lastname(3 first letters majuscule)
+        password: formData.firstname + formData.lastname.substring(0, 3).toUpperCase(),
+        role: userType.toUpperCase(),
         firstname: formData.firstname,
         lastname: formData.lastname,
-      },
-      createConsultantDto: {
-        tjm: formData.tjm,
-        salary: formData.salary,
-        address: fullAddress,
-        tel: formData.phoneNumber,
-        startDate: "",
-        job: formData.jobTitle,
-        position: "",
-        skills: selectedSkills,
-      },
-    };
+        birthdate: formData.birthdate,
+      }
 
-    console.log("Form Data:", updatedFormData);
-    await axios.post(url + "/users", updatedFormData).then((res) => {
-      console.log("res", res);
-    });*/
+      
+
+      let roleFormData = {}
+
+      await axios
+        .post(url + "/users", updatedFormData)
+        .then((res) => {
+          // res.data.identifiers[0].id
+
+          if(userType === 'consultant'){
+            roleFormData = {
+              user: res.data.identifiers[0].id,
+              tjm: parseInt(formData.tjm),
+              salary: parseInt(formData.salary),
+              address: fullAddress,
+              tel: formData.tel,
+              startDate: new Date(),
+              job: formData.jobTitle,
+              position: "",
+              description: "",
+              wantedCompetences: selectedSkills,
+            }
+            axios.post(url + "/consultant", roleFormData).then((res) => (console.log(res)))
+          }
+          else if(userType === 'client'){
+            roleFormData = {
+              user: res.data.identifiers[0].id,
+              name: formData.nameEntreprise,
+              description: formData.descriptionEntreprise,
+              wantedCompetences: selectedSkills,
+            }
+            axios.post(url + "/entreprise", roleFormData).then((res) => (console.log(res)))
+          }
+          else {
+            console.log('Autre')
+          }
+
+
+        })
+
+      console.log("Form Data:", updatedFormData);
+    }
+    catch (e) {
+      console.log(e)
+    }
   };
 
   return (
@@ -151,8 +183,9 @@ const CreateConsultant: React.FC = () => {
               />
               <TextField
                 size="small"
-                label="Date de naissance"
-                name="birthDate"
+                // label="Date de naissance"
+                name="birthdate"
+                type="date"
                 onChange={handleChange}
                 fullWidth
                 margin="normal"
@@ -219,6 +252,16 @@ const CreateConsultant: React.FC = () => {
                     margin="normal"
                   />
                 </Grid>
+                <Grid item xs={12} sm={12}>
+                  <TextField
+                    size="small"
+                    label="Téléphone"
+                    name="tel"
+                    onChange={handleChange}
+                    fullWidth
+                    margin="normal"
+                  />
+                </Grid>
               </Grid>
             </>
           )}
@@ -260,19 +303,19 @@ const CreateConsultant: React.FC = () => {
                 Sélectionnez les compétences du consultant
               </Typography>
               <Grid container spacing={2}>
-                {skills.map((skill) => (
-                  <Grid item key={skill} xs={3}>
+                {competences.map((item:any, index:any) => (
+                  <Grid item key={index} xs={3}>
                     <Button
                       variant={
-                        selectedSkills.includes(skill)
+                        selectedSkills.includes(item.id)
                           ? "contained"
                           : "outlined"
                       }
                       color="primary"
-                      onClick={() => handleSkillSelection(skill)}
+                      onClick={() => handleSkillSelection(item.id)}
                       fullWidth
                     >
-                      {skill}
+                      {item.title}
                     </Button>
                   </Grid>
                 ))}
@@ -286,19 +329,19 @@ const CreateConsultant: React.FC = () => {
                 Sélectionnez les compétences attendus du client
               </Typography>
               <Grid container spacing={2}>
-                {skills.map((skill) => (
-                  <Grid item key={skill} xs={3}>
+                {competences.map((item:any, index:any) => (
+                  <Grid item key={index} xs={3}>
                     <Button
                       variant={
-                        selectedSkills.includes(skill)
+                        selectedSkills.includes(item.id)
                           ? "contained"
                           : "outlined"
                       }
                       color="primary"
-                      onClick={() => handleSkillSelection(skill)}
+                      onClick={() => handleSkillSelection(item.id)}
                       fullWidth
                     >
-                      {skill}
+                      {item.title}
                     </Button>
                   </Grid>
                 ))}
@@ -310,7 +353,6 @@ const CreateConsultant: React.FC = () => {
 
           {activeStep === 3 && userType === 'consultant' && (
             <>
-              {/* <Typography variant="h6">Step 1</Typography> */}
               <TextField
                 size="small"
                 label="Intitulé du poste"
@@ -325,6 +367,7 @@ const CreateConsultant: React.FC = () => {
                 name="salary"
                 onChange={handleChange}
                 fullWidth
+                type="number"
                 margin="normal"
                 helperText="Indiquez votre salaire brut annuel"
               />
@@ -333,6 +376,7 @@ const CreateConsultant: React.FC = () => {
                 size="small"
                 label="Votre taux journalier moyen"
                 name="tjm"
+                type="number"
                 onChange={handleChange}
                 fullWidth
                 margin="normal"
