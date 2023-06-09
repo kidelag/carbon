@@ -13,7 +13,11 @@ export class EventsService {
 
   create(createEventDto: CreateEventDto) {
     const event = this.eventsRepository.create(createEventDto);
-    event.competences = createEventDto.competences.map(id => ({id} as unknown as Competence));
+    
+    //if (createEventDto.competences) is not null, then map each id to a Competence object
+    if (createEventDto.competences)
+     event.competences = createEventDto.competences.map(id => ({id} as unknown as Competence));
+     
     return this.eventsRepository.save(event);
   }
 

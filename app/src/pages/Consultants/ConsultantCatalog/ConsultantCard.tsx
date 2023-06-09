@@ -63,7 +63,7 @@ export const ConsultantCard: React.FC<Props> = (consultant) => {
       sx={{
         backgroundColor: "#eaeaea",
         borderRadius: "30px",
-        maxWidth: "260px",
+        maxWidth: "280px",
         position: "relative",
         paddingTop: "15px",
         paddingBottom: "15px",
@@ -94,7 +94,7 @@ export const ConsultantCard: React.FC<Props> = (consultant) => {
           alignItems="center"
         >
           <Stack direction="column">
-            <Typography fontSize={20} variant="h5" component="div">
+            <Typography fontSize={18} variant="h5" component="div">
               {selectIsAdmin
                 ? `${consultant.consultant.lastname} ${consultant.consultant.firstname}`
                 : consultant.consultant.firstname}
@@ -113,7 +113,7 @@ export const ConsultantCard: React.FC<Props> = (consultant) => {
                   color: "text.secondary",
                 }}
               >
-                / jour
+                /jour
               </span>
             </Typography>
           </Stack>
