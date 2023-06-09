@@ -73,7 +73,7 @@ const DialogForm: React.FC<DialogFormProps> = ({
       open: eventData.open,
       competences: eventData.competences,
       difficulty: parseFloat(eventData.difficulty.toString()),
-      nbBonusPoint: eventData.nbBonusPoint,
+      nbBonusPoint: parseInt(eventData.nbBonusPoint.toString()),
       type: eventData.type,
     };
     console.log(eventData);

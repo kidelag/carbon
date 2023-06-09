@@ -30,7 +30,6 @@ export class CreateEventDto {
   public competences: Competence[];
 
   @IsDefined()
-  @IsNumber()
   @Min(1)
   @Max(5)
   public difficulty: number;

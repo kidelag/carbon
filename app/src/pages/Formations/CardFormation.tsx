@@ -10,7 +10,7 @@ import {
 import React from "react";
 
 interface Props {
-  name: string;
+  title: string;
   description: string;
   difficulty: string;
   nbParticipant: string;
@@ -32,7 +32,7 @@ const CardFormation: React.FC<Props> = (formation) => {
       }}
     >
       <Typography variant="h5" component="div" marginBottom={2} align="center">
-        {formation.name}
+        {formation.title}
       </Typography>
       <Typography variant="body2">{formation.description}</Typography>
       <Typography variant="body2" marginTop={2}>
@@ -58,7 +58,7 @@ const CardFormation: React.FC<Props> = (formation) => {
             <Typography variant="h5" fontSize="2em">
               +{formation.nbBonusPoint}
             </Typography>
-            <Typography variant="body2">Bonus Points</Typography>
+            <Typography variant="body2">Points bonus</Typography>
           </Stack>
         </Grid>
       </Grid>
