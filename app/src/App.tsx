@@ -107,10 +107,10 @@ export const App = () => {
             }
           />
           <Route
-            path="/formations"
+            path="/evenements"
             element={
               <>
-                <Base checkingToken={checkingToken} page="Formations">
+                <Base checkingToken={checkingToken} page="Evenement">
                   <Formations />
                 </Base>
               </>

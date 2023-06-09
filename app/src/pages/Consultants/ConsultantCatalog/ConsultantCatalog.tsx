@@ -62,7 +62,7 @@ export const ConsultantCatalog: React.FC<Props> = () => {
     setCurrentPage(page);
   };
 
-    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const searchTerm = event.target.value;
     setSearchTerm(searchTerm);
     setCurrentPage(1);
@@ -94,7 +94,7 @@ export const ConsultantCatalog: React.FC<Props> = () => {
         alignItems="center"
       >
         <Typography variant="h4" align="center">
-          Découvrez nos 130 experts !
+          {`Découvrez nos ${consultants.length} consultants !`}
         </Typography>
         <TextField
           id="outlined-basic"

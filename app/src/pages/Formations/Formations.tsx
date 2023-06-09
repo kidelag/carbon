@@ -52,7 +52,7 @@ const Formations: React.FC = () => {
         alignItems="center"
       >
         <Typography variant="h4" align="center">
-          Découvrez nos formations !
+          Découvrez nos événements !
         </Typography>
         {/* {alertMessage.open && (
           <Alert
