@@ -9,6 +9,7 @@ import { User } from "../../users/entities/users.entity";
 import {Competence} from "../../competences/entities/competence.entity";
 import {Mission} from "../../missions/entities/mission.entity";
 import {ConsultCompetence} from "../../consult-competence/entities/consult-competence.entity";
+import {Event} from "../../events/entities/event.entity";
 
 @Entity()
 export class Consultant {
@@ -91,4 +92,10 @@ export class Consultant {
     eager: true
   })
   public consulCompetence: ConsultCompetence[]
+
+  @ManyToMany(() => Event, {
+    eager: true
+  })
+  @JoinTable()
+  public events: Event[];
 }
