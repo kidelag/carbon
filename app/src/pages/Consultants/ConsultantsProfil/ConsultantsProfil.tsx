@@ -10,7 +10,7 @@ import {
 import Rating from '@mui/material/Rating';
 
 import { useEffect, useState } from "react";
-import styles from "./ConsultantsProfil.module.scss"
+import styles from './ConsultantsProfil.module.scss'
 import Events from "../../Home/Events/Events";
 
 interface Props {
