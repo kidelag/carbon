@@ -5,6 +5,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Consultant } from "./entities/consultant.entity";
 import {Competence} from "../competences/entities/competence.entity";
+import {Event} from "../events/entities/event.entity";
 
 @Injectable()
 export class ConsultantService {
@@ -17,7 +18,8 @@ export class ConsultantService {
     const consultant = this.consultantRepository.create(createConsultantDto)
     if (createConsultantDto.wantedCompetences)
       consultant.wantedCompetences = createConsultantDto.wantedCompetences.map(id => ({id} as unknown as Competence));
-
+    if (createConsultantDto.events)
+      consultant.events = createConsultantDto.events.map(id => ({id} as unknown as Event))
     return this.consultantRepository.save(consultant);
   }
 
