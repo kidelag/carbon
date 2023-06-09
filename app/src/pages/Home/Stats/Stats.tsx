@@ -28,11 +28,6 @@ export const Stats: React.FC<Props> = () => {
                     <div className={styles.number}>50</div>
                 </div>
             </div>
-            <div className={styles.more}>
-                <Stack direction="row" sx={{margin: '0 auto', alignItems: 'center'}}>
-                    <Button variant="contained" color='error' sx={{margin: '0 auto'}}>Voir plus</Button>
-                </Stack>
-            </div>
         </div>
     
     </div>
