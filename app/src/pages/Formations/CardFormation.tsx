@@ -13,11 +13,12 @@ interface Props {
   name: string;
   description: string;
   difficulty: string;
-  totalParticipants: Number;
-  bonusPoints: Number;
+  nbParticipant: string;
+  nbBonusPoint: string;
 }
 
 const CardFormation: React.FC<Props> = (formation) => {
+  console.log(formation);
   return (
     <Card
       sx={{
@@ -48,14 +49,14 @@ const CardFormation: React.FC<Props> = (formation) => {
           <Stack direction="column">
             <Typography variant="body2">Participants</Typography>
             <Typography variant="h5" fontSize="1em">
-              {formation.totalParticipants.toString()}
+              {formation.nbParticipant}
             </Typography>
           </Stack>
         </Grid>
         <Grid item xs={6}>
           <Stack direction="column">
             <Typography variant="h5" fontSize="2em">
-              +{formation.bonusPoints.toString()}
+              +{formation.nbBonusPoint}
             </Typography>
             <Typography variant="body2">Bonus Points</Typography>
           </Stack>
