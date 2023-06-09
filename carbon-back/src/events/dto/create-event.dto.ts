@@ -1,7 +1,9 @@
 import {User} from "../../users/entities/users.entity";
-import {IsDefined} from "class-validator";
+import {IsDefined, IsNumber, Max, Min} from "class-validator";
 import {Type} from "class-transformer";
 import {Competence} from "../../competences/entities/competence.entity";
+
+export type EventType = 'formation' | 'challenge';
 
 export class CreateEventDto {
   @IsDefined()
@@ -10,7 +12,7 @@ export class CreateEventDto {
   @IsDefined()
   public description: string;
 
-  @IsDefined()
+  // @IsDefined()
   public user: User;
 
   @IsDefined()
@@ -24,6 +26,18 @@ export class CreateEventDto {
   @IsDefined()
   public open: boolean;
 
-  @IsDefined()
+  // @IsDefined()
   public competences: Competence[];
+
+  @IsDefined()
+  @IsNumber()
+  @Min(1)
+  @Max(5)
+  public difficulty: number;
+
+  @IsDefined()
+  public nbBonusPoint: number;
+
+  @IsDefined()
+  public type: EventType;
 }
