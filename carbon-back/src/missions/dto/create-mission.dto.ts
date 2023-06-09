@@ -19,6 +19,8 @@ export class CreateMissionDto {
 
     public clientReview: string;
 
+    public clientRating: number;
+
     @IsDefined()
     @Type(() => Date)
     public startDate: Date;
