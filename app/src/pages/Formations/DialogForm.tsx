@@ -15,8 +15,12 @@ import {
   FormLabel,
   RadioGroup,
   Checkbox,
+  Fab
 } from "@mui/material";
 import axios from "axios";
+
+import AddIcon from '@mui/icons-material/Add';
+
 
 interface DialogFormProps {
   open: boolean;
@@ -183,16 +187,9 @@ const DialogForm: React.FC<DialogFormProps> = ({
             margin="dense"
             fullWidth
           />
-          <TextField
-            label="Nombre de points bonus"
-            type="number"
-            name="nbBonusPoint"
-            value={eventData.nbBonusPoint}
-            onChange={handleChange}
-            required
-            margin="dense"
-            fullWidth
-          />
+          <label htmlFor="upload-photo">
+            <input type="file"  accept='application/pdf'/>
+          </label>
           <FormControlLabel
             control={
               <Checkbox

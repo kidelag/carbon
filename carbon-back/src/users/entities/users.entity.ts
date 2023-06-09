@@ -37,6 +37,12 @@ export class User {
 
   @Column({
     nullable: false,
+    type: "datetime"
+  })
+  public birthdate: Date;
+
+  @Column({
+    nullable: false,
     type: "enum",
     enum: Role,
   })

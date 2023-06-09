@@ -6,7 +6,9 @@ export class Mission {
     @PrimaryGeneratedColumn("uuid")
     public id: string;
 
-    @ManyToOne(() => Consultant)
+    @ManyToOne(() => Consultant, {
+        eager: true
+    })
     @JoinColumn()
     public consultant: Consultant
 
@@ -49,7 +51,7 @@ export class Mission {
     public startDate: Date;
 
     @Column({
-        nullable: true,
+        nullable: false,
         type: "datetime"
     })
     public endDate: Date;
