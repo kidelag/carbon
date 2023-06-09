@@ -110,7 +110,7 @@ export const App = () => {
             path="/evenements"
             element={
               <>
-                <Base checkingToken={checkingToken} page="Evenement">
+                <Base checkingToken={checkingToken} page="Evénements">
                   <Formations />
                 </Base>
               </>
@@ -145,7 +145,7 @@ export const App = () => {
             }
           />
           <Route
-            path="/profile"
+            path="/profil"
             element={
               <>
                 <Base checkingToken={checkingToken} page="Profil">

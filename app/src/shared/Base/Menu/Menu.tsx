@@ -58,14 +58,14 @@ const drawWidth = 220;
 const colorText = "white";
 
 const listItemMenu = [
-  {
+  /*{
     title: "Dashboard",
     link: "/",
     icon: <DashboardIcon />,
-  },
+  },*/
   {
     title: "Profil",
-    link: "/profile",
+    link: "/profil",
     icon: <PersonIcon />,
   },
   // {
