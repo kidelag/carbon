@@ -8,6 +8,7 @@ import {
 import { User } from "../../users/entities/users.entity";
 import {Competence} from "../../competences/entities/competence.entity";
 import {Mission} from "../../missions/entities/mission.entity";
+import {ConsultCompetence} from "../../consult-competence/entities/consult-competence.entity";
 
 @Entity()
 export class Consultant {
@@ -85,4 +86,9 @@ export class Consultant {
     eager: true
   })
   public missions: Mission[]
+
+  @OneToMany(() => ConsultCompetence, (consultant) => consultant.consultant, {
+    eager: true
+  })
+  public consulCompetence: ConsultCompetence[]
 }

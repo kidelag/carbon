@@ -1,6 +1,7 @@
-import {Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {Event} from "../../events/entities/event.entity";
 import {Entreprise} from "../../entreprise/entities/entreprise.entity";
+import {ConsultCompetence} from "../../consult-competence/entities/consult-competence.entity";
 
 @Entity()
 export class Competence {
@@ -19,4 +20,7 @@ export class Competence {
 
     @ManyToMany(() => Entreprise, entreprise => entreprise.wantedCompetences)
     public entreprises: Entreprise[];
+
+    @OneToMany(() => ConsultCompetence, (competence) => competence.competence)
+    public consultCompetence: ConsultCompetence[];
 }
