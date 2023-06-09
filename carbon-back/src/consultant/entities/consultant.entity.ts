@@ -79,4 +79,5 @@ export class Consultant {
   })
   @JoinTable()
   public wantedCompetences: Competence[]
+
 }
