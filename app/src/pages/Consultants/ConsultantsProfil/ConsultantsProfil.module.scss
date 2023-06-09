@@ -6,44 +6,8 @@
 
     .wrapper {
         display: flex;
-<<<<<<< HEAD
-        .profil_img {
-            flex: 1; 
-            margin: auto;
-            display: flex;
-            justify-content: center;
-            img {
-                width: 250px;
-                height: 350px;
-                object-fit: cover;
-            }
-            
-        }
-        .about {
-            flex: 2;
-            background-color: rgb(235, 235, 235);
-            border-radius: 10px;
-            padding: 3vh;
-
-            .first, .second {
-                display: flex;
-                justify-content: space-between;
-                text-align: left;
-
-                >div {
-                flex: 1;
-                    
-                    p {
-                        font-weight: bold;
-                    }
-                }
-            }
-        }
-
-=======
         margin: 3vh 2vw;
         padding: 2vh 0;
->>>>>>> 295550745475a22dae5f6073bedbd2e310030f65
     }
 
     .wrapper_unique {
