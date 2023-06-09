@@ -6,9 +6,7 @@ export class Mission {
     @PrimaryGeneratedColumn("uuid")
     public id: string;
 
-    @ManyToOne(() => Consultant, {
-        eager: true
-    })
+    @ManyToOne(() => Consultant)
     @JoinColumn()
     public consultant: Consultant
 

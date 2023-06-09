@@ -1,12 +1,13 @@
 import {
   Column,
   Entity,
-  JoinColumn, JoinTable, ManyToMany,
+  JoinColumn, JoinTable, ManyToMany, OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { User } from "../../users/entities/users.entity";
 import {Competence} from "../../competences/entities/competence.entity";
+import {Mission} from "../../missions/entities/mission.entity";
 
 @Entity()
 export class Consultant {
@@ -80,4 +81,8 @@ export class Consultant {
   @JoinTable()
   public wantedCompetences: Competence[]
 
+  @OneToMany(() => Mission, (mission) => mission.consultant, {
+    eager: true
+  })
+  public missions: Mission[]
 }
