@@ -66,4 +66,5 @@ export class Consultant {
     length: 255,
   })
   public job: string;
+
 }

@@ -20,18 +20,45 @@ import CustomerOption from "./CustomerOption/CustomerOption";
 import SalaryEvolution from "./SalaryEvolution/SalaryEvolution";
 import FormationsWanted from "./FormationsWanted/FormationsWanted";
 import Engagement from "./Engagement/Engagement";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+import FormCreateMission from "./FormCreateMission";
+import { useParams } from "react-router-dom";
 
 interface Props {}
 
+interface AlertMessage {
+  open: boolean;
+  message: string;
+  severity: "success" | "info" | "warning" | "error" | undefined;
+}
 export const ConsultantsProfil: React.FC<Props> = () => {
   const url =
     process.env.NODE_ENV === "production"
       ? process.env.REACT_APP_URL_PROD
       : process.env.REACT_APP_URL_DEV;
 
+  const params = useParams();
+
   const [missions, setMissions] = React.useState<any>([]);
+  const [openModal, setOpenModal] = useState(false);
+  const [alertMessage, setAlertMessage] = useState<AlertMessage>({
+    open: false,
+    message: "",
+    severity: "success",
+  });
+
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+  const handleCloseAlert = () => {
+    setAlertMessage({ open: false, message: "", severity: "success" });
+  };
+
   useEffect(() => {
     async function fetchData() {
       const res = await axios.get(url + "/missions");
@@ -50,6 +77,16 @@ export const ConsultantsProfil: React.FC<Props> = () => {
         <div className={styles.name}>
           Franck Durant, développeur web depuis 5 ans
         </div>
+
+        <Button variant="contained" onClick={handleOpenModal}>
+          Créer un évènement
+        </Button>
+        <FormCreateMission
+          consultantId={params.id }
+          open={openModal}
+          onClose={handleCloseModal}
+          setAlertMessage={setAlertMessage}
+        />
 
         <div className={styles.wrapper}>
           <PersonInfo />
