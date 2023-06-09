@@ -58,6 +58,11 @@ const drawWidth = 220;
 const colorText = "white";
 
 const listItemMenu = [
+  /*{
+    title: "Dashboard",
+    link: "/",
+    icon: <DashboardIcon />,
+  },*/
   {
     title: "Dashboard",
     link: "/",
@@ -65,7 +70,7 @@ const listItemMenu = [
   },
   {
     title: "Profil",
-    link: "/profile",
+    link: "/profil",
     icon: <PersonIcon />,
   },
   // {
@@ -158,7 +163,7 @@ export const Menu: React.FC<Props> = ({ page }) => {
   };
 
   const bgColor: any = {
-    SUPPORT: "#bd1f1f",
+    SUPPORT: "#EA4335",
     CONSULTANT: "#00BB7E",
     CLIENT: "#5B98D2",
   };

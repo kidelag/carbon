@@ -1,6 +1,7 @@
 import { User } from "../../users/entities/users.entity";
 import { IsDefined, IsNumber, MaxLength } from "class-validator";
 import { Type } from "class-transformer";
+import {Competence} from "../../competences/entities/competence.entity";
 
 export class CreateConsultantDto {
   @IsDefined()
@@ -30,7 +31,10 @@ export class CreateConsultantDto {
   public job: string;
 
   @MaxLength(30)
-  public position: string = "junior";
+  public position: string;
 
-  public skills: string = "[]";
+  @IsDefined()
+  public description: string;
+
+  public wantedCompetences: Competence[];
 }

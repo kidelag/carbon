@@ -1,5 +1,6 @@
 import {Role} from "../../authentication/authentication.enum";
-import {IsDefined, IsEmail} from "class-validator";
+import {IsDate, IsDateString, IsDefined, IsEmail, IsString} from "class-validator";
+import {Type} from "class-transformer";
 
 export class CreateUsersDto {
     @IsDefined()
@@ -14,6 +15,10 @@ export class CreateUsersDto {
 
     @IsDefined()
     public password: string;
+
+    @IsDate()
+    @Type(() => Date)
+    public birthdate: Date;
 
     @IsDefined()
     public role: Role;

@@ -1,11 +1,12 @@
 import {
   Column,
   Entity,
-  JoinColumn,
+  JoinColumn, JoinTable, ManyToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { User } from "../../users/entities/users.entity";
+import {Competence} from "../../competences/entities/competence.entity";
 
 @Entity()
 export class Consultant {
@@ -52,7 +53,7 @@ export class Consultant {
     type: "char",
     length: 255,
   })
-  public position: string;
+  public position: string = "junior";
 
   @Column({
     nullable: true,
@@ -66,4 +67,16 @@ export class Consultant {
     length: 255,
   })
   public job: string;
+
+  @Column({
+    nullable: false,
+    type: "text"
+  })
+  public description: string;
+
+  @ManyToMany(() => Competence, {
+    eager: true
+  })
+  @JoinTable()
+  public wantedCompetences: Competence[]
 }

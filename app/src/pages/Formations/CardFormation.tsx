@@ -63,16 +63,13 @@ const CardFormation: React.FC<Props> = (formation) => {
           <Stack direction="column">
             <Typography variant="body2">Participants</Typography>
             <Typography variant="h5" fontSize="1em">
-              {formation.nbParticipant}
+              {formation.nbParticipant == null ? 0 : formation.nbParticipant }
             </Typography>
           </Stack>
         </Grid>
         <Grid item xs={6}>
           <Stack direction="column">
-            <Typography variant="h5" fontSize="2em">
-              +{formation.nbBonusPoint}
-            </Typography>
-            <Typography variant="body2">Points bonus</Typography>
+            <Button variant='contained' sx={{margin: '1vh 0'}}>Javascript</Button> {/* Connect API */}
           </Stack>
         </Grid>
         <Stack

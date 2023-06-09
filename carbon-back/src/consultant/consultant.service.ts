@@ -4,6 +4,7 @@ import { UpdateConsultantDto } from "./dto/update-consultant.dto";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Consultant } from "./entities/consultant.entity";
+import {Competence} from "../competences/entities/competence.entity";
 
 @Injectable()
 export class ConsultantService {
@@ -13,7 +14,11 @@ export class ConsultantService {
   ) {}
 
   create(createConsultantDto: CreateConsultantDto) {
-    return this.consultantRepository.insert({ ...createConsultantDto });
+    const consultant = this.consultantRepository.create(createConsultantDto)
+    if (createConsultantDto.wantedCompetences)
+      consultant.wantedCompetences = createConsultantDto.wantedCompetences.map(id => ({id} as unknown as Competence));
+
+    return this.consultantRepository.save(consultant);
   }
 
   findAll() {

@@ -23,15 +23,12 @@ export class UsersController {
   }
 
   @Post()
-  public async createUser(@Body(ValidationPipe) body: {createUsersDto: CreateUsersDto, createConsultantDto: CreateConsultantDto}) {
-    if (await this.usersService.getUserByEmail(body.createUsersDto.email)) {
+  public async createUser(@Body(ValidationPipe) createUsersDto: CreateUsersDto) {
+    if (await this.usersService.getUserByEmail(createUsersDto.email)) {
       return new BadRequestException('User already exists')
     }
-    if(body.createUsersDto.role === Role.CONSULTANT && !body.createConsultantDto) {
-      return new BadRequestException('Missing datas for consultant')
-    }
-    body.createUsersDto.password = await hash(body.createUsersDto.password, 10)
-    return this.usersService.createUser(body.createUsersDto);
+    createUsersDto.password = await hash(createUsersDto.password, 10)
+    return this.usersService.createUser(createUsersDto);
   }
 
   @AuthenticationRequired()
