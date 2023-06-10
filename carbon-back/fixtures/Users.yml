@@ -6,6 +6,7 @@ items:
     email: "{{internet.email}}"
     password: "test"
     role: '{{helpers.arrayElement(["SUPPORT","CLIENT","CONSULTANT"])}}'
+    birthdate: "{{date.past(30, 'YYYY-MM-DD')}}"
 
   user11:
     firstname: "test"
@@ -13,3 +14,6 @@ items:
     email: "e.eniona2@gmail.com"
     password: "$2a$10$4LgROJDPo/xnZ2AcHfEffuA4UAGgbC78XGcxRUuFOFa73GSRoQV/W"
     role: "SUPPORT"
+    birthdate: "{{date.past(30, 'YYYY-MM-DD')}}"
+
+    

@@ -48,4 +48,9 @@ export class ConsultantController {
   fetchAllConsultant() {
     return this.consultantService.findAllWithUser();
   }
+
+  @Get(":id/events")
+  getEventsByConsultantId(@Param("id") id: string) {
+    return this.consultantService.getEventsByConsultantId(id);
+  }
 }
