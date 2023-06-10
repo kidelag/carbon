@@ -69,9 +69,8 @@ export const ConsultantsProfil: React.FC<Props> = () => {
 
   useEffect(() => {
     async function fetchData() {
-      await axios.get(url + '/users/' + params.id).then((res) => setUserInfo(res.data)).then(() => console.log(userInfo))
-      await axios.get(url + '/consultant/' + params.consultant_id)
-                 .then((res) => setConsultantInfo(res.data))
+      await axios.get(url + '/consultant/' + params.consultant_id).then((res) => setConsultantInfo(res.data))
+      await axios.get(url + '/users/' + params.user_id).then((res) => setUserInfo(res.data)).then(() => console.log(userInfo))
 
       const res = await axios.get(url + "/missions");
       if (res?.data.length > 0) {
@@ -121,7 +120,7 @@ export const ConsultantsProfil: React.FC<Props> = () => {
 
         <div className={styles.wrapper}>
           <SalaryEvolution listOfSalaryEvolution={listSalaryEvolutionsConsultant}/>
-          <FormationsWanted listOfComptencesWanted={listCompetencesWantedConsultant}/>
+          <FormationsWanted title={'Souhait de formation'} listOfComptencesWanted={listCompetencesWantedConsultant}/>
           <Engagement listOfEngagments={listEngagmentsConsultant}/>
         </div>
 

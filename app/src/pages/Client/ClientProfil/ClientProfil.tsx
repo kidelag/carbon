@@ -9,20 +9,22 @@ import {
   } from "@mui/material";
   import Rating from "@mui/material/Rating";
   
-  import styles from "./MyProfilConsultant.module.scss";
-  import PersonInfo from "../ConsultantsProfil/PersonInfo/PersonInfo";
-  import Statistiques from "../ConsultantsProfil/Statistiques/Statistiques";
-  import BadgeObtained from "../ConsultantsProfil/BadgeObtained/BadgeObtained";
-  import FormationsObtained from "../ConsultantsProfil/FormationsObtained/FormationsObtained";
-  import Skills from "../ConsultantsProfil/Skills/Skills";
-  import MissionsDone from "../ConsultantsProfil/MissionsDone/MissionsDone";
-  import CustomerOption from "../ConsultantsProfil/CustomerOption/CustomerOption";
-  import SalaryEvolution from "../ConsultantsProfil/SalaryEvolution/SalaryEvolution";
-  import FormationsWanted from "../ConsultantsProfil/FormationsWanted/FormationsWanted";
-  import Engagement from "../ConsultantsProfil/Engagement/Engagement";
-  import React, { useEffect, useState } from "react";
+  import styles from "./ClientProfil.module.scss";
+  import PersonInfo from "../../Consultants/ConsultantsProfil/PersonInfo/PersonInfo";
+  import Statistiques from "../../Consultants/ConsultantsProfil/Statistiques/Statistiques";
+  import BadgeObtained from "../../Consultants/ConsultantsProfil/BadgeObtained/BadgeObtained";
+  import FormationsObtained from "../../Consultants/ConsultantsProfil/FormationsObtained/FormationsObtained";
+  import Skills from "../../Consultants/ConsultantsProfil/Skills/Skills";
+  import MissionsDone from "../../Consultants/ConsultantsProfil/MissionsDone/MissionsDone";
+  import CustomerOption from "../../Consultants/ConsultantsProfil/CustomerOption/CustomerOption";
+  import SalaryEvolution from "../../Consultants/ConsultantsProfil/SalaryEvolution/SalaryEvolution";
+
+  import FormationsWanted from "../../Consultants/ConsultantsProfil/FormationsWanted/FormationsWanted";
+
+  import Engagement from "../../Consultants/ConsultantsProfil/Engagement/Engagement";
+  import React, { useEffect, useState } from "react"; 
   import axios from "axios";
-  import FormCreateMission from "../ConsultantsProfil/FormCreateMission";
+  import FormCreateMission from "../../Consultants/ConsultantsProfil/FormCreateMission";
   import { useParams } from "react-router-dom";
   import { useSelector } from "react-redux";
   import { fetchUser } from "../../../Redux/States/users";
@@ -36,7 +38,7 @@ import { userInfo } from "os";
     message: string;
     severity: "success" | "info" | "warning" | "error" | undefined;
   }
-  export const MyProfilConsultant: React.FC<Props> = () => {
+  export const CLientProfil: React.FC<Props> = () => {
     const url =
       process.env.NODE_ENV === "production"
         ? process.env.REACT_APP_URL_PROD
@@ -99,7 +101,7 @@ import { userInfo } from "os";
           />
   
           <div className={styles.wrapper}>
-            <PersonInfo name={userInfo.userInfo.prenom+' '+userInfo.userInfo.nom} coord={consultantInfo.address} acutalJob={consultantInfo.position} description={consultantInfo.description} salary={consultantInfo.salary} email={consultantInfo.email}/>
+            
           </div>
   
           <div className={styles.wrapper}>
@@ -111,12 +113,12 @@ import { userInfo } from "os";
           <div className={styles.wrapper}>
             <MissionsDone missions={missions} />
             <SalaryEvolution listOfSalaryEvolution={listSalaryEvolutionsConsultant}/>
-            <FormationsWanted title={'Souhait de formations'} listOfComptencesWanted={listCompetencesWantedConsultant}/>
+            <FormationsWanted title={"Compétences requises"} listOfComptencesWanted={listCompetencesWantedConsultant}/>
           </div>
         </div>
       </>
     );
   };
   
-  export default MyProfilConsultant;
+  export default CLientProfil;
   

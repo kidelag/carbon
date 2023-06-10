@@ -19,6 +19,7 @@ import ConsultantsProfil from "./pages/Consultants/ConsultantsProfil/Consultants
 import ConsultantHomePage from './pages/Consultants/ConultantHomePage/ConultantHomePage'
 import Formations from "./pages/Formations/Formations";
 import MyProfilConsultant from './pages/Consultants/MyProfilConsultant/MyProfilConsultant'
+import ProfilClient from "./pages/Client/ClientProfil/ClientProfil"
 
 const theme = createTheme({
   palette: {
@@ -129,7 +130,7 @@ export const App = () => {
             }
           />
           <Route
-            path="/consultants/profil/:id/:consultant_id"
+            path="/consultants/profil/:user_id/:consultant_id"
             element={
               <>
                 <Base checkingToken={checkingToken} page="Consultants">
@@ -166,9 +167,12 @@ export const App = () => {
                       : 
                       userConnected.role === 'SUPPORT' ?
 
-                      <Home/> 
+                      <div style={{ display: "flex" }}>
+                        <SideBarProfil page="info perso" />
+                        <UserProfil />
+                      </div> 
                       : 
-                      <>test</>
+                      <ProfilClient/>
                   }
                   {/* {<div style={{ display: "flex" }}>
                     <SideBarProfil page="info perso" />

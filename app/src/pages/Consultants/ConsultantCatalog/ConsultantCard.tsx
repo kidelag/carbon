@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import badgeJunior from "../../../assets/badges/badge junior.png";
 import badgeConfirme from "../../../assets/badges/badge confirmé.png";
@@ -26,7 +26,7 @@ interface Props {
     tjm: Number;
     skills: string[];
     position: string;
-    user_id: number;
+    user_id: string;
   };
 }
 
@@ -55,8 +55,8 @@ export const ConsultantCard: React.FC<Props> = (consultant) => {
     }
   }, [consultant.consultant.position]);
 
-  const handleGoToConsultantProfil = (id: Number) => {
-    navigate(`/consultants/profil/${id}/${consultant.consultant.id}`);
+  const handleGoToConsultantProfil = () => {
+    navigate(`/consultants/profil/${consultant.consultant.user_id}/${consultant.consultant.id}`);
   };
 
   return (
@@ -152,7 +152,7 @@ export const ConsultantCard: React.FC<Props> = (consultant) => {
             borderRadius: "30px",
             textTransform: "none",
           }}
-          onClick={() => handleGoToConsultantProfil(consultant.consultant.user_id)}
+          onClick={handleGoToConsultantProfil}
         >
           Voir plus
         </Button>
