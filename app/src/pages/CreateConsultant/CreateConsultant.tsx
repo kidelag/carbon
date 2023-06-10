@@ -14,6 +14,8 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
+import { useNavigate } from "react-router-dom";
+
 import axios from "axios";
 
 const steps: any = {
@@ -34,6 +36,8 @@ const CreateConsultant: React.FC = () => {
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
   const [userType, setUserType] = useState('consultant');
   const [competences, setCompetences] = useState<any>([]);
+
+  const navigate = useNavigate();
 
 
   const handleNext = () => {
@@ -69,7 +73,6 @@ const CreateConsultant: React.FC = () => {
       }));
 
       setCompetences(competencessRaw);
-      console.log(competences)
     });
   }, []);
 
@@ -96,7 +99,11 @@ const CreateConsultant: React.FC = () => {
         .then((res) => {
           // res.data.identifiers[0].id
 
-          if(userType === 'consultant'){
+          if(userType === 'support'){
+            navigate('/consultants')
+          }
+
+          else if(userType === 'consultant'){
             roleFormData = {
               user: res.data.identifiers[0].id,
               tjm: parseInt(formData.tjm),
@@ -110,6 +117,7 @@ const CreateConsultant: React.FC = () => {
               wantedCompetences: selectedSkills,
             }
             axios.post(url + "/consultant", roleFormData).then((res) => (console.log(res)))
+            navigate('/consultants')
           }
           else if(userType === 'client'){
             roleFormData = {
@@ -119,6 +127,7 @@ const CreateConsultant: React.FC = () => {
               wantedCompetences: selectedSkills,
             }
             axios.post(url + "/entreprise", roleFormData).then((res) => (console.log(res)))
+            navigate('/consultants')
           }
           else {
             console.log('Autre')

@@ -8,7 +8,8 @@ import {
 
 
 interface Props {
-  listOfComptencesWanted: object[]
+  listOfComptencesWanted: object[];
+  title: string;
 }
 
 
@@ -21,11 +22,11 @@ const contentMiddle = [
 ]
 
 
-export const FormationsWanted: React.FC<Props> = ({listOfComptencesWanted}) => {
+export const FormationsWanted: React.FC<Props> = ({title, listOfComptencesWanted}) => {
 
   return (
     <div className={styles.middle}>
-      <div className={styles.title}>Souhait de formations</div>
+      <div className={styles.title}>{title}</div>
       <div className={styles.list_languages}>
         {contentMiddle.map((item: any, index: number) => (
           <div className={styles.item} key={index}>
