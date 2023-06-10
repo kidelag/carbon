@@ -70,4 +70,13 @@ export class ConsultantService {
       .where("consultant.id = :id", { id })
       .getOne();
   }
+
+  addBadgeToConsultant(consultantId: string, badgeId: string) {
+    console.log(badgeId);
+    return this.consultantRepository
+      .createQueryBuilder("consultant")
+      .relation("badges")
+      .of(consultantId)
+      .add(badgeId);
+  }
 }

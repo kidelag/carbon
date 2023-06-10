@@ -3,7 +3,7 @@ import { BadgeService } from './badge.service';
 import { CreateBadgeDto } from './dto/create-badge.dto';
 import { UpdateBadgeDto } from './dto/update-badge.dto';
 
-@Controller('badge')
+@Controller('badges')
 export class BadgeController {
   constructor(private readonly badgeService: BadgeService) {}
 
