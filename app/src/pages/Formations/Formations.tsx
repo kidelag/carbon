@@ -54,16 +54,6 @@ const Formations: React.FC = () => {
         <Typography variant="h4" align="center">
           Découvrez nos événements !
         </Typography>
-        {/* {alertMessage.open && (
-          <Alert
-            severity="success"
-            onClose={() =>
-              setAlertMessage({ open: false, message: "", severity: "success" })
-            }
-          >
-            {alertMessage.message}
-          </Alert>
-        )} */}
         <Collapse in={alertMessage.open} timeout={500} unmountOnExit>
           <Alert severity={alertMessage.severity} onClose={handleCloseAlert}>
             {alertMessage.message}
@@ -102,12 +92,16 @@ const Formations: React.FC = () => {
         />
       </Stack>
 
+      <div style={{margin: '5vh'}}>
       <Typography variant="h5">Formations en cours</Typography>
-      <FormationsList />
+        <FormationsList />
+      </div>
+      <div style={{margin: '5vh'}}>
       <Typography variant="h5" marginTop={3}>
         Challenge en cours
       </Typography>
-      <FormationsList />
+        <FormationsList />
+      </div>
     </>
   );
 };

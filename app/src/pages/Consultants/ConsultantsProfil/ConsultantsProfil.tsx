@@ -131,6 +131,7 @@ export const ConsultantsProfil: React.FC<Props> = () => {
             listOfSalaryEvolution={listSalaryEvolutionsConsultant}
           />
           <FormationsWanted
+            title={"Souhait de formation"}
             listOfComptencesWanted={listCompetencesWantedConsultant}
           />
           <Engagement listOfEngagments={listEngagmentsConsultant} />

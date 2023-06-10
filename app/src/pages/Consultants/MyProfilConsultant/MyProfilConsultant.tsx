@@ -24,6 +24,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import FormCreateMission from "../ConsultantsProfil/FormCreateMission";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { fetchUser } from "../../../Redux/States/users";
+import { userInfo } from "os";
 
 interface Props {}
 
@@ -32,17 +35,17 @@ interface AlertMessage {
   message: string;
   severity: "success" | "info" | "warning" | "error" | undefined;
 }
-export const ConsultantsProfil: React.FC<Props> = () => {
+export const MyProfilConsultant: React.FC<Props> = () => {
   const url =
     process.env.NODE_ENV === "production"
       ? process.env.REACT_APP_URL_PROD
       : process.env.REACT_APP_URL_DEV;
 
   const params = useParams();
+  const userInfo: any = useSelector(fetchUser);
 
   const [missions, setMissions] = React.useState<any>([]);
   const [openModal, setOpenModal] = useState(false);
-  const [userInfo, setUserInfo] = React.useState<any>([]);
   const [consultantInfo, setConsultantInfo] = React.useState<any>([]);
   const [listCompetencesConsultant, setListCompetencesConsultant] =
     React.useState<object[]>([]);
@@ -73,13 +76,12 @@ export const ConsultantsProfil: React.FC<Props> = () => {
 
   useEffect(() => {
     async function fetchData() {
-      await axios
-        .get(url + "/users/" + params.id)
-        .then((res) => setUserInfo(res.data))
-        .then(() => console.log(userInfo));
-      await axios
-        .get(url + "/consultant/" + params.consultant_id)
+      const consultantsRaw = await axios
+        .get(url + "/consultant/")
         .then((res) => setConsultantInfo(res.data));
+      setConsultantInfo((prevConsult: any) =>
+        prevConsult.filter((c: any) => c.user_id === userInfo.id)
+      );
 
       const res = await axios.get(url + "/missions");
       if (res?.data.length > 0) {
@@ -90,22 +92,9 @@ export const ConsultantsProfil: React.FC<Props> = () => {
     fetchData();
   }, []);
 
-  const getDateNow: any = new Date();
-  const getStartDate: any = new Date(consultantInfo.startDate);
-
-  let date = (getDateNow - getStartDate) / (1000 * 60 * 60 * 24 * 30.5);
-
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.name}>
-          {userInfo.lastname}, développeur web depuis{" "}
-          {date < 12 ? `${Math.trunc(date)} mois` : `${Math.trunc(date)} ans`}
-        </div>
-
-        {/*<Button variant="contained" onClick={handleOpenModal} sx={{margin: '3vh 0 0 5vw'}}>
-            Créer un évènement
-          </Button>*/}
         <FormCreateMission
           consultantId={params.id}
           open={openModal}
@@ -115,7 +104,7 @@ export const ConsultantsProfil: React.FC<Props> = () => {
 
         <div className={styles.wrapper}>
           <PersonInfo
-            name={userInfo.firstname + " " + userInfo.lastname}
+            name={userInfo.userInfo.prenom + " " + userInfo.userInfo.nom}
             coord={consultantInfo.address}
             acutalJob={consultantInfo.position}
             description={consultantInfo.description}
@@ -126,7 +115,7 @@ export const ConsultantsProfil: React.FC<Props> = () => {
 
         <div className={styles.wrapper}>
           <BadgeObtained
-            name={userInfo.lastname}
+            name={userInfo.userInfo.nom}
             typeBadge={""}
             dateBadge={""}
           />
@@ -143,6 +132,7 @@ export const ConsultantsProfil: React.FC<Props> = () => {
             listOfSalaryEvolution={listSalaryEvolutionsConsultant}
           />
           <FormationsWanted
+            title={"Souhait de formations"}
             listOfComptencesWanted={listCompetencesWantedConsultant}
           />
         </div>
@@ -151,4 +141,4 @@ export const ConsultantsProfil: React.FC<Props> = () => {
   );
 };
 
-export default ConsultantsProfil;
+export default MyProfilConsultant;

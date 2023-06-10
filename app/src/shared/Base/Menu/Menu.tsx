@@ -43,6 +43,7 @@ import SentimentVerySatisfiedIcon from "@mui/icons-material/SentimentVerySatisfi
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchUser } from "../../../Redux/States/users";
 import {
   selectRole,
   setState,
@@ -57,14 +58,9 @@ interface Props {
 const drawWidth = 220;
 const colorText = "white";
 
-const listItemMenu = [
-  /*{
-    title: "Dashboard",
-    link: "/",
-    icon: <DashboardIcon />,
-  },*/
+const listItemMenuSupport = [
   {
-    title: "Dashboard",
+    title: "Accueil",
     link: "/",
     icon: <DashboardIcon />,
   },
@@ -73,11 +69,6 @@ const listItemMenu = [
     link: "/profil",
     icon: <PersonIcon />,
   },
-  // {
-  //   title: "Progression",
-  //   link: "/profile",
-  //   icon: <ChecklistRtlIcon />,
-  // },
   {
     title: "Consultants",
     link: "/consultants",
@@ -88,19 +79,75 @@ const listItemMenu = [
     link: "/evenements",
     icon: <EmojiEventsIcon />,
   },
-  // {
-  //   title: "Formation",
-  //   link: "/formations",
-  //   icon: <SchoolIcon />,
-  // },
   {
     title: "Documents",
-    link: "/profile",
+    link: "/",
     icon: <TopicIcon />,
   },
   {
     title: "Actualités",
-    link: "/profile",
+    link: "/",
+    icon: <NewspaperIcon />,
+  },
+];
+
+const listItemMenuConsultant = [
+  {
+    title: "Accueil",
+    link: "/",
+    icon: <DashboardIcon />,
+  },
+  {
+    title: "Profil",
+    link: "/profil",
+    icon: <PersonIcon />,
+  },
+  {
+    title: "Consultants",
+    link: "/consultants",
+    icon: <PeopleIcon />,
+  },
+  {
+    title: "Evénements",
+    link: "/evenements",
+    icon: <EmojiEventsIcon />,
+  },
+  {
+    title: "Documents",
+    link: "/",
+    icon: <TopicIcon />,
+  },
+  {
+    title: "Actualités",
+    link: "/",
+    icon: <NewspaperIcon />,
+  },
+];
+
+const listItemMenuClient = [
+  {
+    title: "Accueil",
+    link: "/",
+    icon: <DashboardIcon />,
+  },
+  {
+    title: "Profil",
+    link: "/profil",
+    icon: <PersonIcon />,
+  },
+  {
+    title: "Consultants",
+    link: "/consultants",
+    icon: <PeopleIcon />,
+  },
+  {
+    title: "Documents",
+    link: "/",
+    icon: <TopicIcon />,
+  },
+  {
+    title: "Actualités",
+    link: "/",
     icon: <NewspaperIcon />,
   },
 ];
@@ -147,6 +194,10 @@ function IconContainer(props: IconContainerProps) {
 export const Menu: React.FC<Props> = ({ page }) => {
   const [mobileViewOpen, setMobileViewOpen] = React.useState(false);
   const [open, setOpen] = React.useState(false);
+
+  const userInfo: any = useSelector(fetchUser);
+  let listItemMenu = []
+  userInfo.role === 'SUPPORT' ? listItemMenu = listItemMenuSupport : userInfo.role === 'CONSULTANT' ? listItemMenu = listItemMenuConsultant : listItemMenu = listItemMenuClient
 
   const navigate = useNavigate();
   const dispatch = useDispatch();

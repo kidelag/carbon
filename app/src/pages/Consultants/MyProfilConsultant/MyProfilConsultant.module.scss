@@ -8,6 +8,13 @@
         display: flex;
         margin: 3vh 2vw;
         padding: 2vh 0;
+
+        > div {
+            margin-right: 5vh;
+        }
+        > div:last-child {
+            margin-right: 0;
+        }
     }
 
     .wrapper_unique {

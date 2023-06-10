@@ -101,7 +101,7 @@ export const Statistiques: React.FC<Props> = ({ consultantId }) => {
 
         <div className={styles.right}>
           <div className={styles.title}>Participations</div>
-          {/* <img src="https://placehold.co/400" alt="Graph left" /> */}
+          <img src="https://placehold.co/400" alt="Graph left" />
           <EventChart challenges={challenges} formations={formations} />
         </div>
       </div>

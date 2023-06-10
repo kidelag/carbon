@@ -15,8 +15,10 @@ import TextField from "@mui/material/TextField";
 interface Props {}
 
 const Connection: React.FC<Props> = () => {
-  const [mail, setMail] = useState("e.eniona2@gmail.com");
-  const [pwd, setPwd] = useState("test");
+  const [mail, setMail] = useState("");
+  const [pwd, setPwd] = useState("");
+  //const [mail, setMail] = useState("e.eniona2@gmail.com");
+  //const [pwd, setPwd] = useState("test");
   const [warning, setWarning] = useState("");
 
   const dispatch = useDispatch();
