@@ -96,7 +96,7 @@ const FormCreateMission: React.FC<Props> = ({
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Create Event</DialogTitle>
+      <DialogTitle>Créer une mission </DialogTitle>
       <DialogContent>
         <form onSubmit={handleSubmit}>
           <TextField
@@ -153,8 +153,8 @@ const FormCreateMission: React.FC<Props> = ({
           />
 
           <DialogActions>
-            <Button onClick={onClose}>Cancel</Button>
-            <Button type="submit">Submit</Button>
+            <Button onClick={onClose}>Annuler</Button>
+            <Button type="submit">Valider</Button>
           </DialogActions>
         </form>
       </DialogContent>

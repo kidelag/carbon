@@ -118,6 +118,7 @@ export const MyProfilConsultant: React.FC<Props> = () => {
             name={userInfo.userInfo.nom}
             typeBadge={""}
             dateBadge={""}
+            consultantId={params.consultant_id}
           />
           <FormationsObtained listOfFormations={listFormationsConsultant} />
           <Skills listOfCompetences={listCompetencesConsultant} />
