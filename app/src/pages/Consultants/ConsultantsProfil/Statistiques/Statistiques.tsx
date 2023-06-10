@@ -64,7 +64,7 @@ export const Statistiques: React.FC<Props> = ({ consultantId }) => {
   useEffect(() => {
     const fetchEvents = async () => {
       const res = await axios.get(`${url}/consultant/${consultantId}/events`);
-      if (res?.data?.events.length > 0) {
+      if (res?.data?.events?.length > 0) {
         const fetchedEvents = res.data.events;
         console.log("fetchedEvents", fetchedEvents);
         const fetchedFormations = fetchedEvents.filter(
