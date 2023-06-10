@@ -6,6 +6,7 @@ import { Repository } from "typeorm";
 import { Consultant } from "./entities/consultant.entity";
 import {Competence} from "../competences/entities/competence.entity";
 import {Event} from "../events/entities/event.entity";
+import { get } from "http";
 
 @Injectable()
 export class ConsultantService {
@@ -57,5 +58,13 @@ export class ConsultantService {
 
   remove(id: string) {
     return this.consultantRepository.delete({ id });
+  }
+
+  getEventsByConsultantId(id: string) {
+    return this.consultantRepository
+      .createQueryBuilder("consultant")
+      .leftJoinAndSelect("consultant.events", "events")
+      .where("consultant.id = :id", { id })
+      .getOne();
   }
 }

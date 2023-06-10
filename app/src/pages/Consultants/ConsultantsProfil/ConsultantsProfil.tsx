@@ -82,7 +82,7 @@ export const ConsultantsProfil: React.FC<Props> = () => {
           Créer un évènement
         </Button>
         <FormCreateMission
-          consultantId={params.id }
+          consultantId={params.id}
           open={openModal}
           onClose={handleCloseModal}
           setAlertMessage={setAlertMessage}
@@ -110,7 +110,7 @@ export const ConsultantsProfil: React.FC<Props> = () => {
         </div>
 
         <div className={styles.wrapper_unique}>
-          <Statistiques />
+          <Statistiques consultantId={params.id} />
         </div>
       </div>
     </>
