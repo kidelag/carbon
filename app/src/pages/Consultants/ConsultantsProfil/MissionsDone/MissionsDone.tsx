@@ -28,7 +28,8 @@ export const MissionsDone: React.FC<Props> = ({ missions }) => {
     <div className={styles.missions}>
       <div className={styles.title}>Missions réalisés</div>
       <div className={styles.wrapper}>
-        {missions.map((mission: any) => (
+        {missions === null ?
+        missions.map((mission: any) => (
           <div className={styles.item}>
             <span style={{ textTransform: "uppercase" }}>
               {mission.company}
@@ -38,7 +39,10 @@ export const MissionsDone: React.FC<Props> = ({ missions }) => {
               mission.endDate
             )} mois,${mission.title}`}
           </div>
-        ))}
+        ))
+        :
+          <div className={styles.error}>Il n'y a pas de mission réalisé pour l'instant</div>
+        }
       </div>
     </div>
   );

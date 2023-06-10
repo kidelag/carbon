@@ -34,9 +34,10 @@ const contentRight = [
 
 
 interface Props {
+  listOfCompetences: object[]
 }
 
-export const Skills: React.FC<Props> = () => {
+export const Skills: React.FC<Props> = ({listOfCompetences}) => {
 
   return (
 
@@ -44,7 +45,7 @@ export const Skills: React.FC<Props> = () => {
         <div className={styles.title}>Compétences</div>
         <div className={styles.list_languages}>
 
-          {contentRight.map((item, index) => (
+          {contentRight.map((item: any, index: number) => (
             <div className={styles.item} key={index}>
               <Button variant="contained" color="success">{item.name}</Button>
               <Rating name="read-only" value={item.rating} readOnly />

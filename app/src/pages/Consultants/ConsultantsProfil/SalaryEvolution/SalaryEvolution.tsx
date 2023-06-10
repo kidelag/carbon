@@ -2,12 +2,9 @@ import React from "react";
 
 import styles from "./SalaryEvolution.module.scss";
 
-import {
-  Button,
-} from "@mui/material";
-
 
 interface Props {
+  listOfSalaryEvolution: object[]
 }
 
 const contentLeft = [
@@ -33,7 +30,7 @@ const contentLeft = [
   },
 ]
 
-export const SalaryEvolution: React.FC<Props> = () => {
+export const SalaryEvolution: React.FC<Props> = ({listOfSalaryEvolution}) => {
 
   return (
     <div className={styles.left}>
@@ -41,7 +38,7 @@ export const SalaryEvolution: React.FC<Props> = () => {
         Evolution salariale
       </div>
       <div className={styles.wrapper}>
-        {contentLeft.map((item, index) => (
+        {contentLeft.map((item: any, index: number) => (
           <div className={styles.item} key={index}>
 
             <div className={styles.l}>

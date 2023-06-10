@@ -117,7 +117,7 @@ export const App = () => {
             }
           />
           <Route
-            path="/consultants/profil/:id"
+            path="/consultants/profil/:id/:consultant_id"
             element={
               <>
                 <Base checkingToken={checkingToken} page="Consultants">

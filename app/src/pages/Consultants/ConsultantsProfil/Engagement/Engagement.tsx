@@ -8,6 +8,7 @@ import {
 
 
 interface Props {
+  listOfEngagments: object[]
 }
 
 
@@ -18,7 +19,7 @@ const contentRight = [
   "Nico a reçu le badge junior",
 ]
 
-export const Engagement: React.FC<Props> = () => {
+export const Engagement: React.FC<Props> = ({listOfEngagments}) => {
 
   return (
     <div className={styles.right}>
@@ -26,7 +27,7 @@ export const Engagement: React.FC<Props> = () => {
           Implication vie Carbon
         </div>
         <div className={styles.wrapper}>
-          {contentRight.map((item, index) => (
+          {contentRight.map((item: any, index: number) => (
             <div className={styles.item} key={index}>
                 <div>{item}</div>
             </div>

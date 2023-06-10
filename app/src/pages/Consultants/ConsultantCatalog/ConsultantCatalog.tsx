@@ -40,6 +40,7 @@ export const ConsultantCatalog: React.FC<Props> = () => {
         skills: item.skills,
         position: item.position,
         role: item.user.role,
+        user_id: item.user.id
       }));
 
       console.log(consultantsRaw);

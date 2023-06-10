@@ -4,38 +4,43 @@ import styles from "./PersonInfo.module.scss";
 
 
 interface Props {
+  name: string,
+  coord: string,
+  acutalJob: string,
+  description: string,
+  salary: number,
+  email: string,
 }
 
-export const PersonInfo: React.FC<Props> = () => {
+export const PersonInfo: React.FC<Props> = ({name, coord, acutalJob, description, salary, email}) => {
 
   return (
     <div className={styles.profil_top}>
         <div className={styles.profil_img}>
-          <img src="https://placehold.co/400" alt="image of the person" />
+          <img src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png" alt="image of the person" />
         </div>
         <div className={styles.about}>
           <div className={styles.first}>
               <div className={styles.coord}>
                 <p>Coordonnées</p>
-                34 rue de la Porte, Villejuif 94800
+                  {coord === null || coord === '' ? "Il n'y a pas de coordonnées" : coord}
                 <br />
-                nicodelerme@gmail.com
+                  {email === null || email === '' ? "Il n'y a pas d'email" : email}
               </div>
               <div className={styles.coord}>
-              <p>Nico en quelques mots</p>
-              Développeur full-stack, je peux vous accompagner dans l'intégration
-              des étapes de projets web. De l'intégration, au développement des fonctionnalités poussées
+              <p>{name} en quelques mots</p>
+              {description === null || description === '' ? "Il n'y a pas de description" : description}
           </div>
         </div>
         
         <div className={styles.second}>
             <div className={styles.coord}>
             <p>Mission actuelle</p>
-            EDF: 18 mois
+              {acutalJob === null || acutalJob === '' ? "Il n'y a pas de mission actuel" : acutalJob}
             </div>
             <div className={styles.coord}>
             <p>Salaire actuel</p>
-            57K brut
+              {salary}K brut/an
             </div>
         </div>
 
