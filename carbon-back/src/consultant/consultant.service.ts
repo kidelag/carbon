@@ -7,6 +7,7 @@ import { Consultant } from "./entities/consultant.entity";
 import {Competence} from "../competences/entities/competence.entity";
 import {Event} from "../events/entities/event.entity";
 import { get } from "http";
+import {Badge} from "../badge/entities/badge.entity";
 
 @Injectable()
 export class ConsultantService {
@@ -21,6 +22,8 @@ export class ConsultantService {
       consultant.wantedCompetences = createConsultantDto.wantedCompetences.map(id => ({id} as unknown as Competence));
     if (createConsultantDto.events)
       consultant.events = createConsultantDto.events.map(id => ({id} as unknown as Event))
+    if (createConsultantDto.badges)
+      consultant.badges = createConsultantDto.badges.map(id => ({id} as unknown as Badge));
     return this.consultantRepository.save(consultant);
   }
 

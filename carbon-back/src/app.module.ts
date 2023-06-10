@@ -10,6 +10,7 @@ import { EntrepriseModule } from './entreprise/entreprise.module';
 import { NewsModule } from './news/news.module';
 import { ConsultCompetenceModule } from './consult-competence/consult-competence.module';
 import { RecruitmentModule } from './recruitment/recruitment.module';
+import { BadgeModule } from './badge/badge.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { RecruitmentModule } from './recruitment/recruitment.module';
     NewsModule,
     ConsultCompetenceModule,
     RecruitmentModule,
+    BadgeModule,
   ],
   controllers: [],
   providers: [],

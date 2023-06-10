@@ -3,6 +3,7 @@ import { IsDefined, IsNumber, MaxLength } from "class-validator";
 import { Type } from "class-transformer";
 import {Competence} from "../../competences/entities/competence.entity";
 import {Event} from "../../events/entities/event.entity";
+import {Badge} from "../../badge/entities/badge.entity";
 
 export class CreateConsultantDto {
   @IsDefined()
@@ -39,5 +40,7 @@ export class CreateConsultantDto {
 
   public wantedCompetences: Competence[];
 
-  public events: Event[]
+  public events: Event[];
+
+  public badges: Badge[];
 }
