@@ -15,6 +15,39 @@
         > div:last-child {
             margin-right: 0;
         }
+
+        .right {
+            flex: 1;
+            padding: 1vh;
+            align-items: center;
+            text-align: center;
+            .title {
+                font-size: xx-large;
+                text-align: left;
+                height: auto;
+            }
+            .content {
+
+                font-size: medium;
+                font-weight: normal;
+                text-align: left;
+                padding: 3vh;
+                background-color: rgb(235, 235, 235);
+                border-radius: 10px;
+                .c_t {
+                    font-size: x-large;
+                    font-weight: bold; 
+                }
+                .c_l {
+                    font-size: x-large;
+                }
+            }
+
+            .button {
+
+            }
+
+        }
     }
 
     .wrapper_unique {

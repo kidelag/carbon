@@ -46,10 +46,11 @@ import { userInfo } from "os";
   
     const params = useParams();
     const userInfo: any = useSelector(fetchUser);
+    console.log(userInfo.id)
   
     const [missions, setMissions] = React.useState<any>([]);
     const [openModal, setOpenModal] = useState(false);
-    const [consultantInfo, setConsultantInfo] = React.useState<any>([]);
+    const [clientInfo, setClientInfo] = React.useState<any>([]);
     const [listCompetencesConsultant, setListCompetencesConsultant] = React.useState<object[]>([])
     const [listFormationsConsultant, setListFormationsConsultant] = React.useState<object[]>([])
     const [listSalaryEvolutionsConsultant, setListSalaryEvolutionsConsultant] = React.useState<object[]>([])
@@ -74,46 +75,57 @@ import { userInfo } from "os";
   
     useEffect(() => {
       async function fetchData() {
-        const consultantsRaw = await axios.get(url + '/consultant/').then((res) => setConsultantInfo(res.data));
-        setConsultantInfo((prevConsult: any) => prevConsult.filter((c: any) => c.user_id === userInfo.id))
-
-        
-  
-        const res = await axios.get(url + "/missions");
-        if (res?.data.length > 0) {
-          console.log(res.data);
-          setMissions(res.data);
-        }
+        await axios.get(url + '/entreprise').then((res) => console.log(res.data));
+        setClientInfo((prevConsult: any) => prevConsult.filter((c: any) => c.user_id === userInfo.id))
       }
       fetchData();
     }, []);
+
+    useEffect(() => {
+      console.log(clientInfo)
+    }, [userInfo])
   
     
   
     return (
       <>
         <div className={styles.container}>
-          <FormCreateMission
-            consultantId={params.id }
-            open={openModal}
-            onClose={handleCloseModal}
-            setAlertMessage={setAlertMessage}
-          />
   
           <div className={styles.wrapper}>
-            
+            <div className={styles.right}>
+              <div className={styles.title}>Carrefour Market</div>
+              <div className={styles.content}>
+                <div className={styles.c_t}>Carrefour</div>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus excepturi dignissimos, 
+                corporis magnam iure doloribus aspernatur sequi ex illum natus voluptas adipisci quasi tempora debitis incidunt minima, 
+                consequatur provident quod? Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque eius molestias ducimus a,
+                dolores qui reiciendis fuga at, tenetur tempore, exercitationem iusto similique alias laborum. Obcaecati nihil accusantium odit deserunt!
+              </div>
+            </div>
           </div>
   
           <div className={styles.wrapper}>
-            <BadgeObtained name={userInfo.userInfo.nom} typeBadge={''} dateBadge={''}/>
-            <FormationsObtained listOfFormations={listFormationsConsultant}/>
-            <Skills listOfCompetences={listCompetencesConsultant}/>
-          </div>
-  
-          <div className={styles.wrapper}>
-            <MissionsDone missions={missions} />
-            <SalaryEvolution listOfSalaryEvolution={listSalaryEvolutionsConsultant}/>
-            <FormationsWanted title={"Compétences requises"} listOfComptencesWanted={listCompetencesWantedConsultant}/>
+          <div className={styles.right}>
+              <div className={styles.title}>Mission proposée</div>
+              <div className={styles.content}>
+                <p>
+                  <span className={styles.c_l}>Description du poste :</span>
+                </p>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus excepturi dignissimos, 
+                  corporis magnam iure doloribus aspernatur sequi ex illum natus voluptas a Obcaecati nihil accusantium odit deserunt!
+                </p>
+                <p>
+                  <span className={styles.c_l}>Durée :</span>
+                </p>
+                <p>18 mois</p>
+                <p>
+                  <span className={styles.c_l}>Salaire Brut :</span>
+                </p>
+                <p>55K</p>
+              </div>
+            </div>
+            <FormationsWanted title={"Compétences requises"} listOfComptencesWanted={clientInfo.wantedCompetences}/>
           </div>
         </div>
       </>
