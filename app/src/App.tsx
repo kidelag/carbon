@@ -19,7 +19,8 @@ import ConsultantsProfil from "./pages/Consultants/ConsultantsProfil/Consultants
 import ConsultantHomePage from './pages/Consultants/ConultantHomePage/ConultantHomePage'
 import Formations from "./pages/Formations/Formations";
 import MyProfilConsultant from './pages/Consultants/MyProfilConsultant/MyProfilConsultant'
-import ProfilClient from "./pages/Client/ClientProfil/ClientProfil"
+import ClientProfil from "./pages/Client/ClientProfil/ClientProfil"
+import ClientHomepage from "./pages/Client/ClientHomepage/ClientHomepage";
 
 const theme = createTheme({
   palette: {
@@ -93,14 +94,14 @@ export const App = () => {
               path="/"
               element={
                 <>
-                  <Base checkingToken={checkingToken}>
+                  <Base checkingToken={checkingToken} page='Accueil'>
                     {userConnected.role === 'CONSULTANT' ? 
                       <ConsultantHomePage/>
                       : 
                       userConnected.role === 'SUPPORT' ?
                       <Home/> 
                       : 
-                      <>test</>
+                      <ClientHomepage/>
                     }
                     {/*  <Home /> Homepage pour le support */}
                     {/*  <ConsultantHomePage />  Homepage pour le consultant */}
@@ -149,14 +150,14 @@ export const App = () => {
               </>
             }
           />
-          <Route
+          {/*<Route
             path="/create/account"
             element={
               <>
                 <CreateAccount />
               </>
             }
-          />
+          />*/}
           <Route
             path="/profil"
             element={
@@ -172,7 +173,7 @@ export const App = () => {
                         <UserProfil />
                       </div> 
                       : 
-                      <ProfilClient/>
+                      <ClientProfil/>
                   }
                   {/* {<div style={{ display: "flex" }}>
                     <SideBarProfil page="info perso" />
