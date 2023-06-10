@@ -46,7 +46,7 @@ export const Stats: React.FC<Props> = () => {
             <div className={styles.number}>50</div>
           </div>
           <div className={styles.item}>
-            <div className={styles.text}>Nombre de client présente</div>
+            <div className={styles.text}>Nombre de client présent</div>
             <div className={styles.number}>{nbClient}</div>
           </div>
         </div>

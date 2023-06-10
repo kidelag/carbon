@@ -21,7 +21,7 @@ const contentMiddle = [
 ]
 
 
-export const Fourthline: React.FC<Props> = ({listOfComptencesWanted}) => {
+export const FormationsWanted: React.FC<Props> = ({listOfComptencesWanted}) => {
 
   return (
     <div className={styles.middle}>
@@ -37,4 +37,4 @@ export const Fourthline: React.FC<Props> = ({listOfComptencesWanted}) => {
   );
 };
 
-export default Fourthline;
+export default FormationsWanted;
