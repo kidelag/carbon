@@ -10,6 +10,7 @@ import {Competence} from "../../competences/entities/competence.entity";
 import {Mission} from "../../missions/entities/mission.entity";
 import {ConsultCompetence} from "../../consult-competence/entities/consult-competence.entity";
 import {Event} from "../../events/entities/event.entity";
+import {Recruitment} from "../../recruitment/entities/recruitment.entity";
 
 @Entity()
 export class Consultant {
@@ -98,4 +99,9 @@ export class Consultant {
   })
   @JoinTable()
   public events: Event[];
+
+  @OneToMany(() => Recruitment, (recruitment) => recruitment.consultant, {
+    eager: true
+  })
+  public recruitment: Recruitment[]
 }
