@@ -26,6 +26,7 @@ interface Props {
     tjm: Number;
     skills: string[];
     position: string;
+    user_id: number;
   };
 }
 
@@ -55,14 +56,14 @@ export const ConsultantCard: React.FC<Props> = (consultant) => {
   }, [consultant.consultant.position]);
 
   const handleGoToConsultantProfil = (id: Number) => {
-    navigate(`/consultants/profil/${id}`);
+    navigate(`/consultants/profil/${id}/${consultant.consultant.id}`);
   };
 
   return (
     <Card
       sx={{
         backgroundColor: "#eaeaea",
-        borderRadius: "30px",
+        borderRadius: "10px",
         maxWidth: "280px",
         position: "relative",
         paddingTop: "15px",
@@ -151,7 +152,7 @@ export const ConsultantCard: React.FC<Props> = (consultant) => {
             borderRadius: "30px",
             textTransform: "none",
           }}
-          onClick={() => handleGoToConsultantProfil(consultant.consultant.id)}
+          onClick={() => handleGoToConsultantProfil(consultant.consultant.user_id)}
         >
           Voir plus
         </Button>

@@ -1,7 +1,6 @@
 
 .left {
     flex: 1;
-    margin-right: 5vh;
     .title {
         font-size: xx-large;
         text-align: left;
@@ -14,6 +13,11 @@
         
         background-color: rgb(235, 235, 235);
         border-radius: 10px;
+
+        p.no_item {
+            text-align: center;
+            margin: 30% 0 0 0;
+        }
         
         img {
             width: 250px;

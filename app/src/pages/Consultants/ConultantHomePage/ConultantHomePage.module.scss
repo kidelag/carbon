@@ -1,0 +1,84 @@
+.container {
+    .wrapper {
+        display: flex;
+        margin: 3vh 2vw;
+        padding: 2vh 0;
+        .img {
+            background-color: rgb(235, 235, 235);
+            border-radius: 10px;
+            padding: 3vh;
+            flex: 1;
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            margin-right: 5vh;
+            img {
+                width: 250px;
+                height: 350px;
+                object-fit: cover;
+            }
+            
+        }
+        .presence {
+            flex: 1;
+            width: auto;
+            margin: 0 3vh 3vh 3vh;
+            
+        
+            .title {
+                font-size: xx-large;
+                text-align: left;
+                margin-bottom: 2vh;
+                height: auto;
+        
+            }
+            
+            .cont {
+                height: 90%;
+                background-color: rgb(230, 230, 230);
+                border-radius: 10px;
+                padding: 3vw;
+                text-align: center;
+                display: flex;
+                justify-content: space-around;
+                flex-wrap: wrap;
+    
+                .left, .right {
+    
+                    .text {
+                        font-size: x-large;
+                    }
+                    .number {
+                        font-size: xx-large;
+                        font-weight: bold;
+    
+                    }
+                }
+            }
+            
+
+        }
+
+        .news {
+            flex: 1;
+            margin-right: 5vh;
+            .title {
+                font-size: xx-large;
+                text-align: left;
+                height: auto;
+            }
+            .content {
+                height: 95%;
+                background-color: rgb(230, 230, 230);
+                border-radius: 10px;
+                padding: 3vw;
+                text-align: center;
+                display: flex;
+                justify-content: space-around;
+                flex-wrap: wrap;
+        
+            }
+        }
+
+    }
+}

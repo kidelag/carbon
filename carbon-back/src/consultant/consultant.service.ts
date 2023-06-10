@@ -31,7 +31,7 @@ export class ConsultantService {
     const consultants = await this.consultantRepository
       .createQueryBuilder("consultant")
       .leftJoinAndSelect("consultant.user", "user")
-      .select(["consultant", "user.firstname", "user.lastname", "user.role"])
+      .select(["consultant", "user.id", "user.firstname", "user.lastname", "user.role"])
       .getMany();
 
     return consultants.map((item) => ({

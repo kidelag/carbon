@@ -16,7 +16,9 @@ import ConsultantCatalog from "./pages/Consultants/ConsultantCatalog/ConsultantC
 import { ThemeProvider, createTheme } from "@mui/material";
 import CreateConsultant from "./pages/CreateConsultant/CreateConsultant";
 import ConsultantsProfil from "./pages/Consultants/ConsultantsProfil/ConsultantsProfil";
+import ConsultantHomePage from './pages/Consultants/ConultantHomePage/ConultantHomePage'
 import Formations from "./pages/Formations/Formations";
+import MyProfilConsultant from './pages/Consultants/MyProfilConsultant/MyProfilConsultant'
 
 const theme = createTheme({
   palette: {
@@ -86,16 +88,26 @@ export const App = () => {
     <>
       <ThemeProvider theme={theme}>
         <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <Base checkingToken={checkingToken}>
-                  <Home />
-                </Base>
-              </>
-            }
-          />
+            <Route
+              path="/"
+              element={
+                <>
+                  <Base checkingToken={checkingToken}>
+                    {userConnected.role === 'CONSULTANT' ? 
+                      <ConsultantHomePage/>
+                      : 
+                      userConnected.role === 'SUPPORT' ?
+                      <Home/> 
+                      : 
+                      <>test</>
+                    }
+                    {/*  <Home /> Homepage pour le support */}
+                    {/*  <ConsultantHomePage />  Homepage pour le consultant */}
+                    {/*  <Home />  Homepage pour le client */}
+                  </Base>
+                </>
+              }
+            />
           <Route
             path="/consultants"
             element={
@@ -117,7 +129,7 @@ export const App = () => {
             }
           />
           <Route
-            path="/consultants/profil/:id"
+            path="/consultants/profil/:id/:consultant_id"
             element={
               <>
                 <Base checkingToken={checkingToken} page="Consultants">
@@ -149,10 +161,19 @@ export const App = () => {
             element={
               <>
                 <Base checkingToken={checkingToken} page="Profil">
-                  <div style={{ display: "flex" }}>
+                { userConnected.role === 'CONSULTANT' ? 
+                      <MyProfilConsultant/>
+                      : 
+                      userConnected.role === 'SUPPORT' ?
+
+                      <Home/> 
+                      : 
+                      <>test</>
+                  }
+                  {/* {<div style={{ display: "flex" }}>
                     <SideBarProfil page="info perso" />
                     <UserProfil />
-                  </div>
+                  </div>} */}
                 </Base>
               </>
             }
