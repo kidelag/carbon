@@ -61,7 +61,7 @@ const FormCreateMission: React.FC<Props> = ({
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const dataToSend = {
@@ -74,7 +74,7 @@ const FormCreateMission: React.FC<Props> = ({
     };
     console.log(missionData);
 
-    axios.post(url + "/missions", dataToSend).then((res) => {
+    await axios.post(url + "/missions", dataToSend).then((res) => {
       console.log(res);
       if (res.status === 200 || res.status === 201) {
         setAlertMessage({

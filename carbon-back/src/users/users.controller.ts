@@ -37,4 +37,5 @@ export class UsersController {
   public async getConsultantsTotals() {
     return this.usersService.getConsultantsTotals()
   }
+
 }

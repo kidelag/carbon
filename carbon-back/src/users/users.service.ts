@@ -36,4 +36,5 @@ export class UsersService {
   const total = consultants.length;
   return total;
   }
+
 }
