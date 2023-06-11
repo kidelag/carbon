@@ -6,7 +6,7 @@ items:
     email: "{{internet.email}}"
     password: "test"
     role: '{{helpers.arrayElement(["SUPPORT","CLIENT","CONSULTANT"])}}'
-    birthdate: "{{date.past(30, 'YYYY-MM-DD')}}"
+    birthdate: "{{date.past(30, '2020-01-01T00:00:00.000Z')}}"
 
   user11:
     firstname: "test"
@@ -14,7 +14,7 @@ items:
     email: "support@carbon.com"
     password: "$2a$10$4LgROJDPo/xnZ2AcHfEffuA4UAGgbC78XGcxRUuFOFa73GSRoQV/W"
     role: "SUPPORT"
-    birthdate: "{{date.past(30, 'YYYY-MM-DD')}}"
+    birthdate: "{{date.past(10, '2020-01-01T00:00:00.000Z')}}"
 
   user12:
     firstname: "test"
@@ -22,7 +22,7 @@ items:
     email: "client@carbon.com"
     password: "$2a$10$4LgROJDPo/xnZ2AcHfEffuA4UAGgbC78XGcxRUuFOFa73GSRoQV/W"
     role: "CLIENT"
-    birthdate: "{{date.past(30, 'YYYY-MM-DD')}}"
+    birthdate: "{{date.past(10, '2020-01-01T00:00:00.000Z')}}"
 
   user13:
     firstname: "test"
@@ -30,4 +30,4 @@ items:
     email: "consultant@carbon.com"
     password: "$2a$10$4LgROJDPo/xnZ2AcHfEffuA4UAGgbC78XGcxRUuFOFa73GSRoQV/W"
     role: "CONSULTANT"
-    birthdate: "{{date.past(30, 'YYYY-MM-DD')}}"
+    birthdate: "{{date.past(10, '2020-01-01T00:00:00.000Z')}}"
