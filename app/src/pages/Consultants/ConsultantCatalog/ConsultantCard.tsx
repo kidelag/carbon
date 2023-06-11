@@ -27,6 +27,7 @@ interface Props {
     skills: string[];
     position: string;
     user_id: string;
+    badges: {};
   };
 }
 
@@ -56,7 +57,9 @@ export const ConsultantCard: React.FC<Props> = (consultant) => {
   }, [consultant.consultant.position]);
 
   const handleGoToConsultantProfil = () => {
-    navigate(`/consultants/profil/${consultant.consultant.user_id}/${consultant.consultant.id}`);
+    navigate(
+      `/consultants/profil/${consultant.consultant.user_id}/${consultant.consultant.id}`
+    );
   };
 
   return (

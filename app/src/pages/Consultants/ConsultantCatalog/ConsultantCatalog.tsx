@@ -31,7 +31,7 @@ export const ConsultantCatalog: React.FC<Props> = () => {
 
   useEffect(() => {
     axios.post(url + "/consultant/fetchAllConsultant").then(({ data }) => {
-      console.log(data)
+      console.log(data);
       const consultantsRaw = data.map((item: any) => ({
         id: item.id,
         firstname: item.user.firstname,
@@ -42,6 +42,7 @@ export const ConsultantCatalog: React.FC<Props> = () => {
         position: item.position,
         role: item.user.role,
         user_id: item.user.id,
+        badge: item.consultantBadges
       }));
 
       console.log(consultantsRaw);

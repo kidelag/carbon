@@ -55,12 +55,11 @@ export const BadgeObtained: React.FC<Props> = ({
     switch (typeBadge.toLowerCase()) {
       case "proton":
         setBadgeImage(badge1);
-        setBadgeColor("#e53f49");
-
+        setBadgeColor("#ffbd59");
         break;
       case "neutron":
         setBadgeImage(badge2);
-        setBadgeColor("#e53f49");
+        setBadgeColor("#5b98d2");
         break;
       case "electron":
         setBadgeImage(badge3);
