@@ -14,6 +14,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import ConsultantCard from "./ConsultantCard";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { fetchUser } from "../../../Redux/States/users";
 
 interface Props {}
 
@@ -29,6 +31,8 @@ export const ConsultantCatalog: React.FC<Props> = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [consultantsPerPage] = useState(8);
 
+  const isAdmin = useSelector(fetchUser).isAdmin;
+
   useEffect(() => {
     axios.post(url + "/consultant/fetchAllConsultant").then(({ data }) => {
       console.log(data);
@@ -42,7 +46,7 @@ export const ConsultantCatalog: React.FC<Props> = () => {
         position: item.position,
         role: item.user.role,
         user_id: item.user.id,
-        badge: item.consultantBadges
+        badge: item.consultantBadges,
       }));
 
       console.log(consultantsRaw);
@@ -126,11 +130,13 @@ export const ConsultantCatalog: React.FC<Props> = () => {
         />
       </Stack>
 
-      <Box textAlign="center" marginTop={2}>
-        <Button href="/consultants/create" variant="contained">
-          Ajouter un consultant
-        </Button>
-      </Box>
+      {isAdmin && (
+        <Box textAlign="center" marginTop={2}>
+          <Button href="/consultants/create" variant="contained">
+            Ajouter un consultant
+          </Button>
+        </Box>
+      )}
 
       <Grid container spacing={3} marginTop="30px" padding={1}>
         {currentConsultants.map((consultant: any) => (
