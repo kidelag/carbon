@@ -26,4 +26,8 @@ Thushanth : Fonctionnalités Front et Back
 
 <code>npx fixtures load ./fixtures --dataSource=./dist/dataSource.module.js</code> (en local)
 
+Comptes : 
 
+SUPPORT : support@carbon.com / test
+CONSULTANT : consultant@carbon.com / test
+CLIENT : client@carbon.com / test
