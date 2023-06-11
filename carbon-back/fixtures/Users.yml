@@ -11,9 +11,23 @@ items:
   user11:
     firstname: "test"
     lastname: "test"
-    email: "e.eniona2@gmail.com"
+    email: "support@carbon.com"
     password: "$2a$10$4LgROJDPo/xnZ2AcHfEffuA4UAGgbC78XGcxRUuFOFa73GSRoQV/W"
     role: "SUPPORT"
     birthdate: "{{date.past(30, 'YYYY-MM-DD')}}"
 
-    
+  user12:
+    firstname: "test"
+    lastname: "test"
+    email: "client@carbon.com"
+    password: "$2a$10$4LgROJDPo/xnZ2AcHfEffuA4UAGgbC78XGcxRUuFOFa73GSRoQV/W"
+    role: "CLIENT"
+    birthdate: "{{date.past(30, 'YYYY-MM-DD')}}"
+
+  user13:
+    firstname: "test"
+    lastname: "test"
+    email: "consultant@carbon.com"
+    password: "$2a$10$4LgROJDPo/xnZ2AcHfEffuA4UAGgbC78XGcxRUuFOFa73GSRoQV/W"
+    role: "CONSULTANT"
+    birthdate: "{{date.past(30, 'YYYY-MM-DD')}}"
