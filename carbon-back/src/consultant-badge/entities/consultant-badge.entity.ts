@@ -17,6 +17,7 @@ export class ConsultantBadge {
 
   @ManyToOne(() => Badge, (badge) => badge.consultantBadges, {
     onDelete: "CASCADE",
+    eager: true,
   })
   public badge: Badge;
 }

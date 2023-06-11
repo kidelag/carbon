@@ -107,6 +107,8 @@ export class Consultant {
   public recruitment: Recruitment[]
 
 
-  @OneToMany(() => ConsultantBadge, (consultantBadge) => consultantBadge.consultant)
+  @OneToMany(() => ConsultantBadge, (consultantBadge) => consultantBadge.consultant, {
+    eager: true
+    })
   public consultantBadges: ConsultantBadge[];
 }

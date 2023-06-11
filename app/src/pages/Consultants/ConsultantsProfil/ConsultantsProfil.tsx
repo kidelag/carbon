@@ -94,6 +94,17 @@ export const ConsultantsProfil: React.FC<Props> = () => {
   } else {
     durationText = `${Math.trunc(date / 12)} ans`;
   }
+
+  let lastBadgeObtained = {
+    date: "",
+    badge: { title: "" },
+  };
+  if (consultantInfo?.consultantBadges?.length > 0)
+    lastBadgeObtained =
+      consultantInfo.consultantBadges[
+        consultantInfo.consultantBadges.length - 1
+      ];
+
   return (
     <>
       <div className={styles.container}>
@@ -115,8 +126,8 @@ export const ConsultantsProfil: React.FC<Props> = () => {
         <div className={styles.wrapper}>
           <BadgeObtained
             name={nameToShow}
-            typeBadge={""}
-            dateBadge={""}
+            typeBadge={lastBadgeObtained?.badge?.title}
+            dateBadge={lastBadgeObtained?.date}
             consultantId={params.consultant_id}
           />
           <FormationsObtained listOfFormations={listFormationsConsultant} />

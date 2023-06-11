@@ -6,6 +6,8 @@ import axios from "axios";
 import { Button, IconButton, Typography } from "@mui/material";
 import FormCreateMission from "../FormCreateMission";
 import { Add } from "@mui/icons-material";
+import { useSelector } from "react-redux";
+import { fetchUser } from "../../../../Redux/States/users";
 
 interface Props {
   missions: any;
@@ -32,6 +34,8 @@ const calculateDuration = (startDate: Date, endDate: Date) => {
 };
 
 export const MissionsDone: React.FC<Props> = ({ missions, consultantId }) => {
+  const isAdmin = useSelector(fetchUser).isAdmin;
+
   const [openModal, setOpenModal] = useState(false);
   const [alertMessage, setAlertMessage] = useState<AlertMessage>({
     open: false,
@@ -55,27 +59,31 @@ export const MissionsDone: React.FC<Props> = ({ missions, consultantId }) => {
     <div className={styles.missions}>
       <div className={styles.title}>
         Missions réalisés
-        <IconButton
-          onClick={handleOpenModal}
-          color="primary"
-          size="small"
-          sx={{ backgroundColor: "#e53f4940" }}
-        >
-          <Add sx={{ fontSize: "35px" }} />
-        </IconButton>
-        {/* <Button
+        {isAdmin && (
+          <>
+            <IconButton
+              onClick={handleOpenModal}
+              color="primary"
+              size="small"
+              sx={{ backgroundColor: "#e53f4940" }}
+            >
+              <Add sx={{ fontSize: "35px" }} />
+            </IconButton>
+            {/* <Button
           variant="contained"
           onClick={handleOpenModal}
           sx={{ margin: "3vh 0 0 5vw" }}
         >
           Attribution de mission
         </Button> */}
-        <FormCreateMission
-          consultantId={consultantId}
-          open={openModal}
-          onClose={handleCloseModal}
-          setAlertMessage={setAlertMessage}
-        />
+            <FormCreateMission
+              consultantId={consultantId}
+              open={openModal}
+              onClose={handleCloseModal}
+              setAlertMessage={setAlertMessage}
+            />
+          </>
+        )}
       </div>
       <div className={styles.wrapper}>
         {missions.length > 0 ? (
