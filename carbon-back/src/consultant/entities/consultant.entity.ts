@@ -11,7 +11,7 @@ import {Mission} from "../../missions/entities/mission.entity";
 import {ConsultCompetence} from "../../consult-competence/entities/consult-competence.entity";
 import {Event} from "../../events/entities/event.entity";
 import {Recruitment} from "../../recruitment/entities/recruitment.entity";
-import {Badge} from "../../badge/entities/badge.entity";
+import { ConsultantBadge } from "src/consultant-badge/entities/consultant-badge.entity";
 
 @Entity()
 export class Consultant {
@@ -106,9 +106,7 @@ export class Consultant {
   })
   public recruitment: Recruitment[]
 
-  @ManyToMany(() => Badge, {
-    eager: true
-  })
-  @JoinTable()
-  public badges: Badge[];
+
+  @OneToMany(() => ConsultantBadge, (consultantBadge) => consultantBadge.consultant)
+  public consultantBadges: ConsultantBadge[];
 }

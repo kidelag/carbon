@@ -11,6 +11,7 @@ import { NewsModule } from './news/news.module';
 import { ConsultCompetenceModule } from './consult-competence/consult-competence.module';
 import { RecruitmentModule } from './recruitment/recruitment.module';
 import { BadgeModule } from './badge/badge.module';
+import { ConsultantBadgeModule } from './consultant-badge/consultant-badge.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { BadgeModule } from './badge/badge.module';
     ConsultCompetenceModule,
     RecruitmentModule,
     BadgeModule,
+    ConsultantBadgeModule,
   ],
   controllers: [],
   providers: [],

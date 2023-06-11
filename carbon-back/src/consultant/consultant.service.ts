@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { CreateConsultantDto } from "./dto/create-consultant.dto";
 import { UpdateConsultantDto } from "./dto/update-consultant.dto";
 import { InjectRepository } from "@nestjs/typeorm";
@@ -8,12 +8,17 @@ import {Competence} from "../competences/entities/competence.entity";
 import {Event} from "../events/entities/event.entity";
 import { get } from "http";
 import {Badge} from "../badge/entities/badge.entity";
+import { ConsultantBadge } from "src/consultant-badge/entities/consultant-badge.entity";
 
 @Injectable()
 export class ConsultantService {
   public constructor(
     @InjectRepository(Consultant)
-    private readonly consultantRepository: Repository<Consultant>
+    private readonly consultantRepository: Repository<Consultant>,
+    @InjectRepository(Badge)
+    private readonly badgeRepository: Repository<Badge>,
+    @InjectRepository(ConsultantBadge)
+    private readonly consultantBadgeRepository: Repository<ConsultantBadge>
   ) {}
 
   create(createConsultantDto: CreateConsultantDto) {
@@ -23,9 +28,8 @@ export class ConsultantService {
     if (createConsultantDto.events)
       consultant.events = createConsultantDto.events.map(id => ({id} as unknown as Event))
     if (createConsultantDto.badges)
-      consultant.badges = createConsultantDto.badges.map(id => ({id} as unknown as Badge));
-    return this.consultantRepository.save(consultant);
-  }
+      consultant.consultantBadges = createConsultantDto.badges.map(badge => ({ badge } as unknown as ConsultantBadge));
+    }
 
   findAll() {
     return this.consultantRepository.find();
@@ -71,12 +75,37 @@ export class ConsultantService {
       .getOne();
   }
 
-  addBadgeToConsultant(consultantId: string, badgeId: string) {
-    console.log(badgeId);
-    return this.consultantRepository
-      .createQueryBuilder("consultant")
-      .relation("badges")
-      .of(consultantId)
-      .add(badgeId);
+  // addBadgeToConsultant(consultantId: string, badgeId: string) {
+  //   console.log(badgeId);
+  //   const date = new Date();
+  //   return this.consultantRepository
+  //     .createQueryBuilder("consultant")
+  //     .relation("badges")
+  //     .of(consultantId)
+  //     .add(badgeId);
+  // }
+
+    async addBadgeToConsultant(consultantId: string, badgeId: string){
+      const consultant: Consultant = await this.consultantRepository.findOne({
+        where: { id: consultantId },
+      });
+      if (!consultant) {
+        throw new NotFoundException('Consultant not found');
+      }
+  
+      const badge: Badge = await this.badgeRepository.findOne({
+        where: { id: badgeId },
+      });
+      if (!badge) {
+        throw new NotFoundException('Badge not found');
+      }
+  
+      const consultantBadge: ConsultantBadge = new ConsultantBadge();
+      consultantBadge.date = new Date();
+      consultantBadge.consultant = consultant;
+      consultantBadge.badge = badge;
+  
+      await this.consultantBadgeRepository.save(consultantBadge);
+    }
+
   }
-}

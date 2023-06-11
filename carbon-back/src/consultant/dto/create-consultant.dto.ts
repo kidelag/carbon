@@ -4,6 +4,7 @@ import { Type } from "class-transformer";
 import {Competence} from "../../competences/entities/competence.entity";
 import {Event} from "../../events/entities/event.entity";
 import {Badge} from "../../badge/entities/badge.entity";
+import { ConsultantBadge } from "src/consultant-badge/entities/consultant-badge.entity";
 
 export class CreateConsultantDto {
   @IsDefined()
@@ -42,5 +43,5 @@ export class CreateConsultantDto {
 
   public events: Event[];
 
-  public badges: Badge[];
+  public badges: ConsultantBadge[];
 }
