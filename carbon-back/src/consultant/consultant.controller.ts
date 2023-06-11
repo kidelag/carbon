@@ -53,4 +53,9 @@ export class ConsultantController {
   getEventsByConsultantId(@Param("id") id: string) {
     return this.consultantService.getEventsByConsultantId(id);
   }
+
+  @Post(":id/badge")
+  addBadgeToConsultant(@Param("id") id: string, @Body("badgeId") badgeId: string) {
+    return this.consultantService.addBadgeToConsultant(id, badgeId);
+  }
 }

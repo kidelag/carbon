@@ -1,12 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import styles from "./MissionsDone.module.scss";
 import Rating from "@mui/material/Rating";
 import axios from "axios";
-import { Typography } from "@mui/material";
+import { Button, IconButton, Typography } from "@mui/material";
+import FormCreateMission from "../FormCreateMission";
+import { Add } from "@mui/icons-material";
+import { useSelector } from "react-redux";
+import { fetchUser } from "../../../../Redux/States/users";
 
 interface Props {
   missions: any;
+  consultantId: string | undefined;
+}
+interface AlertMessage {
+  open: boolean;
+  message: string;
+  severity: "success" | "info" | "warning" | "error" | undefined;
 }
 
 const calculateDuration = (startDate: Date, endDate: Date) => {
@@ -23,26 +33,76 @@ const calculateDuration = (startDate: Date, endDate: Date) => {
   return durationInMonths;
 };
 
-export const MissionsDone: React.FC<Props> = ({ missions }) => {
+export const MissionsDone: React.FC<Props> = ({ missions, consultantId }) => {
+  const isAdmin = useSelector(fetchUser).isAdmin;
+
+  const [openModal, setOpenModal] = useState(false);
+  const [alertMessage, setAlertMessage] = useState<AlertMessage>({
+    open: false,
+    message: "",
+    severity: "success",
+  });
+
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+  const handleCloseAlert = () => {
+    setAlertMessage({ open: false, message: "", severity: "success" });
+  };
+
+  console.log("missions", missions);
   return (
     <div className={styles.missions}>
-      <div className={styles.title}>Missions réalisés</div>
+      <div className={styles.title}>
+        Missions réalisés
+        {isAdmin && (
+          <>
+            <IconButton
+              onClick={handleOpenModal}
+              color="primary"
+              size="small"
+              sx={{ backgroundColor: "#e53f4940" }}
+            >
+              <Add sx={{ fontSize: "35px" }} />
+            </IconButton>
+            {/* <Button
+          variant="contained"
+          onClick={handleOpenModal}
+          sx={{ margin: "3vh 0 0 5vw" }}
+        >
+          Attribution de mission
+        </Button> */}
+            <FormCreateMission
+              consultantId={consultantId}
+              open={openModal}
+              onClose={handleCloseModal}
+              setAlertMessage={setAlertMessage}
+            />
+          </>
+        )}
+      </div>
       <div className={styles.wrapper}>
-        {missions === null ?
-        missions.map((mission: any) => (
-          <div className={styles.item}>
-            <span style={{ textTransform: "uppercase" }}>
-              {mission.company}
-            </span>
-            {`, Durée ${calculateDuration(
-              mission.startDate,
-              mission.endDate
-            )} mois,${mission.title}`}
+        {missions.length > 0 ? (
+          missions.map((mission: any) => (
+            <div className={styles.item}>
+              <span style={{ textTransform: "uppercase" }}>
+                {mission.company}
+              </span>
+              {`, Durée ${calculateDuration(
+                mission.startDate,
+                mission.endDate
+              )} mois,${mission.title}`}
+            </div>
+          ))
+        ) : (
+          <div className={styles.error}>
+            Il n'y a pas de mission réalisé pour l'instant
           </div>
-        ))
-        :
-          <div className={styles.error}>Il n'y a pas de mission réalisé pour l'instant</div>
-        }
+        )}
       </div>
     </div>
   );

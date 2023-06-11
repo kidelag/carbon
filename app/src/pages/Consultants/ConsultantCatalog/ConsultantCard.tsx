@@ -10,10 +10,10 @@ import {
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import badgeJunior from "../../../assets/badges/badge junior.png";
-import badgeConfirme from "../../../assets/badges/badge confirmé.png";
-import badgeSenior from "../../../assets/badges/badge senior.png";
-import badgeExpert from "../../../assets/badges/badge expert.png";
+import badge1 from "../../../assets/badges/1.png";
+import badge2 from "../../../assets/badges/2.png";
+import badge3 from "../../../assets/badges/3.png";
+import badge4 from "../../../assets/badges/4.png";
 import { useSelector } from "react-redux";
 import { fetchUser } from "../../../Redux/States/users";
 interface Props {
@@ -27,6 +27,7 @@ interface Props {
     skills: string[];
     position: string;
     user_id: string;
+    badges: {};
   };
 }
 
@@ -38,25 +39,27 @@ export const ConsultantCard: React.FC<Props> = (consultant) => {
   useEffect(() => {
     switch (consultant.consultant.position) {
       case "junior":
-        setBadgeImage(badgeJunior);
+        setBadgeImage(badge1);
         break;
       case "confirme":
-        setBadgeImage(badgeConfirme);
+        setBadgeImage(badge2);
         break;
       case "senior":
-        setBadgeImage(badgeSenior);
+        setBadgeImage(badge3);
         break;
       case "expert":
-        setBadgeImage(badgeExpert);
+        setBadgeImage(badge4);
         break;
       default:
-        setBadgeImage(badgeJunior);
+        setBadgeImage(badge1);
         break;
     }
   }, [consultant.consultant.position]);
 
   const handleGoToConsultantProfil = () => {
-    navigate(`/consultants/profil/${consultant.consultant.user_id}/${consultant.consultant.id}`);
+    navigate(
+      `/consultants/profil/${consultant.consultant.user_id}/${consultant.consultant.id}`
+    );
   };
 
   return (
