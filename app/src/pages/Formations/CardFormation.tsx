@@ -7,7 +7,11 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { fetchUser } from "../../Redux/States/users";
+import { async } from "q";
+import axios from "axios";
 
 interface Props {
   title: string;
@@ -17,9 +21,29 @@ interface Props {
   nbBonusPoint: string;
   startDate: Date;
   endDate: Date;
+  id: string;
+}
+interface AlertMessage {
+  open: boolean;
+  message: string;
+  severity: "success" | "info" | "warning" | "error" | undefined;
 }
 
+const url =
+  process.env.NODE_ENV === "production"
+    ? process.env.REACT_APP_URL_PROD
+    : process.env.REACT_APP_URL_DEV;
+
 const CardFormation: React.FC<Props> = (formation) => {
+  const [consultant, setConsultant] = useState<any>(null);
+  console.log(formation, "formation");
+  const [alertMessage, setAlertMessage] = useState<AlertMessage>({
+    open: false,
+    message: "",
+    severity: "success",
+  });
+  const isConsultant = useSelector(fetchUser).role === "CONSULTANT";
+  const user = useSelector(fetchUser);
   console.log(formation);
   const currentDate = new Date();
   const hasStarted = formation.startDate <= currentDate;
@@ -33,6 +57,36 @@ const CardFormation: React.FC<Props> = (formation) => {
       return "orange"; // Color for upcoming event
     }
   };
+
+  useEffect(() => {
+    const getConsultant = async () => {
+      const res = await axios.get(url + "/consultant/user/" + user.id);
+      setConsultant(res.data);
+    };
+    getConsultant();
+  }, []);
+
+  const handleRegister = async () => {
+    await axios
+      .post(`${url}/consultant/${consultant.id}/event/${formation.id}`)
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200 || res.status === 201) {
+          setAlertMessage({
+            open: true,
+            message: "Evenement a bien été créé !",
+            severity: "success",
+          });
+        } else {
+          setAlertMessage({
+            open: true,
+            message: "Une erreur est survenue",
+            severity: "error",
+          });
+        }
+      });
+  };
+
   return (
     <Card
       sx={{
@@ -63,13 +117,16 @@ const CardFormation: React.FC<Props> = (formation) => {
           <Stack direction="column">
             <Typography variant="body2">Participants</Typography>
             <Typography variant="h5" fontSize="1em">
-              {formation.nbParticipant == null ? 0 : formation.nbParticipant }
+              {formation.nbParticipant == null ? 0 : formation.nbParticipant}
             </Typography>
           </Stack>
         </Grid>
         <Grid item xs={6}>
           <Stack direction="column">
-            <Button variant='contained' sx={{margin: '1vh 0'}}>Javascript</Button> {/* Connect API */}
+            <Button variant="contained" sx={{ margin: "1vh 0" }}>
+              Javascript
+            </Button>{" "}
+            {/* Connect API */}
           </Stack>
         </Grid>
         <Stack
@@ -109,6 +166,29 @@ const CardFormation: React.FC<Props> = (formation) => {
         >
           Voir plus
         </Button>
+
+        {isConsultant &&
+          (consultant &&
+          consultant.events.some((event: any) => event.id === formation.id) ? (
+            <Typography variant="body2" marginLeft={1}>
+              Déjà inscrit
+            </Typography>
+          ) : (
+            <Button
+              variant="contained"
+              size="small"
+              color="secondary"
+              sx={{
+                padding: "5px 15px",
+                margin: "0 auto",
+                borderRadius: "30px",
+                textTransform: "none",
+              }}
+              onClick={handleRegister}
+            >
+              S'inscrire
+            </Button>
+          ))}
       </CardActions>
     </Card>
   );

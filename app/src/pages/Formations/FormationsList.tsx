@@ -55,7 +55,6 @@ const FormationsList: React.FC = () => {
           console.log("res", events);
           const formationEvents = events.filter(
             (event: any) => event.type === "formation"
-            
           );
           const challengeEvents = events.filter(
             (event: any) => event.type === "challenge"

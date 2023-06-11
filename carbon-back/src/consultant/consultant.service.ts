@@ -108,4 +108,21 @@ export class ConsultantService {
       await this.consultantBadgeRepository.save(consultantBadge);
     }
 
+    addEventToConsultant(consultantId: string, eventId: string) {
+    return this.consultantRepository
+      .createQueryBuilder("consultant")
+      .relation("events")
+      .of(consultantId)
+      .add(eventId);
+
+    }
+
+
+    public async getConsultantByUserId(id: string) {
+      const consultant = await this.consultantRepository.findOneBy({ user: { id } });
+      return consultant;
+    }
+
+
+
   }
